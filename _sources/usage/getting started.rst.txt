@@ -1,7 +1,8 @@
 Getting Started
 ===============
 
-For ease of use, we have supplied a simple startup script to get a development instance of the PAW running. Simply run ``start_paw_docker.sh`` to start. In order to be able to retrieve :doc:`../technical/descriptive/multi-mordred` and :doc:`../technical/descriptive/elasticWrap` you will be asked to supply a `Github Authentication Token <https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/creating-a-personal-access-token>`_ and username. Make sure it has at least READ access to the ``SIGmoirelabs/multi-mordred-wrapper`` and ``SIGmoirelabs/elasticwrap`` repositories.
+For ease of use, we have supplied a simple startup script to get a development instance of the PAW running. Simply run ``start_paw_docker.sh`` to start. In order to be able to retrieve :doc:`../technical/descriptive/multi-mordred` and :doc:`../technical/descriptive/elasticWrap` you will be asked to supply a `Github Authentication Token <https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/creating-a-personal-access-token>`_ and username. Make sure it has at least READ access to the ``SIGmoirelabs/multi-mordred-wrapper`` and ``SIGmoirelabs/elasticwrap`` repositories. 
+Additionally, you will need to generate a `classic Authentication Token <https://docs.github.com/en/packages/working-with-a-github-packages-registry/working-with-the-container-registry>`_ to retrieve the ``graphql_api`` container. Once you have the token, run ``echo 'TOKEN' | docker login ghcr.io -u USERNAME --password-stdin``
 
 NOTE: The script will modify the following system values to make sure Redis and ElasticSearch are running properly:
 
@@ -35,34 +36,77 @@ projects.json: defining datasources
 -----------------------------------
 The projects.json file defines all the data that can be queried by this analysis project, divided by type. The specific type string indicates which percival retriever (or "backend") will be used te retrieve the data. While most retrievers simply retrieve data from a specific source, i.e. git vs slack vs jira, some retrievers already do some degree of analysis, or are purpose-build for specific later analysis-scripts (the retrievers introduced by arthur and graal for instance). 
 
-//TODO example
+``
+{
+	"SIGmoirelabs": {
+      "meta": {
+        "title": "ElasticWrap"
+      },
+      "git": [
+          "https://github.com/SIGmoirelabs/elasticwrap.git"
+        ]
+    }
+}
+``
 
 conf.cfg: defining project pramaters
 ------------------------------------
 The second file any mordred clone will need is the a general configuration. This file will describe the locations of and credentials to external resources, as well as describing which tasks should be executed.
 
-//TODO example
+``
+[general]
+short_name = GrimoireLab
+update = true
+min_update_delay = 60
+debug = false
+logs_dir = /home/sigmoire/logs
+bulk_size = 1000
+scroll_size = 1000
+aliases_file = /home/sigmoire/aliases.json
 
-for more on configuration options see: :doc:`grimoirelab`.
+[projects]
+projects_file = /data/projects.json
+
+[es_collection]
+url = http://elasticsearch:9200
+
+[es_enrichment]
+url = http://elasticsearch:9200
+autorefresh = true
+``
+
+for more on configuration options see: :doc:`grimoirelab` and `the official Mordred docs <https://github.com/chaoss/grimoirelab-sirmordred#setupcfg->`_
 
 helloWorld.py: adding custom scripting
 --------------------------------------
 One of the features added to multi-mordred over regular mordred is the ability to run arbitrary code as part of the data collection and processing pipeline. If the 'custom'-phase is enabled in the .cfg file then a script can be specified which will be run after the build-in enrichment methods but before data visualization is configured.
 
-//TODO example
+``
+[custom_script]
+scriptsource = enrich.py
+args = [arg1, arg2]
+``
 
 for more on this see: :doc:`custom scripts`.
 
 Starting a new mordred instance
 -------------------------------
-Now that all of the required files have been provided, we can call multi-mordred to start a new mordred intsance and run the specified analysis.
+Now that all of the required files have been provided, we can call multi-mordred to start a new mordred intsance and run the specified analysis. 
 
-//TODO how
+``
+$ telnet localhost 15555
+Trying 127.0.0.1...
+Connected to localhost.
+Escape character is '^]'.
+multimordred wrapper, type commands for a list of available commands
+new demo /data/conf.cfg
+Created demo
+start demo
+Started
+``
 
 accessing results via graphql
 -----------------------------
-Kibiter may not play nice with customized enrichment however, so the main intended method for retrieving processed data from the PAW is through the graphql API. A querrying system intended to be usable without any programming.
-
-//todo how to
+Kibiter may not play nice with customized enrichment however, so the main intended method for retrieving processed data from the PAW is through the graphql API. A querrying system intended to be usable without any programming. Go to 'http://localhost:8081/graphql' to see the interface.
 
 for more on this see: :doc:`graphql`.

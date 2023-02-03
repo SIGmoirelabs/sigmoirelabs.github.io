@@ -41,7 +41,7 @@
     
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Examples" href="examples.html" />
+    <link rel="next" title="Using GrimoireLab-native Features" href="grimoirelab.html" />
     <link rel="prev" title="Usage" href="index.html" /> 
 </head>
 
@@ -103,7 +103,6 @@
 </li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="examples.html">Examples</a></li>
 <li class="toctree-l2"><a class="reference internal" href="grimoirelab.html">Using GrimoireLab-native Features</a></li>
 <li class="toctree-l2"><a class="reference internal" href="custom%20scripts.html">Using Custom scripts</a></li>
 <li class="toctree-l2"><a class="reference internal" href="elasticWrap.html">Using ElasticWrap</a></li>
@@ -183,7 +182,8 @@
             
   <section id="getting-started">
 <h1>Getting Started<a class="headerlink" href="#getting-started" title="Permalink to this heading">¶</a></h1>
-<p>For ease of use, we have supplied a simple startup script to get a development instance of the PAW running. Simply run <code class="docutils literal notranslate"><span class="pre">start_paw_docker.sh</span></code> to start. In order to be able to retrieve <a class="reference internal" href="../technical/descriptive/multi-mordred.html"><span class="doc">Multi-Mordred</span></a> and <a class="reference internal" href="../technical/descriptive/elasticWrap.html"><span class="doc">ElasticWrap</span></a> you will be asked to supply a <a class="reference external" href="https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/creating-a-personal-access-token">Github Authentication Token</a> and username. Make sure it has at least READ access to the <code class="docutils literal notranslate"><span class="pre">SIGmoirelabs/multi-mordred-wrapper</span></code> and <code class="docutils literal notranslate"><span class="pre">SIGmoirelabs/elasticwrap</span></code> repositories.</p>
+<p>For ease of use, we have supplied a simple startup script to get a development instance of the PAW running. Simply run <code class="docutils literal notranslate"><span class="pre">start_paw_docker.sh</span></code> to start. In order to be able to retrieve <a class="reference internal" href="../technical/descriptive/multi-mordred.html"><span class="doc">Multi-Mordred</span></a> and <a class="reference internal" href="../technical/descriptive/elasticWrap.html"><span class="doc">ElasticWrap</span></a> you will be asked to supply a <a class="reference external" href="https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/creating-a-personal-access-token">Github Authentication Token</a> and username. Make sure it has at least READ access to the <code class="docutils literal notranslate"><span class="pre">SIGmoirelabs/multi-mordred-wrapper</span></code> and <code class="docutils literal notranslate"><span class="pre">SIGmoirelabs/elasticwrap</span></code> repositories.
+Additionally, you will need to generate a <a class="reference external" href="https://docs.github.com/en/packages/working-with-a-github-packages-registry/working-with-the-container-registry">classic Authentication Token</a> to retrieve the <code class="docutils literal notranslate"><span class="pre">graphql_api</span></code> container. Once you have the token, run <code class="docutils literal notranslate"><span class="pre">echo</span> <span class="pre">'TOKEN'</span> <span class="pre">|</span> <span class="pre">docker</span> <span class="pre">login</span> <span class="pre">ghcr.io</span> <span class="pre">-u</span> <span class="pre">USERNAME</span> <span class="pre">--password-stdin</span></code></p>
 <p>NOTE: The script will modify the following system values to make sure Redis and ElasticSearch are running properly:</p>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">vm.max_map_count=262144</span></code></p></li>
@@ -207,29 +207,83 @@ start demo
 <section id="projects-json-defining-datasources">
 <h3>projects.json: defining datasources<a class="headerlink" href="#projects-json-defining-datasources" title="Permalink to this heading">¶</a></h3>
 <p>The projects.json file defines all the data that can be queried by this analysis project, divided by type. The specific type string indicates which percival retriever (or “backend”) will be used te retrieve the data. While most retrievers simply retrieve data from a specific source, i.e. git vs slack vs jira, some retrievers already do some degree of analysis, or are purpose-build for specific later analysis-scripts (the retrievers introduced by arthur and graal for instance).</p>
-<p>//TODO example</p>
+<p>``
+{</p>
+<blockquote>
+<div><blockquote>
+<div><blockquote>
+<div><p>“SIGmoirelabs”: {</p>
+</div></blockquote>
+<dl class="simple">
+<dt>“meta”: {</dt><dd><p>“title”: “ElasticWrap”</p>
+</dd>
+</dl>
+<p>},
+“git”: [</p>
+<blockquote>
+<div><blockquote>
+<div><p>“<a class="reference external" href="https://github.com/SIGmoirelabs/elasticwrap.git">https://github.com/SIGmoirelabs/elasticwrap.git</a>”</p>
+</div></blockquote>
+<p>]</p>
+</div></blockquote>
+</div></blockquote>
+<p>}</p>
+</div></blockquote>
+<section id="id1">
+<h4>}<a class="headerlink" href="#id1" title="Permalink to this heading">¶</a></h4>
+</section>
 </section>
 <section id="conf-cfg-defining-project-pramaters">
 <h3>conf.cfg: defining project pramaters<a class="headerlink" href="#conf-cfg-defining-project-pramaters" title="Permalink to this heading">¶</a></h3>
 <p>The second file any mordred clone will need is the a general configuration. This file will describe the locations of and credentials to external resources, as well as describing which tasks should be executed.</p>
-<p>//TODO example</p>
-<p>for more on configuration options see: <a class="reference internal" href="grimoirelab.html"><span class="doc">Using GrimoireLab-native Features</span></a>.</p>
+<p>``
+[general]
+short_name = GrimoireLab
+update = true
+min_update_delay = 60
+debug = false
+logs_dir = /home/sigmoire/logs
+bulk_size = 1000
+scroll_size = 1000
+aliases_file = /home/sigmoire/aliases.json</p>
+<p>[projects]
+projects_file = /data/projects.json</p>
+<p>[es_collection]
+url = <a class="reference external" href="http://elasticsearch:9200">http://elasticsearch:9200</a></p>
+<p>[es_enrichment]
+url = <a class="reference external" href="http://elasticsearch:9200">http://elasticsearch:9200</a>
+autorefresh = true
+``</p>
+<p>for more on configuration options see: <a class="reference internal" href="grimoirelab.html"><span class="doc">Using GrimoireLab-native Features</span></a> and <a class="reference external" href="https://github.com/chaoss/grimoirelab-sirmordred#setupcfg-">the official Mordred docs</a></p>
 </section>
 <section id="helloworld-py-adding-custom-scripting">
 <h3>helloWorld.py: adding custom scripting<a class="headerlink" href="#helloworld-py-adding-custom-scripting" title="Permalink to this heading">¶</a></h3>
 <p>One of the features added to multi-mordred over regular mordred is the ability to run arbitrary code as part of the data collection and processing pipeline. If the ‘custom’-phase is enabled in the .cfg file then a script can be specified which will be run after the build-in enrichment methods but before data visualization is configured.</p>
-<p>//TODO example</p>
+<p>``
+[custom_script]
+scriptsource = enrich.py
+args = [arg1, arg2]
+``</p>
 <p>for more on this see: <a class="reference internal" href="custom%20scripts.html"><span class="doc">Using Custom scripts</span></a>.</p>
 </section>
 <section id="starting-a-new-mordred-instance">
 <h3>Starting a new mordred instance<a class="headerlink" href="#starting-a-new-mordred-instance" title="Permalink to this heading">¶</a></h3>
 <p>Now that all of the required files have been provided, we can call multi-mordred to start a new mordred intsance and run the specified analysis.</p>
-<p>//TODO how</p>
+<p>``
+$ telnet localhost 15555
+Trying 127.0.0.1…
+Connected to localhost.
+Escape character is ‘^]’.
+multimordred wrapper, type commands for a list of available commands
+new demo /data/conf.cfg
+Created demo
+start demo
+Started
+``</p>
 </section>
 <section id="accessing-results-via-graphql">
 <h3>accessing results via graphql<a class="headerlink" href="#accessing-results-via-graphql" title="Permalink to this heading">¶</a></h3>
-<p>Kibiter may not play nice with customized enrichment however, so the main intended method for retrieving processed data from the PAW is through the graphql API. A querrying system intended to be usable without any programming.</p>
-<p>//todo how to</p>
+<p>Kibiter may not play nice with customized enrichment however, so the main intended method for retrieving processed data from the PAW is through the graphql API. A querrying system intended to be usable without any programming. Go to ‘<a class="reference external" href="http://localhost:8081/graphql">http://localhost:8081/graphql</a>’ to see the interface.</p>
 <p>for more on this see: <a class="reference internal" href="graphql.html"><span class="doc">Using the GraphQL-API</span></a>.</p>
 </section>
 </section>
@@ -241,7 +295,7 @@ start demo
           </div>
           <footer>
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-        <a href="examples.html" class="btn btn-neutral float-right" title="Examples" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="grimoirelab.html" class="btn btn-neutral float-right" title="Using GrimoireLab-native Features" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
         <a href="index.html" class="btn btn-neutral float-left" title="Usage" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
     </div>
 

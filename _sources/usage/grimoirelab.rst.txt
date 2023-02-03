@@ -9,5 +9,3 @@ Using GrimoireLab-native Features with :doc:`ElasticWrap <../technical/descripti
 ------------------------------------------------------------------------------------------------
 
 Of note is that the 'commits' search client provided with ElasticWrap assumes the data format associated with using Percival on git data without enrichment. As such you may wish to either use the ``GenericSearchClient`` and constructing the searches by hand, or you may also want to consider :doc:`../technical/extension/elasticWrap searchers`. For more information on search clients see: :ref:`technical/descriptive/elasticWrap:search clients`.
-
-//  TODO make an examle

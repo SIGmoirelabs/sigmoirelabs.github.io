@@ -7,7 +7,6 @@ In this section of the PAW manual we will attempt to cover all the information r
 .. toctree::
 
         getting started
-        examples
         grimoirelab
         custom scripts
         elasticWrap
