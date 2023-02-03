@@ -16,7 +16,7 @@ For example, see the `Mozilla suite retrievers <https://github.com/chaoss/grimoi
 
 Re-building with the retriever
 ------------------------------
-So you have to re-build the PAW with a customized version of perceval which includes the new backend, // TODO figure out how to build the paw 
+So you have to re-build the PAW with a customized version of perceval which includes the new backend. Your best solution for this would be to point the Perceval install in `deployment/docker/requirements.txt` to the repository that has the new backend.
 
 Using the retriever
 -------------------

@@ -98,7 +98,20 @@
 <li class="toctree-l2"><a class="reference internal" href="elasticwrap.data.html">DataSources</a></li>
 <li class="toctree-l2"><a class="reference internal" href="elasticwrap.utils.html">Utilities</a></li>
 <li class="toctree-l2"><a class="reference internal" href="elasticwrap.types.html">Types</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">Indices</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Indices</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#elasticwrap.indices.IndicesWrapper"><code class="docutils literal notranslate"><span class="pre">IndicesWrapper</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#elasticwrap.indices.IndicesWrapper.logger"><code class="docutils literal notranslate"><span class="pre">IndicesWrapper.logger</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#elasticwrap.indices.IndicesWrapper.create_index"><code class="docutils literal notranslate"><span class="pre">IndicesWrapper.create_index()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#elasticwrap.indices.IndicesWrapper.delete_indices_of_project"><code class="docutils literal notranslate"><span class="pre">IndicesWrapper.delete_indices_of_project()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#elasticwrap.indices.IndicesWrapper.get_all_indices"><code class="docutils literal notranslate"><span class="pre">IndicesWrapper.get_all_indices()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#elasticwrap.indices.IndicesWrapper.get_current_kibana"><code class="docutils literal notranslate"><span class="pre">IndicesWrapper.get_current_kibana()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#elasticwrap.indices.IndicesWrapper.get_indices_of_project"><code class="docutils literal notranslate"><span class="pre">IndicesWrapper.get_indices_of_project()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#elasticwrap.indices.IndicesWrapper.get_indices_of_source"><code class="docutils literal notranslate"><span class="pre">IndicesWrapper.get_indices_of_source()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#elasticwrap.indices.IndicesWrapper.search_indices"><code class="docutils literal notranslate"><span class="pre">IndicesWrapper.search_indices()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="elasticwrap.exceptions.html">Exceptions</a></li>
 </ul>
 </li>
@@ -171,8 +184,144 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <section id="indices">
-<h1>Indices<a class="headerlink" href="#indices" title="Permalink to this heading">¶</a></h1>
+  <section id="module-elasticwrap.indices">
+<span id="indices"></span><h1>Indices<a class="headerlink" href="#module-elasticwrap.indices" title="Permalink to this heading">¶</a></h1>
+<p>Object to deal with ES indices as they are used in the PAW.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="elasticwrap.indices.IndicesWrapper">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">elasticwrap.indices.</span></span><span class="sig-name descname"><span class="pre">IndicesWrapper</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/elasticwrap/indices.html#IndicesWrapper"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#elasticwrap.indices.IndicesWrapper" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">IndicesClient</span></code></p>
+<p>Object to deal with ES indices as they are used in the PAW.</p>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p><code class="xref py py-obj docutils literal notranslate"><span class="pre">elasticsearch.client.IndicesClient</span></code></p>
+</div>
+<p class="rubric">Notes</p>
+<p>Has some underlying assumptions about how indices are named and what their purpose is.
+If indices are called differently, you can still use this object by using the vanilla ES methods, but most methods are not
+made with it in mind.</p>
+<p>It is assumed that all SIGmoirelab created indices will follow the structure <cite>{proj_name}_{source}</cite>. I.E. <cite>FooCo_git</cite>.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="elasticwrap.indices.IndicesWrapper.logger">
+<span class="sig-name descname"><span class="pre">logger</span></span><a class="headerlink" href="#elasticwrap.indices.IndicesWrapper.logger" title="Permalink to this definition">¶</a></dt>
+<dd><p>A specific logger for this object</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="elasticwrap.indices.IndicesWrapper.create_index">
+<span class="sig-name descname"><span class="pre">create_index</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">proj</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">source</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/elasticwrap/indices.html#IndicesWrapper.create_index"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#elasticwrap.indices.IndicesWrapper.create_index" title="Permalink to this definition">¶</a></dt>
+<dd><p>Creates an index for a certain project and source.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>proj</strong> (<em>str</em>) – The project name</p></li>
+<li><p><strong>source</strong> (<em>str</em>) – The source name</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="elasticwrap.indices.IndicesWrapper.delete_indices_of_project">
+<span class="sig-name descname"><span class="pre">delete_indices_of_project</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">proj</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/elasticwrap/indices.html#IndicesWrapper.delete_indices_of_project"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#elasticwrap.indices.IndicesWrapper.delete_indices_of_project" title="Permalink to this definition">¶</a></dt>
+<dd><p>Delete all indices belonging to a certain project.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>proj</strong> (<em>str</em>) – The project to delete the indices of</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="elasticwrap.indices.IndicesWrapper.get_all_indices">
+<span class="sig-name descname"><span class="pre">get_all_indices</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../_modules/elasticwrap/indices.html#IndicesWrapper.get_all_indices"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#elasticwrap.indices.IndicesWrapper.get_all_indices" title="Permalink to this definition">¶</a></dt>
+<dd><p>List all the indices.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>A list of all indices</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>list[str]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="elasticwrap.indices.IndicesWrapper.get_current_kibana">
+<span class="sig-name descname"><span class="pre">get_current_kibana</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span></span><a class="reference internal" href="../_modules/elasticwrap/indices.html#IndicesWrapper.get_current_kibana"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#elasticwrap.indices.IndicesWrapper.get_current_kibana" title="Permalink to this definition">¶</a></dt>
+<dd><p>Tries to determine what the current kibana index is.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The current kibana index, or None if there is none.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>Optional[str]</p>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<p>If there are multiple indices, a warning will be logged and the first will be returned.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="elasticwrap.indices.IndicesWrapper.get_indices_of_project">
+<span class="sig-name descname"><span class="pre">get_indices_of_project</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">proj</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="reference internal" href="../_modules/elasticwrap/indices.html#IndicesWrapper.get_indices_of_project"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#elasticwrap.indices.IndicesWrapper.get_indices_of_project" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns all the indices that belong to a specific project.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>proj</strong> (<em>str</em>) – The project to which the indices should belong.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A comma separated list of indices that belong to this project.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="elasticwrap.indices.IndicesWrapper.get_indices_of_source">
+<span class="sig-name descname"><span class="pre">get_indices_of_source</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">source</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="reference internal" href="../_modules/elasticwrap/indices.html#IndicesWrapper.get_indices_of_source"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#elasticwrap.indices.IndicesWrapper.get_indices_of_source" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns all the indices that belong to a specific data source.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>source</strong> (<em>str</em>) – The data source to which the indices should belong.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A comma separated list of indices that belong to this data source.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="elasticwrap.indices.IndicesWrapper.search_indices">
+<span class="sig-name descname"><span class="pre">search_indices</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">query</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="reference internal" href="../_modules/elasticwrap/indices.html#IndicesWrapper.search_indices"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#elasticwrap.indices.IndicesWrapper.search_indices" title="Permalink to this definition">¶</a></dt>
+<dd><p>Find all indices matching a certain query string.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>query</strong> (<em>str</em>) – The query to search with.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>All the indices that match the query. Comma separated as ES expects.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<dl class="simple">
+<dt><code class="xref py py-obj docutils literal notranslate"><span class="pre">_search_indices</span></code></dt><dd><p>Returns indices in a list instead of a comma separated string</p>
+</dd>
+</dl>
+</div>
+</dd></dl>
+
+</dd></dl>
+
 </section>
 
 

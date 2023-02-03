@@ -96,12 +96,22 @@
 <li class="toctree-l2"><a class="reference internal" href="elasticwrap.html">ElasticWrap</a></li>
 <li class="toctree-l2 current"><a class="current reference internal" href="#">Search Clients</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#commitclient">CommitClient</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#elasticwrap.search_clients.commits.CommitClient"><code class="docutils literal notranslate"><span class="pre">CommitClient</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#commit-types">Commit Types</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="#genericsearchclient">GenericSearchClient</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#unstructuredsearchclient">UnstructuredSearchClient</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#searchinterface">SearchInterface</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#genericsearchclient">GenericSearchClient</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#elasticwrap.search_clients.search.GenericSearchClient"><code class="docutils literal notranslate"><span class="pre">GenericSearchClient</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#unstructuredsearchclient">UnstructuredSearchClient</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#elasticwrap.search_clients.search.UnstructuredSearchClient"><code class="docutils literal notranslate"><span class="pre">UnstructuredSearchClient</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#searchinterface">SearchInterface</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#elasticwrap.search_clients.search.SearchInterface"><code class="docutils literal notranslate"><span class="pre">SearchInterface</span></code></a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="elasticwrap.data.html">DataSources</a></li>
@@ -185,19 +195,602 @@
 <p>In order to search the PAW, you will likely want to use a dedicated search client. See <a class="reference internal" href="../usage/elasticWrap.html"><span class="doc">Using ElasticWrap</span></a> for more info.</p>
 <section id="commitclient">
 <h2>CommitClient<a class="headerlink" href="#commitclient" title="Permalink to this heading">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="elasticwrap.search_clients.commits.CommitClient">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">elasticwrap.search_clients.commits.</span></span><span class="sig-name descname"><span class="pre">CommitClient</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">client</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Elasticsearch</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/elasticwrap/search_clients/commits.html#CommitClient"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#elasticwrap.search_clients.commits.CommitClient" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#elasticwrap.search_clients.search.SearchInterface" title="elasticwrap.search_clients.search.SearchInterface"><code class="xref py py-class docutils literal notranslate"><span class="pre">SearchInterface</span></code></a>[<a class="reference internal" href="elasticwrap.types.html#elasticwrap.types.Document" title="elasticwrap.types.Document"><code class="xref py py-class docutils literal notranslate"><span class="pre">Document</span></code></a>[<a class="reference internal" href="elasticwrap.types.html#elasticwrap.types.PercevalSourceDocument" title="elasticwrap.types.PercevalSourceDocument"><code class="xref py py-class docutils literal notranslate"><span class="pre">PercevalSourceDocument</span></code></a>[<a class="reference internal" href="#elasticwrap.search_clients.commits.CommitSourceData" title="elasticwrap.search_clients.commits.CommitSourceData"><code class="xref py py-class docutils literal notranslate"><span class="pre">CommitSourceData</span></code></a>]]]</p>
+<p>A SearchInterface implementation focused on git commits.</p>
+<p>The namespace for this client is “_git” the logname is
+“Elasticwrap_Commits”</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="elasticwrap.search_clients.commits.CommitClient.stored_date_format">
+<span class="sig-name descname"><span class="pre">stored_date_format</span></span><a class="headerlink" href="#elasticwrap.search_clients.commits.CommitClient.stored_date_format" title="Permalink to this definition">¶</a></dt>
+<dd><p>The date format used for most date fields in commit documents</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="elasticwrap.search_clients.commits.CommitClient.updated_on_format">
+<span class="sig-name descname"><span class="pre">updated_on_format</span></span><a class="headerlink" href="#elasticwrap.search_clients.commits.CommitClient.updated_on_format" title="Permalink to this definition">¶</a></dt>
+<dd><p>The date format used specifically for the <cite>updated_on</cite> fields.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<dl class="simple">
+<dt><code class="xref py py-obj docutils literal notranslate"><span class="pre">SearchInterface</span></code></dt><dd><p>The interface implemented by this client</p>
+</dd>
+</dl>
+</div>
+<dl class="py class">
+<dt class="sig sig-object py" id="elasticwrap.search_clients.commits.CommitClient.DateEnum">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">DateEnum</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/elasticwrap/search_clients/commits.html#CommitClient.DateEnum"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#elasticwrap.search_clients.commits.CommitClient.DateEnum" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Enum</span></code></p>
+<p>An Enum used for type checking purposes when filtering by date.</p>
+<p>This Enum holds values for all the possible date fields.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="elasticwrap.search_clients.commits.CommitClient.DateEnum.AUTHOR_DATE">
+<span class="sig-name descname"><span class="pre">AUTHOR_DATE</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'data.AuthorDate'</span></em><a class="headerlink" href="#elasticwrap.search_clients.commits.CommitClient.DateEnum.AUTHOR_DATE" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="elasticwrap.search_clients.commits.CommitClient.DateEnum.COMMIT_DATE">
+<span class="sig-name descname"><span class="pre">COMMIT_DATE</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'data.CommitDate'</span></em><a class="headerlink" href="#elasticwrap.search_clients.commits.CommitClient.DateEnum.COMMIT_DATE" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="elasticwrap.search_clients.commits.CommitClient.DateEnum.META_UPDATED_ON">
+<span class="sig-name descname"><span class="pre">META_UPDATED_ON</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'metadata__updated_on'</span></em><a class="headerlink" href="#elasticwrap.search_clients.commits.CommitClient.DateEnum.META_UPDATED_ON" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="elasticwrap.search_clients.commits.CommitClient.anonymize_data">
+<span class="sig-name descname"><span class="pre">anonymize_data</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="elasticwrap.types.html#elasticwrap.types.PercevalSourceDocument" title="elasticwrap.types.PercevalSourceDocument"><span class="pre">PercevalSourceDocument</span></a><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#elasticwrap.search_clients.commits.CommitSourceData" title="elasticwrap.search_clients.commits.CommitSourceData"><span class="pre">CommitSourceData</span></a><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/elasticwrap/search_clients/commits.html#CommitClient.anonymize_data"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#elasticwrap.search_clients.commits.CommitClient.anonymize_data" title="Permalink to this definition">¶</a></dt>
+<dd><p>Implements the <cite>anonymize_data</cite> method. In the context
+of git commits, this means removing the following fields:</p>
+<ul class="simple">
+<li><p>Author</p></li>
+<li><p>Commit</p></li>
+<li><p>Signed-off-by</p></li>
+<li><p>message</p></li>
+<li><p>commit</p></li>
+<li><p>parents</p></li>
+</ul>
+<p>And reformatting the following fields to only yyyy-mm:</p>
+<ul class="simple">
+<li><p>AuthorDate</p></li>
+<li><p>CommitDate</p></li>
+<li><p>metadata__updated_on</p></li>
+<li><p>updated_on (more specifically, this field is only kept if emtadata__updated_on exists and will be constrained to the correct unix timestamp)</p></li>
+</ul>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>data</strong> (<em>CommitSourceDocument</em>) – The data to anonymize.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="elasticwrap.search_clients.commits.CommitClient.filter_after_date">
+<span class="sig-name descname"><span class="pre">filter_after_date</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">field</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#elasticwrap.search_clients.commits.CommitClient.DateEnum" title="elasticwrap.search_clients.commits.CommitClient.DateEnum"><span class="pre">DateEnum</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">dat</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">datetime</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">inclusive</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/elasticwrap/search_clients/commits.html#CommitClient.filter_after_date"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#elasticwrap.search_clients.commits.CommitClient.filter_after_date" title="Permalink to this definition">¶</a></dt>
+<dd><p>Only returns documents from after a certain date</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>field</strong> (<a class="reference internal" href="#elasticwrap.search_clients.commits.CommitClient.DateEnum" title="elasticwrap.search_clients.commits.CommitClient.DateEnum"><em>DateEnum</em></a>) – The field to filter on.</p></li>
+<li><p><strong>dat</strong> (<em>str</em><em> | </em><em>datetime</em>) – The date/string representation for the date to compare to.</p></li>
+<li><p><strong>inclusive</strong> (<em>bool</em><em>, </em><em>optional</em>) – Whether to include commits that fall exactly on the date, or not. Defaults to true</p></li>
+</ul>
+</dd>
+</dl>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p><code class="xref py py-obj docutils literal notranslate"><span class="pre">SearchInterface.filter_date</span></code>, <a class="reference internal" href="#elasticwrap.search_clients.commits.CommitClient.DateEnum" title="elasticwrap.search_clients.commits.CommitClient.DateEnum"><code class="xref py py-obj docutils literal notranslate"><span class="pre">DateEnum</span></code></a></p>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="elasticwrap.search_clients.commits.CommitClient.filter_before_date">
+<span class="sig-name descname"><span class="pre">filter_before_date</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">field</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#elasticwrap.search_clients.commits.CommitClient.DateEnum" title="elasticwrap.search_clients.commits.CommitClient.DateEnum"><span class="pre">DateEnum</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">dat</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">datetime</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">inclusive</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/elasticwrap/search_clients/commits.html#CommitClient.filter_before_date"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#elasticwrap.search_clients.commits.CommitClient.filter_before_date" title="Permalink to this definition">¶</a></dt>
+<dd><p>Only returns documents from before a certain date</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>field</strong> (<a class="reference internal" href="#elasticwrap.search_clients.commits.CommitClient.DateEnum" title="elasticwrap.search_clients.commits.CommitClient.DateEnum"><em>DateEnum</em></a>) – The field to filter on.</p></li>
+<li><p><strong>dat</strong> (<em>str</em><em> | </em><em>datetime</em>) – The date/string representation for the date to compare to.</p></li>
+<li><p><strong>inclusive</strong> (<em>bool</em><em>, </em><em>optional</em>) – Whether to include commits that fall exactly on the date, or not. Defaults to true</p></li>
+</ul>
+</dd>
+</dl>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p><code class="xref py py-obj docutils literal notranslate"><span class="pre">SearchInterface.filter_date</span></code>, <a class="reference internal" href="#elasticwrap.search_clients.commits.CommitClient.DateEnum" title="elasticwrap.search_clients.commits.CommitClient.DateEnum"><code class="xref py py-obj docutils literal notranslate"><span class="pre">DateEnum</span></code></a></p>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="elasticwrap.search_clients.commits.CommitClient.filter_on_hash">
+<span class="sig-name descname"><span class="pre">filter_on_hash</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">commits</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Set</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/elasticwrap/search_clients/commits.html#CommitClient.filter_on_hash"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#elasticwrap.search_clients.commits.CommitClient.filter_on_hash" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add a filter which only allows certain commits identified by their hash.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>commits</strong> (<em>set</em><em>[</em><em>str</em><em>] </em><em>| </em><em>list</em><em>[</em><em>str</em><em>]</em>) – The list of hashes to search on.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
 <section id="commit-types">
 <h3>Commit Types<a class="headerlink" href="#commit-types" title="Permalink to this heading">¶</a></h3>
 <p>Types defined for the commit client</p>
+<dl class="py data">
+<dt class="sig sig-object py" id="elasticwrap.search_clients.commits.CommitDocument">
+<span class="sig-prename descclassname"><span class="pre">elasticwrap.search_clients.commits.</span></span><span class="sig-name descname"><span class="pre">CommitDocument</span></span><a class="headerlink" href="#elasticwrap.search_clients.commits.CommitDocument" title="Permalink to this definition">¶</a></dt>
+<dd><p>alias of <a class="reference internal" href="elasticwrap.types.html#elasticwrap.types.Document" title="elasticwrap.types.Document"><code class="xref py py-class docutils literal notranslate"><span class="pre">Document</span></code></a>[<a class="reference internal" href="elasticwrap.types.html#elasticwrap.types.PercevalSourceDocument" title="elasticwrap.types.PercevalSourceDocument"><code class="xref py py-class docutils literal notranslate"><span class="pre">PercevalSourceDocument</span></code></a>[<a class="reference internal" href="#elasticwrap.search_clients.commits.CommitSourceData" title="elasticwrap.search_clients.commits.CommitSourceData"><code class="xref py py-class docutils literal notranslate"><span class="pre">CommitSourceData</span></code></a>]]</p>
+</dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="elasticwrap.search_clients.commits.CommitSourceDocument">
+<span class="sig-prename descclassname"><span class="pre">elasticwrap.search_clients.commits.</span></span><span class="sig-name descname"><span class="pre">CommitSourceDocument</span></span><a class="headerlink" href="#elasticwrap.search_clients.commits.CommitSourceDocument" title="Permalink to this definition">¶</a></dt>
+<dd><p>alias of <a class="reference internal" href="elasticwrap.types.html#elasticwrap.types.PercevalSourceDocument" title="elasticwrap.types.PercevalSourceDocument"><code class="xref py py-class docutils literal notranslate"><span class="pre">PercevalSourceDocument</span></code></a>[<a class="reference internal" href="#elasticwrap.search_clients.commits.CommitSourceData" title="elasticwrap.search_clients.commits.CommitSourceData"><code class="xref py py-class docutils literal notranslate"><span class="pre">CommitSourceData</span></code></a>]</p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="elasticwrap.search_clients.commits.CommitSourceData">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">elasticwrap.search_clients.commits.</span></span><span class="sig-name descname"><span class="pre">CommitSourceData</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">_typename</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">_fields</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">/</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/elasticwrap/search_clients/commits.html#CommitSourceData"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#elasticwrap.search_clients.commits.CommitSourceData" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code></p>
+<p>The data of a commit as returned by Perceval.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="elasticwrap.search_clients.commits.CommitSourceData.Author">
+<span class="sig-name descname"><span class="pre">Author</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#elasticwrap.search_clients.commits.CommitSourceData.Author" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="elasticwrap.search_clients.commits.CommitSourceData.AuthorDate">
+<span class="sig-name descname"><span class="pre">AuthorDate</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#elasticwrap.search_clients.commits.CommitSourceData.AuthorDate" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="elasticwrap.search_clients.commits.CommitSourceData.Commit">
+<span class="sig-name descname"><span class="pre">Commit</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#elasticwrap.search_clients.commits.CommitSourceData.Commit" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="elasticwrap.search_clients.commits.CommitSourceData.CommitDate">
+<span class="sig-name descname"><span class="pre">CommitDate</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#elasticwrap.search_clients.commits.CommitSourceData.CommitDate" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="elasticwrap.search_clients.commits.CommitSourceData.commit">
+<span class="sig-name descname"><span class="pre">commit</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">typing_extensions.Required</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#elasticwrap.search_clients.commits.CommitSourceData.commit" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="elasticwrap.search_clients.commits.CommitSourceData.files">
+<span class="sig-name descname"><span class="pre">files</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">typing_extensions.Required</span><span class="p"><span class="pre">[</span></span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#elasticwrap.search_clients.commits.CommitFileInfo" title="elasticwrap.search_clients.commits.CommitFileInfo"><span class="pre">CommitFileInfo</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#elasticwrap.search_clients.commits.CommitSourceData.files" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="elasticwrap.search_clients.commits.CommitSourceData.message">
+<span class="sig-name descname"><span class="pre">message</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#elasticwrap.search_clients.commits.CommitSourceData.message" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="elasticwrap.search_clients.commits.CommitSourceData.parents">
+<span class="sig-name descname"><span class="pre">parents</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#elasticwrap.search_clients.commits.CommitSourceData.parents" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="elasticwrap.search_clients.commits.CommitSourceData.refs">
+<span class="sig-name descname"><span class="pre">refs</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#elasticwrap.search_clients.commits.CommitSourceData.refs" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="elasticwrap.search_clients.commits.CommitFileInfo">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">elasticwrap.search_clients.commits.</span></span><span class="sig-name descname"><span class="pre">CommitFileInfo</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">_typename</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">_fields</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">/</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/elasticwrap/search_clients/commits.html#CommitFileInfo"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#elasticwrap.search_clients.commits.CommitFileInfo" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code></p>
+<p>Info for a commit as it relates to a file</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="elasticwrap.search_clients.commits.CommitFileInfo.action">
+<span class="sig-name descname"><span class="pre">action</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#elasticwrap.search_clients.commits.CommitFileInfo.action" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="elasticwrap.search_clients.commits.CommitFileInfo.added">
+<span class="sig-name descname"><span class="pre">added</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#elasticwrap.search_clients.commits.CommitFileInfo.added" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="elasticwrap.search_clients.commits.CommitFileInfo.file">
+<span class="sig-name descname"><span class="pre">file</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">typing_extensions.Required</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#elasticwrap.search_clients.commits.CommitFileInfo.file" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="elasticwrap.search_clients.commits.CommitFileInfo.indexes">
+<span class="sig-name descname"><span class="pre">indexes</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#elasticwrap.search_clients.commits.CommitFileInfo.indexes" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="elasticwrap.search_clients.commits.CommitFileInfo.modes">
+<span class="sig-name descname"><span class="pre">modes</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">typing_extensions.Required</span><span class="p"><span class="pre">[</span></span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">Literal</span><span class="p"><span class="pre">[</span></span><span class="s"><span class="pre">'100644'</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="s"><span class="pre">'100755'</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="s"><span class="pre">'120000'</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="s"><span class="pre">'160000'</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="s"><span class="pre">'040000'</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="s"><span class="pre">'030000'</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#elasticwrap.search_clients.commits.CommitFileInfo.modes" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="elasticwrap.search_clients.commits.CommitFileInfo.removed">
+<span class="sig-name descname"><span class="pre">removed</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#elasticwrap.search_clients.commits.CommitFileInfo.removed" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
 </section>
 </section>
 <section id="genericsearchclient">
 <h2>GenericSearchClient<a class="headerlink" href="#genericsearchclient" title="Permalink to this heading">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="elasticwrap.search_clients.search.GenericSearchClient">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">elasticwrap.search_clients.search.</span></span><span class="sig-name descname"><span class="pre">GenericSearchClient</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">client</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Elasticsearch</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">log_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'ElasticWrap_Search'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/elasticwrap/search_clients/search.html#GenericSearchClient"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#elasticwrap.search_clients.search.GenericSearchClient" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#elasticwrap.search_clients.search.SearchInterface" title="elasticwrap.search_clients.search.SearchInterface"><code class="xref py py-class docutils literal notranslate"><span class="pre">SearchInterface</span></code></a>[<a class="reference internal" href="elasticwrap.types.html#elasticwrap.types.Document" title="elasticwrap.types.Document"><code class="xref py py-class docutils literal notranslate"><span class="pre">Document</span></code></a>[<code class="xref py py-class docutils literal notranslate"><span class="pre">Mapping</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>, <code class="xref py py-obj docutils literal notranslate"><span class="pre">Any</span></code>]]]</p>
+<p>A generic search client for abitrary documents. Can be used to quickly
+use the generic search features without having knowledge about
+the document structure.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="elasticwrap.search_clients.search.GenericSearchClient.anonymize_data">
+<span class="sig-name descname"><span class="pre">anonymize_data</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">_</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/elasticwrap/search_clients/search.html#GenericSearchClient.anonymize_data"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#elasticwrap.search_clients.search.GenericSearchClient.anonymize_data" title="Permalink to this definition">¶</a></dt>
+<dd><p>Does nothing.</p>
+</dd></dl>
+
+</dd></dl>
+
 </section>
 <section id="unstructuredsearchclient">
 <h2>UnstructuredSearchClient<a class="headerlink" href="#unstructuredsearchclient" title="Permalink to this heading">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="elasticwrap.search_clients.search.UnstructuredSearchClient">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">elasticwrap.search_clients.search.</span></span><span class="sig-name descname"><span class="pre">UnstructuredSearchClient</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/elasticwrap/search_clients/search.html#UnstructuredSearchClient"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#elasticwrap.search_clients.search.UnstructuredSearchClient" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#elasticwrap.search_clients.search.GenericSearchClient" title="elasticwrap.search_clients.search.GenericSearchClient"><code class="xref py py-class docutils literal notranslate"><span class="pre">GenericSearchClient</span></code></a></p>
+<p>A generic search client which does not think in terms of “projects” and “namespaces”</p>
+<p>Instead of providing a list of project names, you can directly provide a list of indices.</p>
+<p>Intended when you simply want to use ElasticWrap without any of the PAW assumptions.</p>
+</dd></dl>
+
 </section>
 <section id="searchinterface">
 <h2>SearchInterface<a class="headerlink" href="#searchinterface" title="Permalink to this heading">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="elasticwrap.search_clients.search.SearchInterface">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">elasticwrap.search_clients.search.</span></span><span class="sig-name descname"><span class="pre">SearchInterface</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">client</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Elasticsearch</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">log_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'ElasticWrap_Search'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/elasticwrap/search_clients/search.html#SearchInterface"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#elasticwrap.search_clients.search.SearchInterface" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Generic</span></code>[<code class="xref py py-obj docutils literal notranslate"><span class="pre">AnyDocument</span></code>], <code class="xref py py-class docutils literal notranslate"><span class="pre">NamespacedClient</span></code></p>
+<p>A Client that is focused on searching. Should be implemented by more specific classes which
+know the structure of the data they are searching through and what the user is likely
+to want to search for.</p>
+<p>In general, a user can construct their search using methods found in this interface + the
+implementing classes. Once they are done constructing the search, they can retrieve the data.</p>
+<p>Implements a number of default methods which are useful for all search clients.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="elasticwrap.search_clients.search.SearchInterface.canonical_date_es_format">
+<span class="sig-name descname"><span class="pre">canonical_date_es_format</span></span><a class="headerlink" href="#elasticwrap.search_clients.search.SearchInterface.canonical_date_es_format" title="Permalink to this definition">¶</a></dt>
+<dd><p>The format to send to ES which uses a different formatting method to Python, set to yyyy-MM-dd</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="elasticwrap.search_clients.search.SearchInterface.canonical_date_format">
+<span class="sig-name descname"><span class="pre">canonical_date_format</span></span><a class="headerlink" href="#elasticwrap.search_clients.search.SearchInterface.canonical_date_format" title="Permalink to this definition">¶</a></dt>
+<dd><p>The format that dates should be presented in, set to %Y-%m-%d</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="elasticwrap.search_clients.search.SearchInterface.logger">
+<span class="sig-name descname"><span class="pre">logger</span></span><a class="headerlink" href="#elasticwrap.search_clients.search.SearchInterface.logger" title="Permalink to this definition">¶</a></dt>
+<dd><p>Every search client should have a logger. Ideally, one with a unique name is used,
+but if none is provided, SearchInterface comes with a default logger.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Logger</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="elasticwrap.search_clients.search.SearchInterface.namespace">
+<span class="sig-name descname"><span class="pre">namespace</span></span><a class="headerlink" href="#elasticwrap.search_clients.search.SearchInterface.namespace" title="Permalink to this definition">¶</a></dt>
+<dd><p>The namespace for a particular search client. This namespace defines on what
+indices the client will look by default (for example, “git” for the CommitClient).</p>
+<p>Indices are intended to follow the naming scheme {projectname}_{namespace}.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="elasticwrap.search_clients.search.SearchInterface.query">
+<span class="sig-name descname"><span class="pre">query</span></span><a class="headerlink" href="#elasticwrap.search_clients.search.SearchInterface.query" title="Permalink to this definition">¶</a></dt>
+<dd><p>A dictionary that holds all the arguments that will be sent to elasticsearch. Usually,
+an end user should have no reason to see or interact with this dictionary.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Dict[str, Any]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<dl class="simple">
+<dt><code class="xref py py-obj docutils literal notranslate"><span class="pre">CommitClient</span></code></dt><dd><p>Search Client focused on Git commits</p>
+</dd>
+</dl>
+</div>
+<p class="rubric">Notes</p>
+<p>The SearchInterface keeps track of what searches are being done with it and does not
+automatically clear out it’s arguments. Meaning the subsequent searches will always
+yields the same results. If you want to reset the search, you can use the reset() method.</p>
+<p>SearchInterface is defined as generic for a specific document structure. Implementations
+are encouraged to define a TypedDict representation of the structure of the documents they
+deal with and to specify this representation on inheritence.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="elasticwrap.search_clients.search.SearchInterface.add_accepted_fields">
+<span class="sig-name descname"><span class="pre">add_accepted_fields</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fields</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Set</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">Dict</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="../_modules/elasticwrap/search_clients/search.html#SearchInterface.add_accepted_fields"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#elasticwrap.search_clients.search.SearchInterface.add_accepted_fields" title="Permalink to this definition">¶</a></dt>
+<dd><p>Used to filter out what fields to return when searching.</p>
+<p>This does not filter out documents, it specifically filters
+out the fields in the returned documents. If you want to filter
+out documents, use <cite>add_filters</cite>.</p>
+<p>By default all fields are returned, as soon as fields are added
+using this method, only the accepted fields will be returned.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>fields</strong> (<em>set</em><em>[</em><em>str</em><em> | </em><em>Dict</em><em>]</em>) – The fields to return when searching.
+If the field you want to add is nested deeper, a dict must
+be provided.</p>
+</dd>
+</dl>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p><a class="reference internal" href="#elasticwrap.search_clients.search.SearchInterface.add_filters" title="elasticwrap.search_clients.search.SearchInterface.add_filters"><code class="xref py py-obj docutils literal notranslate"><span class="pre">add_filters</span></code></a></p>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="elasticwrap.search_clients.search.SearchInterface.add_filters">
+<span class="sig-name descname"><span class="pre">add_filters</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filters</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Sequence</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">float</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">datetime</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">bool</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">AbstractSet</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">float</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">datetime</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">bool</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">negate</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="../_modules/elasticwrap/search_clients/search.html#SearchInterface.add_filters"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#elasticwrap.search_clients.search.SearchInterface.add_filters" title="Permalink to this definition">¶</a></dt>
+<dd><p>Adds a filter to the search. Any document that is returned by the search must adhere
+to this filter.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>filters</strong> (<em>List</em><em>[</em><em>Tuple</em><em>[</em><em>str</em><em>, </em><em>ElasticPrimitiveList</em><em>]</em><em>]</em>) – A list of filters to return. A filter takes the format
+(term, match) which means that the value of <cite>term</cite> must
+be found in the <cite>match</cite> list</p></li>
+<li><p><strong>negate</strong> (<em>bool</em>) – If <code class="docutils literal notranslate"><span class="pre">True</span></code>, will instead ensure that the values of <code class="docutils literal notranslate"><span class="pre">term</span></code>
+are NOT found in the <code class="docutils literal notranslate"><span class="pre">match</span></code> list. Defaults to <code class="docutils literal notranslate"><span class="pre">False</span></code></p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="elasticwrap.search_clients.search.SearchInterface.add_range_filter">
+<span class="sig-name descname"><span class="pre">add_range_filter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">term</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rang</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="../_modules/elasticwrap/search_clients/search.html#SearchInterface.add_range_filter"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#elasticwrap.search_clients.search.SearchInterface.add_range_filter" title="Permalink to this definition">¶</a></dt>
+<dd><p>Adds a filter to the search. Any document which does not fall into a
+certain range will be removed from the search.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>term</strong> (<em>str</em>) – The term to compare with</p></li>
+<li><p><strong>rang</strong> (<em>Dict</em><em>[</em><em>str</em><em>, </em><em>str</em><em>]</em>) – A dictionary representing the range object, as defined in the ES docs[1]_</p></li>
+<li><p><strong>https</strong> (<em>[</em><em>1</em><em>] </em><em>Elastic co. &quot;Range Query&quot;</em>) – </p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="elasticwrap.search_clients.search.SearchInterface.anonymize_data">
+<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">anonymize_data</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="elasticwrap.types.html#elasticwrap.types.SourceDocument" title="elasticwrap.types.SourceDocument"><span class="pre">SourceDocument</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="../_modules/elasticwrap/search_clients/search.html#SearchInterface.anonymize_data"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#elasticwrap.search_clients.search.SearchInterface.anonymize_data" title="Permalink to this definition">¶</a></dt>
+<dd><p>Stub, should be specified per search client depending on the structure of the data.
+This method will make sure that the provided document (in the form of a dict)
+is stripped of all relevant PII. This happens in-place and is irreversible.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>data</strong> (<a class="reference internal" href="elasticwrap.types.html#elasticwrap.types.SourceDocument" title="elasticwrap.types.SourceDocument"><em>SourceDocument</em></a>) – The document to anonymize</p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>NotImplementedError</strong> – Will raise this error by default if the search client has not implemented
+    this method.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="elasticwrap.search_clients.search.SearchInterface.del_accepted_fields">
+<span class="sig-name descname"><span class="pre">del_accepted_fields</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fields</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Set</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">Dict</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="../_modules/elasticwrap/search_clients/search.html#SearchInterface.del_accepted_fields"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#elasticwrap.search_clients.search.SearchInterface.del_accepted_fields" title="Permalink to this definition">¶</a></dt>
+<dd><p>Used to remove a set of fields from the set of accepted fields.</p>
+<p>This is only used to remove fields that were added to the accepted
+list using <cite>add_accepted_fields</cite>. Elasticsearch does not allow you to remove some
+fields from the results and keep the rest.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>fields</strong> (<em>set</em><em>[</em><em>str</em><em> | </em><em>Dict</em><em>]</em>) – The fields to no longer return when searching.</p>
+</dd>
+</dl>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p><a class="reference internal" href="#elasticwrap.search_clients.search.SearchInterface.add_accepted_fields" title="elasticwrap.search_clients.search.SearchInterface.add_accepted_fields"><code class="xref py py-obj docutils literal notranslate"><span class="pre">add_accepted_fields</span></code></a></p>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="elasticwrap.search_clients.search.SearchInterface.del_filters">
+<span class="sig-name descname"><span class="pre">del_filters</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filters</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="../_modules/elasticwrap/search_clients/search.html#SearchInterface.del_filters"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#elasticwrap.search_clients.search.SearchInterface.del_filters" title="Permalink to this definition">¶</a></dt>
+<dd><p>Remove all filters for a specific term.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>filters</strong> (<em>list</em><em>[</em><em>str</em><em>]</em>) – The terms to delete the filters from.</p>
+</dd>
+</dl>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p><a class="reference internal" href="#elasticwrap.search_clients.search.SearchInterface.add_filters" title="elasticwrap.search_clients.search.SearchInterface.add_filters"><code class="xref py py-obj docutils literal notranslate"><span class="pre">add_filters</span></code></a></p>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="elasticwrap.search_clients.search.SearchInterface.del_range_filter">
+<span class="sig-name descname"><span class="pre">del_range_filter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">term</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="../_modules/elasticwrap/search_clients/search.html#SearchInterface.del_range_filter"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#elasticwrap.search_clients.search.SearchInterface.del_range_filter" title="Permalink to this definition">¶</a></dt>
+<dd><p>Remove all range filters for a specific term.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>term</strong> (<em>str</em>) – The term to delete the filter from</p>
+</dd>
+</dl>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p><a class="reference internal" href="#elasticwrap.search_clients.search.SearchInterface.add_range_filter" title="elasticwrap.search_clients.search.SearchInterface.add_range_filter"><code class="xref py py-obj docutils literal notranslate"><span class="pre">add_range_filter</span></code></a></p>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="elasticwrap.search_clients.search.SearchInterface.del_script_filter">
+<span class="sig-name descname"><span class="pre">del_script_filter</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/elasticwrap/search_clients/search.html#SearchInterface.del_script_filter"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#elasticwrap.search_clients.search.SearchInterface.del_script_filter" title="Permalink to this definition">¶</a></dt>
+<dd><p>Removes the filter script, if it exists</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="elasticwrap.search_clients.search.SearchInterface.filter_date">
+<span class="sig-name descname"><span class="pre">filter_date</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">term</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dates</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="elasticwrap.types.html#elasticwrap.types.LogicalComp" title="elasticwrap.types.LogicalComp"><span class="pre">LogicalComp</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">datetime</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/elasticwrap/search_clients/search.html#SearchInterface.filter_date"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#elasticwrap.search_clients.search.SearchInterface.filter_date" title="Permalink to this definition">¶</a></dt>
+<dd><p>Removes documents for which the value of some term is outside some date range.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>term</strong> (<em>str</em>) – The term to filter on</p></li>
+<li><p><strong>dates</strong> (<em>list</em><em>[</em><em>tuple</em><em>[</em><a class="reference internal" href="elasticwrap.types.html#elasticwrap.types.LogicalComp" title="elasticwrap.types.LogicalComp"><em>LogicalComp</em></a><em>, </em><em>str</em><em> | </em><em>datetime</em><em>]</em><em>]</em>) – A list of tuples where the first value is the comparison and the second value is the value to compare to.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>ParserError</strong> – If <cite>dateutil</cite> was unable to parse the provided date string.:</p></li>
+<li><p><strong>OverflowError</strong> – If the provided date string would exceed C MAXINT (impressive).:</p></li>
+</ul>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<p>If any of the provided dates in a tuple is a string, it will be attempted to be parsed using the <cite>dateutil</cite> python library.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="elasticwrap.search_clients.search.SearchInterface.get_all">
+<span class="sig-name descname"><span class="pre">get_all</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">anonymize</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Iterator</span><span class="p"><span class="pre">[</span></span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">AnyDocument</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../_modules/elasticwrap/search_clients/search.html#SearchInterface.get_all"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#elasticwrap.search_clients.search.SearchInterface.get_all" title="Permalink to this definition">¶</a></dt>
+<dd><p>Gets all documents for the associated namespace in the PAW, ignoring all the currently set filters.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>anonymize</strong> (<em>bool</em><em>, </em><em>optional</em>) – Whether to anonymize the returned data, defaults to false.</p></li>
+<li><p><strong>**kwargs</strong> – Additional arguments to send to the search method</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A lazily paginated list of all the documents</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Iterator[List[AnyDocument]]</p>
+</dd>
+</dl>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p><a class="reference internal" href="#elasticwrap.search_clients.search.SearchInterface.search" title="elasticwrap.search_clients.search.SearchInterface.search"><code class="xref py py-obj docutils literal notranslate"><span class="pre">search</span></code></a></p>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="elasticwrap.search_clients.search.SearchInterface.reset">
+<span class="sig-name descname"><span class="pre">reset</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../_modules/elasticwrap/search_clients/search.html#SearchInterface.reset"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#elasticwrap.search_clients.search.SearchInterface.reset" title="Permalink to this definition">¶</a></dt>
+<dd><p>Resets the current search to simply getting all documents and sorting by whatever ES decides is correct.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The query dict for inspection. Automatically sets self.query as well.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>Dict[str, Any]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="elasticwrap.search_clients.search.SearchInterface.search">
+<span class="sig-name descname"><span class="pre">search</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">proj</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">[]</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">anonymize</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Iterator</span><span class="p"><span class="pre">[</span></span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">AnyDocument</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../_modules/elasticwrap/search_clients/search.html#SearchInterface.search"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#elasticwrap.search_clients.search.SearchInterface.search" title="Permalink to this definition">¶</a></dt>
+<dd><p>Start searching with the constructed query.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>proj</strong> (<em>list</em><em>[</em><em>str</em><em>]</em><em>, </em><em>optional</em>) – The list of projects to search through</p></li>
+<li><p><strong>anonymize</strong> (<em>bool</em><em>, </em><em>optional</em>) – Whether to anonymize the returned data, defaults to false</p></li>
+<li><p><strong>**kwargs</strong> – Additional keyword arguments to pass along to the vanilla elasticsearch search.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A lazily paginated list of found documents. Will by default run in chunks of 1000 documents. This means
+that every time <cite>next</cite> is called, another, at most, 1000 documents are searched for and returned.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Iterator[List[AnyDocument]]</p>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<p>Just like with the vanilla elasticsearch search, a <cite>query</cite> dict can be passed as a keyword argument.
+This dict can have different search constraints from those constructed by the search client.
+Before the search, both sets of search constraints are merged together. If both the
+provided dict and the constructed dict try to add conflicting constraints, the constraints
+from the provided dict are used.</p>
+<p>This also means that the search construction can be circumvented entirely and the interface
+search can be directly used with a query object. This could be useful if you want to make
+use of the automatic pagination provided by this interface, but would prefer to construct
+the query yourself.</p>
+<p>It is possible that the query you pass along manually conflicts in a more fundamental way
+with the constructed query (for example, combining <cite>match_all</cite> and a <cite>bool</cite> filter causes issues). Therefore
+it is recommended to only combine the two sources if you know what you are doing.</p>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p><code class="xref py py-obj docutils literal notranslate"><span class="pre">elasticwrap.helpers.search_pit</span></code>, <code class="xref py py-obj docutils literal notranslate"><span class="pre">elasticsearch.search</span></code></p>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="elasticwrap.search_clients.search.SearchInterface.set_script_filter">
+<span class="sig-name descname"><span class="pre">set_script_filter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">script</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/elasticwrap/search_clients/search.html#SearchInterface.set_script_filter"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#elasticwrap.search_clients.search.SearchInterface.set_script_filter" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sets a script for filtering.</p>
+<p class="rubric">Notes</p>
+<p>This should really only be used for comparing 2 fields in the same document,
+I.E. <code class="docutils literal notranslate"><span class="pre">doc.val1</span> <span class="pre">!=</span> <span class="pre">doc.val2</span></code>. Every other case can be handled better in other ways.</p>
+<p>For more information see: For more information, see <a class="reference external" href="https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl-script-query.html">https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl-script-query.html</a></p>
+</dd></dl>
+
+</dd></dl>
+
 </section>
 </section>
 

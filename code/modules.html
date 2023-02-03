@@ -173,31 +173,185 @@
 <h1>ElasticWrap Documentation<a class="headerlink" href="#elasticwrap-documentation" title="Permalink to this heading">¶</a></h1>
 <div class="toctree-wrapper compound">
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="elasticwrap.html">ElasticWrap</a></li>
-<li class="toctree-l1"><a class="reference internal" href="elasticwrap.search_clients.html">Search Clients</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="elasticwrap.search_clients.html#commitclient">CommitClient</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="elasticwrap.search_clients.html#commit-types">Commit Types</a></li>
+<li class="toctree-l1"><a class="reference internal" href="elasticwrap.html">ElasticWrap</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="elasticwrap.html#elasticwrap.ElasticWrap"><code class="docutils literal notranslate"><span class="pre">ElasticWrap</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="elasticwrap.html#elasticwrap.ElasticWrap.commits"><code class="docutils literal notranslate"><span class="pre">ElasticWrap.commits</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="elasticwrap.html#elasticwrap.ElasticWrap.indices"><code class="docutils literal notranslate"><span class="pre">ElasticWrap.indices</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="elasticwrap.html#elasticwrap.ElasticWrap.logger"><code class="docutils literal notranslate"><span class="pre">ElasticWrap.logger</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="elasticwrap.html#elasticwrap.ElasticWrap.save"><code class="docutils literal notranslate"><span class="pre">ElasticWrap.save()</span></code></a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="elasticwrap.search_clients.html#genericsearchclient">GenericSearchClient</a></li>
-<li class="toctree-l2"><a class="reference internal" href="elasticwrap.search_clients.html#unstructuredsearchclient">UnstructuredSearchClient</a></li>
-<li class="toctree-l2"><a class="reference internal" href="elasticwrap.search_clients.html#searchinterface">SearchInterface</a></li>
+<li class="toctree-l2"><a class="reference internal" href="elasticwrap.html#elasticwrap.WrapSerializer"><code class="docutils literal notranslate"><span class="pre">WrapSerializer</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="elasticwrap.html#elasticwrap.WrapSerializer.default"><code class="docutils literal notranslate"><span class="pre">WrapSerializer.default()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="elasticwrap.search_clients.html">Search Clients</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="elasticwrap.search_clients.html#commitclient">CommitClient</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="elasticwrap.search_clients.html#elasticwrap.search_clients.commits.CommitClient"><code class="docutils literal notranslate"><span class="pre">CommitClient</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="elasticwrap.search_clients.html#elasticwrap.search_clients.commits.CommitClient.stored_date_format"><code class="docutils literal notranslate"><span class="pre">CommitClient.stored_date_format</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="elasticwrap.search_clients.html#elasticwrap.search_clients.commits.CommitClient.updated_on_format"><code class="docutils literal notranslate"><span class="pre">CommitClient.updated_on_format</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="elasticwrap.search_clients.html#elasticwrap.search_clients.commits.CommitClient.DateEnum"><code class="docutils literal notranslate"><span class="pre">CommitClient.DateEnum</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="elasticwrap.search_clients.html#elasticwrap.search_clients.commits.CommitClient.anonymize_data"><code class="docutils literal notranslate"><span class="pre">CommitClient.anonymize_data()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="elasticwrap.search_clients.html#elasticwrap.search_clients.commits.CommitClient.filter_after_date"><code class="docutils literal notranslate"><span class="pre">CommitClient.filter_after_date()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="elasticwrap.search_clients.html#elasticwrap.search_clients.commits.CommitClient.filter_before_date"><code class="docutils literal notranslate"><span class="pre">CommitClient.filter_before_date()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="elasticwrap.search_clients.html#elasticwrap.search_clients.commits.CommitClient.filter_on_hash"><code class="docutils literal notranslate"><span class="pre">CommitClient.filter_on_hash()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="elasticwrap.search_clients.html#commit-types">Commit Types</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="elasticwrap.search_clients.html#elasticwrap.search_clients.commits.CommitDocument"><code class="docutils literal notranslate"><span class="pre">CommitDocument</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="elasticwrap.search_clients.html#elasticwrap.search_clients.commits.CommitSourceDocument"><code class="docutils literal notranslate"><span class="pre">CommitSourceDocument</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="elasticwrap.search_clients.html#elasticwrap.search_clients.commits.CommitSourceData"><code class="docutils literal notranslate"><span class="pre">CommitSourceData</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="elasticwrap.search_clients.html#elasticwrap.search_clients.commits.CommitFileInfo"><code class="docutils literal notranslate"><span class="pre">CommitFileInfo</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="elasticwrap.search_clients.html#genericsearchclient">GenericSearchClient</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="elasticwrap.search_clients.html#elasticwrap.search_clients.search.GenericSearchClient"><code class="docutils literal notranslate"><span class="pre">GenericSearchClient</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="elasticwrap.search_clients.html#elasticwrap.search_clients.search.GenericSearchClient.anonymize_data"><code class="docutils literal notranslate"><span class="pre">GenericSearchClient.anonymize_data()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="elasticwrap.search_clients.html#unstructuredsearchclient">UnstructuredSearchClient</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="elasticwrap.search_clients.html#elasticwrap.search_clients.search.UnstructuredSearchClient"><code class="docutils literal notranslate"><span class="pre">UnstructuredSearchClient</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="elasticwrap.search_clients.html#searchinterface">SearchInterface</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="elasticwrap.search_clients.html#elasticwrap.search_clients.search.SearchInterface"><code class="docutils literal notranslate"><span class="pre">SearchInterface</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="elasticwrap.search_clients.html#elasticwrap.search_clients.search.SearchInterface.canonical_date_es_format"><code class="docutils literal notranslate"><span class="pre">SearchInterface.canonical_date_es_format</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="elasticwrap.search_clients.html#elasticwrap.search_clients.search.SearchInterface.canonical_date_format"><code class="docutils literal notranslate"><span class="pre">SearchInterface.canonical_date_format</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="elasticwrap.search_clients.html#elasticwrap.search_clients.search.SearchInterface.logger"><code class="docutils literal notranslate"><span class="pre">SearchInterface.logger</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="elasticwrap.search_clients.html#elasticwrap.search_clients.search.SearchInterface.namespace"><code class="docutils literal notranslate"><span class="pre">SearchInterface.namespace</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="elasticwrap.search_clients.html#elasticwrap.search_clients.search.SearchInterface.query"><code class="docutils literal notranslate"><span class="pre">SearchInterface.query</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="elasticwrap.search_clients.html#elasticwrap.search_clients.search.SearchInterface.add_accepted_fields"><code class="docutils literal notranslate"><span class="pre">SearchInterface.add_accepted_fields()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="elasticwrap.search_clients.html#elasticwrap.search_clients.search.SearchInterface.add_filters"><code class="docutils literal notranslate"><span class="pre">SearchInterface.add_filters()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="elasticwrap.search_clients.html#elasticwrap.search_clients.search.SearchInterface.add_range_filter"><code class="docutils literal notranslate"><span class="pre">SearchInterface.add_range_filter()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="elasticwrap.search_clients.html#elasticwrap.search_clients.search.SearchInterface.anonymize_data"><code class="docutils literal notranslate"><span class="pre">SearchInterface.anonymize_data()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="elasticwrap.search_clients.html#elasticwrap.search_clients.search.SearchInterface.del_accepted_fields"><code class="docutils literal notranslate"><span class="pre">SearchInterface.del_accepted_fields()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="elasticwrap.search_clients.html#elasticwrap.search_clients.search.SearchInterface.del_filters"><code class="docutils literal notranslate"><span class="pre">SearchInterface.del_filters()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="elasticwrap.search_clients.html#elasticwrap.search_clients.search.SearchInterface.del_range_filter"><code class="docutils literal notranslate"><span class="pre">SearchInterface.del_range_filter()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="elasticwrap.search_clients.html#elasticwrap.search_clients.search.SearchInterface.del_script_filter"><code class="docutils literal notranslate"><span class="pre">SearchInterface.del_script_filter()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="elasticwrap.search_clients.html#elasticwrap.search_clients.search.SearchInterface.filter_date"><code class="docutils literal notranslate"><span class="pre">SearchInterface.filter_date()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="elasticwrap.search_clients.html#elasticwrap.search_clients.search.SearchInterface.get_all"><code class="docutils literal notranslate"><span class="pre">SearchInterface.get_all()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="elasticwrap.search_clients.html#elasticwrap.search_clients.search.SearchInterface.reset"><code class="docutils literal notranslate"><span class="pre">SearchInterface.reset()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="elasticwrap.search_clients.html#elasticwrap.search_clients.search.SearchInterface.search"><code class="docutils literal notranslate"><span class="pre">SearchInterface.search()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="elasticwrap.search_clients.html#elasticwrap.search_clients.search.SearchInterface.set_script_filter"><code class="docutils literal notranslate"><span class="pre">SearchInterface.set_script_filter()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="elasticwrap.data.html">DataSources</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="elasticwrap.data.html#datasource">DataSource</a></li>
-<li class="toctree-l2"><a class="reference internal" href="elasticwrap.data.html#dataframedatasource">DataFrameDataSource</a></li>
-<li class="toctree-l2"><a class="reference internal" href="elasticwrap.data.html#dictionarydatasource">DictionaryDataSource</a></li>
+<li class="toctree-l2"><a class="reference internal" href="elasticwrap.data.html#module-elasticwrap.data.datasource">DataSource</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="elasticwrap.data.html#elasticwrap.data.datasource.DataSource"><code class="docutils literal notranslate"><span class="pre">DataSource</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="elasticwrap.data.html#elasticwrap.data.datasource.DataSource.data"><code class="docutils literal notranslate"><span class="pre">DataSource.data</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="elasticwrap.data.html#elasticwrap.data.datasource.DataSource.convert_documents"><code class="docutils literal notranslate"><span class="pre">DataSource.convert_documents()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="elasticwrap.data.html#elasticwrap.data.datasource.DataSource.read_documents"><code class="docutils literal notranslate"><span class="pre">DataSource.read_documents()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="elasticwrap.data.html#module-elasticwrap.data.dataframe">DataFrameDataSource</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="elasticwrap.data.html#elasticwrap.data.dataframe.DataFrameDataSource"><code class="docutils literal notranslate"><span class="pre">DataFrameDataSource</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="elasticwrap.data.html#elasticwrap.data.dataframe.DataFrameDataSource.convert_documents"><code class="docutils literal notranslate"><span class="pre">DataFrameDataSource.convert_documents()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="elasticwrap.data.html#elasticwrap.data.dataframe.DataFrameDataSource.read_documents"><code class="docutils literal notranslate"><span class="pre">DataFrameDataSource.read_documents()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="elasticwrap.data.html#module-elasticwrap.data.dictionary">DictionaryDataSource</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="elasticwrap.data.html#elasticwrap.data.dictionary.DictionaryDataSource"><code class="docutils literal notranslate"><span class="pre">DictionaryDataSource</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="elasticwrap.data.html#elasticwrap.data.dictionary.DictionaryDataSource.convert_documents"><code class="docutils literal notranslate"><span class="pre">DictionaryDataSource.convert_documents()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="elasticwrap.data.html#elasticwrap.data.dictionary.DictionaryDataSource.read_documents"><code class="docutils literal notranslate"><span class="pre">DictionaryDataSource.read_documents()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="elasticwrap.utils.html">Utilities</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="elasticwrap.utils.html#helpers">Helpers</a></li>
-<li class="toctree-l2"><a class="reference internal" href="elasticwrap.utils.html#scan-pit"><code class="docutils literal notranslate"><span class="pre">scan_pit</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="elasticwrap.utils.html#module-elasticwrap.utils.helpers">Helpers</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="elasticwrap.utils.html#elasticwrap.utils.helpers.PropagatingThread"><code class="docutils literal notranslate"><span class="pre">PropagatingThread</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="elasticwrap.utils.html#elasticwrap.utils.helpers.PropagatingThread.join"><code class="docutils literal notranslate"><span class="pre">PropagatingThread.join()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="elasticwrap.utils.html#elasticwrap.utils.helpers.PropagatingThread.run"><code class="docutils literal notranslate"><span class="pre">PropagatingThread.run()</span></code></a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="elasticwrap.types.html">Types</a></li>
-<li class="toctree-l1"><a class="reference internal" href="elasticwrap.indices.html">Indices</a></li>
-<li class="toctree-l1"><a class="reference internal" href="elasticwrap.exceptions.html">Exceptions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="elasticwrap.utils.html#elasticwrap.utils.helpers.RecursiveDict"><code class="docutils literal notranslate"><span class="pre">RecursiveDict</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="elasticwrap.utils.html#elasticwrap.utils.helpers.RecursiveDict.args"><code class="docutils literal notranslate"><span class="pre">RecursiveDict.args</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="elasticwrap.utils.html#elasticwrap.utils.helpers.RecursiveDict.kwargs"><code class="docutils literal notranslate"><span class="pre">RecursiveDict.kwargs</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="elasticwrap.utils.html#elasticwrap.utils.helpers.RecursiveDict.parent"><code class="docutils literal notranslate"><span class="pre">RecursiveDict.parent</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="elasticwrap.utils.html#elasticwrap.utils.helpers.RecursiveDict.parent_key"><code class="docutils literal notranslate"><span class="pre">RecursiveDict.parent_key</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="elasticwrap.utils.html#elasticwrap.utils.helpers.get_from_dict_dot"><code class="docutils literal notranslate"><span class="pre">get_from_dict_dot()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="elasticwrap.utils.html#elasticwrap.utils.helpers.merge_dicts"><code class="docutils literal notranslate"><span class="pre">merge_dicts()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="elasticwrap.utils.html#elasticwrap.utils.helpers.normalize_from_keyword"><code class="docutils literal notranslate"><span class="pre">normalize_from_keyword()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="elasticwrap.utils.html#elasticwrap.utils.helpers.pop_transport_kwargs"><code class="docutils literal notranslate"><span class="pre">pop_transport_kwargs()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="elasticwrap.utils.html#scan-pit"><code class="docutils literal notranslate"><span class="pre">scan_pit</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="elasticwrap.utils.html#elasticwrap.utils.scan_pit.PitError"><code class="docutils literal notranslate"><span class="pre">PitError</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="elasticwrap.utils.html#elasticwrap.utils.scan_pit.PitError.pit_id"><code class="docutils literal notranslate"><span class="pre">PitError.pit_id</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="elasticwrap.utils.html#elasticwrap.utils.scan_pit.scan_pit"><code class="docutils literal notranslate"><span class="pre">scan_pit.scan_pit()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="elasticwrap.types.html">Types</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="elasticwrap.types.html#elasticwrap.types.Document"><code class="docutils literal notranslate"><span class="pre">Document</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="elasticwrap.types.html#elasticwrap.types.LogicalComp"><code class="docutils literal notranslate"><span class="pre">LogicalComp</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="elasticwrap.types.html#elasticwrap.types.LogicalComp.GT"><code class="docutils literal notranslate"><span class="pre">LogicalComp.GT</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="elasticwrap.types.html#elasticwrap.types.LogicalComp.GTE"><code class="docutils literal notranslate"><span class="pre">LogicalComp.GTE</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="elasticwrap.types.html#elasticwrap.types.LogicalComp.LT"><code class="docutils literal notranslate"><span class="pre">LogicalComp.LT</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="elasticwrap.types.html#elasticwrap.types.LogicalComp.LTE"><code class="docutils literal notranslate"><span class="pre">LogicalComp.LTE</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="elasticwrap.types.html#elasticwrap.types.PercevalDataDocument"><code class="docutils literal notranslate"><span class="pre">PercevalDataDocument</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="elasticwrap.types.html#elasticwrap.types.PercevalSourceDocument"><code class="docutils literal notranslate"><span class="pre">PercevalSourceDocument</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="elasticwrap.types.html#elasticwrap.types.PercevalSourceDocument.backend_name"><code class="docutils literal notranslate"><span class="pre">PercevalSourceDocument.backend_name</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="elasticwrap.types.html#elasticwrap.types.PercevalSourceDocument.backend_version"><code class="docutils literal notranslate"><span class="pre">PercevalSourceDocument.backend_version</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="elasticwrap.types.html#elasticwrap.types.PercevalSourceDocument.category"><code class="docutils literal notranslate"><span class="pre">PercevalSourceDocument.category</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="elasticwrap.types.html#elasticwrap.types.PercevalSourceDocument.classified_fields_filtered"><code class="docutils literal notranslate"><span class="pre">PercevalSourceDocument.classified_fields_filtered</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="elasticwrap.types.html#elasticwrap.types.PercevalSourceDocument.data"><code class="docutils literal notranslate"><span class="pre">PercevalSourceDocument.data</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="elasticwrap.types.html#elasticwrap.types.PercevalSourceDocument.metadata__timestamp"><code class="docutils literal notranslate"><span class="pre">PercevalSourceDocument.metadata__timestamp</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="elasticwrap.types.html#elasticwrap.types.PercevalSourceDocument.metadata__updated_on"><code class="docutils literal notranslate"><span class="pre">PercevalSourceDocument.metadata__updated_on</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="elasticwrap.types.html#elasticwrap.types.PercevalSourceDocument.origin"><code class="docutils literal notranslate"><span class="pre">PercevalSourceDocument.origin</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="elasticwrap.types.html#elasticwrap.types.PercevalSourceDocument.perceval_version"><code class="docutils literal notranslate"><span class="pre">PercevalSourceDocument.perceval_version</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="elasticwrap.types.html#elasticwrap.types.PercevalSourceDocument.search_fields"><code class="docutils literal notranslate"><span class="pre">PercevalSourceDocument.search_fields</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="elasticwrap.types.html#elasticwrap.types.PercevalSourceDocument.tag"><code class="docutils literal notranslate"><span class="pre">PercevalSourceDocument.tag</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="elasticwrap.types.html#elasticwrap.types.PercevalSourceDocument.timestamp"><code class="docutils literal notranslate"><span class="pre">PercevalSourceDocument.timestamp</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="elasticwrap.types.html#elasticwrap.types.PercevalSourceDocument.updated_on"><code class="docutils literal notranslate"><span class="pre">PercevalSourceDocument.updated_on</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="elasticwrap.types.html#elasticwrap.types.PercevalSourceDocument.uuid"><code class="docutils literal notranslate"><span class="pre">PercevalSourceDocument.uuid</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="elasticwrap.types.html#elasticwrap.types.PostDocument"><code class="docutils literal notranslate"><span class="pre">PostDocument</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="elasticwrap.types.html#elasticwrap.types.SourceDocument"><code class="docutils literal notranslate"><span class="pre">SourceDocument</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="elasticwrap.indices.html">Indices</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="elasticwrap.indices.html#elasticwrap.indices.IndicesWrapper"><code class="docutils literal notranslate"><span class="pre">IndicesWrapper</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="elasticwrap.indices.html#elasticwrap.indices.IndicesWrapper.logger"><code class="docutils literal notranslate"><span class="pre">IndicesWrapper.logger</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="elasticwrap.indices.html#elasticwrap.indices.IndicesWrapper.create_index"><code class="docutils literal notranslate"><span class="pre">IndicesWrapper.create_index()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="elasticwrap.indices.html#elasticwrap.indices.IndicesWrapper.delete_indices_of_project"><code class="docutils literal notranslate"><span class="pre">IndicesWrapper.delete_indices_of_project()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="elasticwrap.indices.html#elasticwrap.indices.IndicesWrapper.get_all_indices"><code class="docutils literal notranslate"><span class="pre">IndicesWrapper.get_all_indices()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="elasticwrap.indices.html#elasticwrap.indices.IndicesWrapper.get_current_kibana"><code class="docutils literal notranslate"><span class="pre">IndicesWrapper.get_current_kibana()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="elasticwrap.indices.html#elasticwrap.indices.IndicesWrapper.get_indices_of_project"><code class="docutils literal notranslate"><span class="pre">IndicesWrapper.get_indices_of_project()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="elasticwrap.indices.html#elasticwrap.indices.IndicesWrapper.get_indices_of_source"><code class="docutils literal notranslate"><span class="pre">IndicesWrapper.get_indices_of_source()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="elasticwrap.indices.html#elasticwrap.indices.IndicesWrapper.search_indices"><code class="docutils literal notranslate"><span class="pre">IndicesWrapper.search_indices()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="elasticwrap.exceptions.html">Exceptions</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="elasticwrap.exceptions.html#elasticwrap.exceptions.NotFoundError"><code class="docutils literal notranslate"><span class="pre">NotFoundError</span></code></a></li>
+</ul>
+</li>
 </ul>
 </div>
 </section>

@@ -1,0 +1,336 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>elasticwrap &mdash; PAW-Manual  documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/sphinx_highlight.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> PAW-Manual
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../introduction.html">Intro</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../usage/index.html">Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../technical/index.html">PAW Technical Manual</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../code/modules.html">ElasticWrap Documentation</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">PAW-Manual</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="index.html">Module code</a> &raquo;</li>
+        
+      <li>elasticwrap</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for elasticwrap</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Main ElasticWrap module. Holds the actual object as well as a helpful Serializer.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="kn">import</span> <span class="nn">logging</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Literal</span><span class="p">,</span> <span class="n">Union</span><span class="p">,</span> <span class="n">List</span>
+<span class="kn">from</span> <span class="nn">elasticsearch8</span> <span class="kn">import</span> <span class="n">Elasticsearch</span><span class="p">,</span> <span class="n">helpers</span>
+<span class="kn">from</span> <span class="nn">elastic_transport</span> <span class="kn">import</span> <span class="n">JsonSerializer</span>
+<span class="kn">from</span> <span class="nn">.indices</span> <span class="kn">import</span> <span class="n">IndicesWrapper</span>
+<span class="kn">from</span> <span class="nn">.search_clients.commits</span> <span class="kn">import</span> <span class="n">CommitClient</span>
+<span class="kn">from</span> <span class="nn">.exceptions</span> <span class="kn">import</span> <span class="n">NotFoundError</span>
+
+<span class="kn">from</span> <span class="nn">.data.datasource</span> <span class="kn">import</span> <span class="n">DataSource</span>
+
+
+<div class="viewcode-block" id="WrapSerializer"><a class="viewcode-back" href="../code/elasticwrap.html#elasticwrap.WrapSerializer">[docs]</a><span class="k">class</span> <span class="nc">WrapSerializer</span><span class="p">(</span><span class="n">JsonSerializer</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    A helpful serializer for ElasticWrap. All it does is make</span>
+<span class="sd">    sure that python sets can be passed along to the elasticsearch-py</span>
+<span class="sd">    library without issue.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+<div class="viewcode-block" id="WrapSerializer.default"><a class="viewcode-back" href="../code/elasticwrap.html#elasticwrap.WrapSerializer.default">[docs]</a>    <span class="k">def</span> <span class="nf">default</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="nb">set</span><span class="p">):</span>
+            <span class="k">return</span> <span class="nb">list</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+        <span class="k">return</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">default</span><span class="p">(</span><span class="n">data</span><span class="p">)</span></div></div>
+
+
+<div class="viewcode-block" id="ElasticWrap"><a class="viewcode-back" href="../code/elasticwrap.html#elasticwrap.ElasticWrap">[docs]</a><span class="k">class</span> <span class="nc">ElasticWrap</span><span class="p">(</span><span class="n">Elasticsearch</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    The main object of the ElasticWrap library. All ElasticSearch related</span>
+<span class="sd">    activities can be accomplished through this object.</span>
+
+<span class="sd">    The vanilla `elasticsearch` API can be used through this object. For any guide</span>
+<span class="sd">    which mentions the `Elasticsearch` object you can simply use this</span>
+<span class="sd">    object and it will work.</span>
+
+<span class="sd">    In general, this object has a number of attributes which lead to other</span>
+<span class="sd">    objects which you can use to actually interface with the datastore.</span>
+
+<span class="sd">    Attributes</span>
+<span class="sd">    ----------</span>
+<span class="sd">    commits : CommitClient</span>
+<span class="sd">        The object for searching through commit data.</span>
+<span class="sd">    indices : IndicesWrapper</span>
+<span class="sd">        The object for dealing with ElasticSearch indices. Can be used</span>
+<span class="sd">        to easily search through, create and delete indices.</span>
+<span class="sd">    logger :</span>
+<span class="sd">        A logger to log with</span>
+
+<span class="sd">    See Also</span>
+<span class="sd">    --------</span>
+<span class="sd">    elasticsearch.Elasticsearch: The vanilla ElasticSearch object.</span>
+<span class="sd">    elasticwrap.indices.IndicesWrapper</span>
+<span class="sd">    elasticwrap.commits.CommitClient</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="n">hosts</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]]</span> <span class="o">=</span> <span class="s1">&#39;http://localhost:9200&#39;</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        *args</span>
+<span class="sd">            Additional arguments to pass along to the vanilla ElasticSearch object.</span>
+<span class="sd">        hosts : str | list[str], optional</span>
+<span class="sd">            The urls/paths for the ElasticSearch nodes. By default, this</span>
+<span class="sd">            is set to http://localhost:9200</span>
+<span class="sd">        **kwargs</span>
+<span class="sd">            Additional keyword arguments to pass along to the vanilla ElasticSearch object.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;hosts&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">hosts</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">serializer</span><span class="o">=</span><span class="n">WrapSerializer</span><span class="p">(),</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">indices</span> <span class="o">=</span> <span class="n">IndicesWrapper</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">commits</span> <span class="o">=</span> <span class="n">CommitClient</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="s2">&quot;Elasticwrap&quot;</span><span class="p">)</span>
+
+<div class="viewcode-block" id="ElasticWrap.save"><a class="viewcode-back" href="../code/elasticwrap.html#elasticwrap.ElasticWrap.save">[docs]</a>    <span class="k">def</span> <span class="nf">save</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data_source</span><span class="p">:</span> <span class="n">DataSource</span><span class="p">,</span> <span class="n">proj</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">index_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">refresh</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="s2">&quot;true&quot;</span><span class="p">,</span> <span class="s2">&quot;wait_for&quot;</span><span class="p">,</span> <span class="s2">&quot;false&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;wait_for&quot;</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Create documents from ``data_source`` and add them to an index. The index follows this naming format ``{proj}_{index_name}``.</span>
+
+<span class="sd">        Existing documents with identical uuid value will be overwritten.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        data_source : DataSource</span>
+<span class="sd">            An instance of :class:`datasource.DataSource` that contains the list of documents.</span>
+<span class="sd">        proj : str</span>
+<span class="sd">            Name of the PAW project.</span>
+<span class="sd">        index_name : str</span>
+<span class="sd">            The index name provided by user. Usually a specific data source.</span>
+<span class="sd">        refresh : Literal[&quot;true&quot;, &quot;wait_for&quot;, &quot;false&quot;], optional</span>
+<span class="sd">            Whether to force-refresh the index after saving.</span>
+
+<span class="sd">            If &quot;false&quot;, the method returns instantly after saving and the results may not yet be</span>
+<span class="sd">            visible in the data store, but will be at some point in the future. Useful if you just</span>
+<span class="sd">            want to submit and do not immediately require the data for anything else.</span>
+
+<span class="sd">            If &quot;true&quot;, the method will force-refresh the index. This is discouraged by the ES devs_[1].</span>
+
+<span class="sd">            If &quot;wait_for&quot;, the method will wait for a refresh to happen. This is the default value</span>
+
+<span class="sd">            [1] Elastic co. &quot;?refresh&quot; https://www.elastic.co/guide/en/elasticsearch/reference/current/docs-refresh.html</span>
+
+<span class="sd">        Examples</span>
+<span class="sd">        --------</span>
+<span class="sd">        Add a document from a dictionary to an index named ``project_analysis``:</span>
+
+<span class="sd">        &gt;&gt;&gt; dict = DictionaryDataSource([{&quot;uuid&quot;: &quot;07341f846c0d68026997314a542251ca54151041&quot;,</span>
+<span class="sd">        ...                               &quot;message_analyzed&quot;: &quot;a commit message&quot;}])</span>
+<span class="sd">        &gt;&gt;&gt; client = ElasticWrap()</span>
+<span class="sd">        &gt;&gt;&gt; client.save(dict, proj=&#39;project&#39;, index_name=&#39;analysis&#39;)</span>
+
+<span class="sd">        Add a document from ``pandas.DataFrame`` to an index named ``project_analysis``:</span>
+
+<span class="sd">        &gt;&gt;&gt; import pandas as pd</span>
+<span class="sd">        &gt;&gt;&gt; df = DataFrameDataSource(pd.DataFrame({&quot;uuid&quot;: [&quot;07341f846c0d68026997314a542251ca54151041&quot;],</span>
+<span class="sd">        ...                                        &quot;message_analyzed&quot;: [&quot;a commit message&quot;]},</span>
+<span class="sd">        ...                                        index=[&quot;07341f846c0d68026997314a542251ca54151041&quot;]))</span>
+<span class="sd">        &gt;&gt;&gt; client = ElasticWrap()</span>
+<span class="sd">        &gt;&gt;&gt; client.save(df, proj=&#39;project&#39;, index_name=&#39;analysis&#39;)</span>
+
+<span class="sd">        Raises</span>
+<span class="sd">        ------</span>
+<span class="sd">        NotFoundError</span>
+<span class="sd">            If the index you are submitting to does not exist.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">es_index_name</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">proj</span><span class="si">}</span><span class="s1">_</span><span class="si">{</span><span class="n">index_name</span><span class="si">}</span><span class="s1">&#39;</span>
+        <span class="c1"># By default, a new index will be created if the specified index does not exist</span>
+        <span class="c1"># We need to prevent this by raising an exception if the specified index is not found</span>
+        <span class="n">resp</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">indices</span><span class="o">.</span><span class="n">search_indices</span><span class="p">(</span><span class="n">query</span><span class="o">=</span><span class="n">es_index_name</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">resp</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">NotFoundError</span><span class="p">()</span>
+        <span class="n">helpers</span><span class="o">.</span><span class="n">bulk</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
+                     <span class="n">actions</span><span class="o">=</span><span class="n">data_source</span><span class="o">.</span><span class="n">read_documents</span><span class="p">(</span><span class="n">index_name</span><span class="o">=</span><span class="n">es_index_name</span><span class="p">),</span>
+                     <span class="n">refresh</span><span class="o">=</span><span class="n">refresh</span><span class="p">)</span></div></div>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright 2023, Aldi Doanta Kurnia, Bernard Johannes Willemsen, Nick Wolters, Rafael Dulfer, Tom Grooters.
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

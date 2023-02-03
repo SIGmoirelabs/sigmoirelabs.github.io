@@ -93,7 +93,20 @@
 <li class="toctree-l1"><a class="reference internal" href="../usage/index.html">Usage</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../technical/index.html">PAW Technical Manual</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="modules.html">ElasticWrap Documentation</a><ul class="current">
-<li class="toctree-l2 current"><a class="current reference internal" href="#">ElasticWrap</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">ElasticWrap</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#elasticwrap.ElasticWrap"><code class="docutils literal notranslate"><span class="pre">ElasticWrap</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#elasticwrap.ElasticWrap.commits"><code class="docutils literal notranslate"><span class="pre">ElasticWrap.commits</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#elasticwrap.ElasticWrap.indices"><code class="docutils literal notranslate"><span class="pre">ElasticWrap.indices</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#elasticwrap.ElasticWrap.logger"><code class="docutils literal notranslate"><span class="pre">ElasticWrap.logger</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#elasticwrap.ElasticWrap.save"><code class="docutils literal notranslate"><span class="pre">ElasticWrap.save()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#elasticwrap.WrapSerializer"><code class="docutils literal notranslate"><span class="pre">WrapSerializer</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#elasticwrap.WrapSerializer.default"><code class="docutils literal notranslate"><span class="pre">WrapSerializer.default()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="elasticwrap.search_clients.html">Search Clients</a></li>
 <li class="toctree-l2"><a class="reference internal" href="elasticwrap.data.html">DataSources</a></li>
 <li class="toctree-l2"><a class="reference internal" href="elasticwrap.utils.html">Utilities</a></li>
@@ -171,8 +184,119 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <section id="elasticwrap">
-<h1>ElasticWrap<a class="headerlink" href="#elasticwrap" title="Permalink to this heading">¶</a></h1>
+  <section id="module-elasticwrap">
+<span id="elasticwrap"></span><h1>ElasticWrap<a class="headerlink" href="#module-elasticwrap" title="Permalink to this heading">¶</a></h1>
+<p>Main ElasticWrap module. Holds the actual object as well as a helpful Serializer.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="elasticwrap.ElasticWrap">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">elasticwrap.</span></span><span class="sig-name descname"><span class="pre">ElasticWrap</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hosts</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'http://localhost:9200'</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/elasticwrap.html#ElasticWrap"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#elasticwrap.ElasticWrap" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Elasticsearch</span></code></p>
+<p>The main object of the ElasticWrap library. All ElasticSearch related
+activities can be accomplished through this object.</p>
+<p>The vanilla <cite>elasticsearch</cite> API can be used through this object. For any guide
+which mentions the <cite>Elasticsearch</cite> object you can simply use this
+object and it will work.</p>
+<p>In general, this object has a number of attributes which lead to other
+objects which you can use to actually interface with the datastore.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="elasticwrap.ElasticWrap.commits">
+<span class="sig-name descname"><span class="pre">commits</span></span><a class="headerlink" href="#elasticwrap.ElasticWrap.commits" title="Permalink to this definition">¶</a></dt>
+<dd><p>The object for searching through commit data.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="elasticwrap.search_clients.html#elasticwrap.search_clients.commits.CommitClient" title="elasticwrap.search_clients.commits.CommitClient">CommitClient</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="elasticwrap.ElasticWrap.indices">
+<span class="sig-name descname"><span class="pre">indices</span></span><a class="headerlink" href="#elasticwrap.ElasticWrap.indices" title="Permalink to this definition">¶</a></dt>
+<dd><p>The object for dealing with ElasticSearch indices. Can be used
+to easily search through, create and delete indices.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="elasticwrap.indices.html#elasticwrap.indices.IndicesWrapper" title="elasticwrap.indices.IndicesWrapper">IndicesWrapper</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="elasticwrap.ElasticWrap.logger">
+<span class="sig-name descname"><span class="pre">logger</span></span><a class="headerlink" href="#elasticwrap.ElasticWrap.logger" title="Permalink to this definition">¶</a></dt>
+<dd><p>A logger to log with</p>
+</dd></dl>
+
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<dl class="simple">
+<dt><code class="xref py py-obj docutils literal notranslate"><span class="pre">elasticsearch.Elasticsearch</span></code></dt><dd><p>The vanilla ElasticSearch object.</p>
+</dd>
+</dl>
+<p><a class="reference internal" href="elasticwrap.indices.html#elasticwrap.indices.IndicesWrapper" title="elasticwrap.indices.IndicesWrapper"><code class="xref py py-obj docutils literal notranslate"><span class="pre">elasticwrap.indices.IndicesWrapper</span></code></a>, <code class="xref py py-obj docutils literal notranslate"><span class="pre">elasticwrap.commits.CommitClient</span></code></p>
+</div>
+<dl class="py method">
+<dt class="sig sig-object py" id="elasticwrap.ElasticWrap.save">
+<span class="sig-name descname"><span class="pre">save</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data_source</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="elasticwrap.data.html#elasticwrap.data.datasource.DataSource" title="elasticwrap.data.datasource.DataSource"><span class="pre">DataSource</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">proj</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">index_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">refresh</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Literal</span><span class="p"><span class="pre">[</span></span><span class="s"><span class="pre">'true'</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="s"><span class="pre">'wait_for'</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="s"><span class="pre">'false'</span></span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'wait_for'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/elasticwrap.html#ElasticWrap.save"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#elasticwrap.ElasticWrap.save" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create documents from <code class="docutils literal notranslate"><span class="pre">data_source</span></code> and add them to an index. The index follows this naming format <code class="docutils literal notranslate"><span class="pre">{proj}_{index_name}</span></code>.</p>
+<p>Existing documents with identical uuid value will be overwritten.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>data_source</strong> (<a class="reference internal" href="elasticwrap.data.html#elasticwrap.data.datasource.DataSource" title="elasticwrap.data.datasource.DataSource"><em>DataSource</em></a>) – An instance of <code class="xref py py-class docutils literal notranslate"><span class="pre">datasource.DataSource</span></code> that contains the list of documents.</p></li>
+<li><p><strong>proj</strong> (<em>str</em>) – Name of the PAW project.</p></li>
+<li><p><strong>index_name</strong> (<em>str</em>) – The index name provided by user. Usually a specific data source.</p></li>
+<li><p><strong>refresh</strong> (<em>Literal</em><em>[</em><em>&quot;true&quot;</em><em>, </em><em>&quot;wait_for&quot;</em><em>, </em><em>&quot;false&quot;</em><em>]</em><em>, </em><em>optional</em>) – <p>Whether to force-refresh the index after saving.</p>
+<p>If “false”, the method returns instantly after saving and the results may not yet be
+visible in the data store, but will be at some point in the future. Useful if you just
+want to submit and do not immediately require the data for anything else.</p>
+<p>If “true”, the method will force-refresh the index. This is discouraged by the ES devs_[1].</p>
+<p>If “wait_for”, the method will wait for a refresh to happen. This is the default value</p>
+<p>[1] Elastic co. “?refresh” <a class="reference external" href="https://www.elastic.co/guide/en/elasticsearch/reference/current/docs-refresh.html">https://www.elastic.co/guide/en/elasticsearch/reference/current/docs-refresh.html</a></p>
+</p></li>
+</ul>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<p>Add a document from a dictionary to an index named <code class="docutils literal notranslate"><span class="pre">project_analysis</span></code>:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nb">dict</span> <span class="o">=</span> <span class="n">DictionaryDataSource</span><span class="p">([{</span><span class="s2">&quot;uuid&quot;</span><span class="p">:</span> <span class="s2">&quot;07341f846c0d68026997314a542251ca54151041&quot;</span><span class="p">,</span>
+<span class="gp">... </span>                              <span class="s2">&quot;message_analyzed&quot;</span><span class="p">:</span> <span class="s2">&quot;a commit message&quot;</span><span class="p">}])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">client</span> <span class="o">=</span> <span class="n">ElasticWrap</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">client</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="nb">dict</span><span class="p">,</span> <span class="n">proj</span><span class="o">=</span><span class="s1">&#39;project&#39;</span><span class="p">,</span> <span class="n">index_name</span><span class="o">=</span><span class="s1">&#39;analysis&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Add a document from <code class="docutils literal notranslate"><span class="pre">pandas.DataFrame</span></code> to an index named <code class="docutils literal notranslate"><span class="pre">project_analysis</span></code>:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">df</span> <span class="o">=</span> <span class="n">DataFrameDataSource</span><span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s2">&quot;uuid&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;07341f846c0d68026997314a542251ca54151041&quot;</span><span class="p">],</span>
+<span class="gp">... </span>                                       <span class="s2">&quot;message_analyzed&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;a commit message&quot;</span><span class="p">]},</span>
+<span class="gp">... </span>                                       <span class="n">index</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;07341f846c0d68026997314a542251ca54151041&quot;</span><span class="p">]))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">client</span> <span class="o">=</span> <span class="n">ElasticWrap</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">client</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">proj</span><span class="o">=</span><span class="s1">&#39;project&#39;</span><span class="p">,</span> <span class="n">index_name</span><span class="o">=</span><span class="s1">&#39;analysis&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Raises<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="elasticwrap.exceptions.html#elasticwrap.exceptions.NotFoundError" title="elasticwrap.exceptions.NotFoundError"><strong>NotFoundError</strong></a> – If the index you are submitting to does not exist.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="elasticwrap.WrapSerializer">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">elasticwrap.</span></span><span class="sig-name descname"><span class="pre">WrapSerializer</span></span><a class="reference internal" href="../_modules/elasticwrap.html#WrapSerializer"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#elasticwrap.WrapSerializer" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">JsonSerializer</span></code></p>
+<p>A helpful serializer for ElasticWrap. All it does is make
+sure that python sets can be passed along to the elasticsearch-py
+library without issue.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="elasticwrap.WrapSerializer.default">
+<span class="sig-name descname"><span class="pre">default</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Any</span></span></span><a class="reference internal" href="../_modules/elasticwrap.html#WrapSerializer.default"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#elasticwrap.WrapSerializer.default" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
 </section>
 
 

@@ -15,7 +15,7 @@ all types of data. ElasticWrap, on the other hand, was purpose-built for dealing
 
 How to use ElasticWrap
 ----------------------
-What follows here is a natural-language description of basic usage of ElasticWrap. For a more comprehensive overview, see the source documentation. //TODO, link to source documentation
+What follows here is a natural-language description of basic usage of ElasticWrap. For a more comprehensive overview, see the source documentation of :doc:`../code/elasticwrap`
 
 ElasticWrap uses liberal use of type hinting features to make it easier to write correct python code using it. For the best experience, it is recommended that you have `mypy <https://www.mypy-lang.org/>`_ or `PyRight <https://github.com/microsoft/pyright>`_ installed.
 
