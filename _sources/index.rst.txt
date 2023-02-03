@@ -13,6 +13,7 @@ Welcome to The PAW-Manual!
    introduction
    usage/index
    technical/index
+   code/modules
 
 ..
   Indices and tables

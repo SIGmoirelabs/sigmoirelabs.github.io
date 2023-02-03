@@ -1,0 +1,13 @@
+ElasticWrap Documentation
+=========================
+
+.. toctree::
+   :maxdepth: 4
+
+   elasticwrap
+   elasticwrap.search_clients
+   elasticwrap.data
+   elasticwrap.utils
+   elasticwrap.types
+   elasticwrap.indices
+   elasticwrap.exceptions

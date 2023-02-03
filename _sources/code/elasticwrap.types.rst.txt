@@ -1,0 +1,7 @@
+Types
+=====
+
+.. automodule:: elasticwrap.types
+   :members:
+   :undoc-members:
+   :show-inheritance:

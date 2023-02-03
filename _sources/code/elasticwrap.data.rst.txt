@@ -1,0 +1,28 @@
+DataSources
+===========
+
+In order to convert to and from various data structures, you will want to use :ref:`code/elasticwrap.data:DataSource` and it's implementations. For more info, see :ref:`usage/elasticWrap:Saving Data`
+
+DataSource
+----------
+
+.. automodule:: elasticwrap.data.datasource
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+DataFrameDataSource
+-------------------
+
+.. automodule:: elasticwrap.data.dataframe
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+DictionaryDataSource
+--------------------
+
+.. automodule:: elasticwrap.data.dictionary
+   :members:
+   :undoc-members:
+   :show-inheritance:

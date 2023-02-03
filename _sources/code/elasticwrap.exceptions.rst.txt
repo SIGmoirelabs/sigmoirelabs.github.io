@@ -1,0 +1,7 @@
+Exceptions
+==========
+
+.. automodule:: elasticwrap.exceptions
+   :members:
+   :undoc-members:
+   :show-inheritance:

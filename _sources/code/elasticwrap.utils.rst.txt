@@ -1,0 +1,21 @@
+Utilities
+=========
+
+Utility methods for use with ElasticWrap or outside of it.
+
+Helpers
+--------------------------------
+
+.. automodule:: elasticwrap.utils.helpers
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+``scan_pit``
+----------------------------------
+
+.. autoclass:: elasticwrap.utils.scan_pit.PitError
+   :members:
+   :show-inheritance:
+
+.. automethod:: elasticwrap.utils.scan_pit.scan_pit

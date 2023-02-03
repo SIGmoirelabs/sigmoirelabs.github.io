@@ -1,0 +1,53 @@
+Search Clients
+==============
+
+In order to search the PAW, you will likely want to use a dedicated search client. See :doc:`../usage/elasticWrap` for more info.
+
+CommitClient
+------------
+
+.. autoclass:: elasticwrap.search_clients.commits.CommitClient
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Commit Types
+~~~~~~~~~~~~
+Types defined for the commit client
+
+.. autodata:: elasticwrap.search_clients.commits.CommitDocument
+
+.. autodata:: elasticwrap.search_clients.commits.CommitSourceDocument
+
+.. autoclass:: elasticwrap.search_clients.commits.CommitSourceData
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+.. autoclass:: elasticwrap.search_clients.commits.CommitFileInfo
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+GenericSearchClient
+-------------------
+.. autoclass:: elasticwrap.search_clients.search.GenericSearchClient
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+UnstructuredSearchClient
+------------------------
+
+.. autoclass:: elasticwrap.search_clients.search.UnstructuredSearchClient
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+SearchInterface
+---------------
+
+.. autoclass:: elasticwrap.search_clients.search.SearchInterface
+   :members:
+   :undoc-members:
+   :show-inheritance:

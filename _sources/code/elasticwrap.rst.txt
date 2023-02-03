@@ -1,0 +1,7 @@
+ElasticWrap
+===========
+
+.. automodule:: elasticwrap
+   :members:
+   :undoc-members:
+   :show-inheritance:
