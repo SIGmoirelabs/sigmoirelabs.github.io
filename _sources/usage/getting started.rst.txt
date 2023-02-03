@@ -18,10 +18,9 @@ Setting up Multi-mordred
 ------------------------
 For a quickstart, you can create a ``deployment/mordred_data`` directory and move the ``quickstart/setup.cfg`` and ``quickstart/projects.json`` files into it. Then after the containers are all up, run ``telnet localhost 15555`` and run the following commands:
 
-``
-new demo /data/setup.cfg
-start demo
-``
+.. code-block::
+        new demo /data/setup.cfg
+        start demo
 
 This will start a mordred instance which gets data from the projects defined in ``projects.json`` and enriches them. The raw data can be found in the ``demo_git`` index, whereas enriched data can be found in ``demo_git_enriched``, ``demo_git_enriched_aoc`` and ``demo_git_enriched_onion``.
 
@@ -36,44 +35,42 @@ projects.json: defining datasources
 -----------------------------------
 The projects.json file defines all the data that can be queried by this analysis project, divided by type. The specific type string indicates which percival retriever (or "backend") will be used te retrieve the data. While most retrievers simply retrieve data from a specific source, i.e. git vs slack vs jira, some retrievers already do some degree of analysis, or are purpose-build for specific later analysis-scripts (the retrievers introduced by arthur and graal for instance). 
 
-``
-{
-	"SIGmoirelabs": {
-      "meta": {
-        "title": "ElasticWrap"
-      },
-      "git": [
-          "https://github.com/SIGmoirelabs/elasticwrap.git"
-        ]
-    }
-}
-``
+.. code-block::
+        {
+        	"SIGmoirelabs": {
+              "meta": {
+                "title": "ElasticWrap"
+              },
+              "git": [
+                  "https://github.com/SIGmoirelabs/elasticwrap.git"
+                ]
+            }
+        }
 
 conf.cfg: defining project pramaters
 ------------------------------------
 The second file any mordred clone will need is the a general configuration. This file will describe the locations of and credentials to external resources, as well as describing which tasks should be executed.
 
-``
-[general]
-short_name = GrimoireLab
-update = true
-min_update_delay = 60
-debug = false
-logs_dir = /home/sigmoire/logs
-bulk_size = 1000
-scroll_size = 1000
-aliases_file = /home/sigmoire/aliases.json
-
-[projects]
-projects_file = /data/projects.json
-
-[es_collection]
-url = http://elasticsearch:9200
-
-[es_enrichment]
-url = http://elasticsearch:9200
-autorefresh = true
-``
+.. code-block::
+        [general]
+        short_name = GrimoireLab
+        update = true
+        min_update_delay = 60
+        debug = false
+        logs_dir = /home/sigmoire/logs
+        bulk_size = 1000
+        scroll_size = 1000
+        aliases_file = /home/sigmoire/aliases.json
+        
+        [projects]
+        projects_file = /data/projects.json
+        
+        [es_collection]
+        url = http://elasticsearch:9200
+        
+        [es_enrichment]
+        url = http://elasticsearch:9200
+        autorefresh = true
 
 for more on configuration options see: :doc:`grimoirelab` and `the official Mordred docs <https://github.com/chaoss/grimoirelab-sirmordred#setupcfg->`_
 
@@ -81,11 +78,10 @@ helloWorld.py: adding custom scripting
 --------------------------------------
 One of the features added to multi-mordred over regular mordred is the ability to run arbitrary code as part of the data collection and processing pipeline. If the 'custom'-phase is enabled in the .cfg file then a script can be specified which will be run after the build-in enrichment methods but before data visualization is configured.
 
-``
-[custom_script]
-scriptsource = enrich.py
-args = [arg1, arg2]
-``
+.. code-block::
+        [custom_script]
+        scriptsource = enrich.py
+        args = [arg1, arg2]
 
 for more on this see: :doc:`custom scripts`.
 
@@ -93,17 +89,16 @@ Starting a new mordred instance
 -------------------------------
 Now that all of the required files have been provided, we can call multi-mordred to start a new mordred intsance and run the specified analysis. 
 
-``
-$ telnet localhost 15555
-Trying 127.0.0.1...
-Connected to localhost.
-Escape character is '^]'.
-multimordred wrapper, type commands for a list of available commands
-new demo /data/conf.cfg
-Created demo
-start demo
-Started
-``
+.. code-block::
+        $ telnet localhost 15555
+        Trying 127.0.0.1...
+        Connected to localhost.
+        Escape character is '^]'.
+        multimordred wrapper, type commands for a list of available commands
+        new demo /data/conf.cfg
+        Created demo
+        start demo
+        Started
 
 accessing results via graphql
 -----------------------------
