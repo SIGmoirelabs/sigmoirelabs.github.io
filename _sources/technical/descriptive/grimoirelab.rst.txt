@@ -29,7 +29,7 @@ To address our concerns with scaling and experimentation, we created :doc:`elast
 Changes to Grimoirelab
 ----------------------
 
-we made a few changes to grimoirelab before building on top of it. Most notably upgrading it to support ElasticSearch 8.x. This has been submitted to the original project, but the merge request is still pending review (and at time of writing has been for [AMOUNT OF TIME])
+we made a few changes to grimoirelab before building on top of it. Most notably upgrading it to support ElasticSearch 8.x. This has been submitted to the original project, but the merge request is still pending review and at time of writing has been for a month.
 
 
 .. rubric:: Footnotes
