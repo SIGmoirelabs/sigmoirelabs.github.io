@@ -1,0 +1,27 @@
+Extensions to the Build Process
+===============================
+
+We have provided an example docker setup to quickly build the paw. For more info on simply building and using it, see :doc:`../../usage/getting started`. This document will instead focus on possible extensions to the build process that may be wanted later.
+
+Production Environment
+----------------------
+While our version of the deployment script is a quick way to get a development version up and running, you will likely want to have a production version at some point in the future. In order to create a proper production version, you should be aware of the following concepts:
+
+Production ElasticSearch
+~~~~~~~~~~~~~~~~~~~~~~~~
+In order to set up ElasticSearch quickly, we set a bunch of environment variables which make the instance insecure and ineffecient. For a production version, you are best off following the `Official ElasticSearch docs <https://www.elastic.co/guide/en/elasticsearch/reference/8.6/setup.html>`_.
+
+Production SortingHat
+~~~~~~~~~~~~~~~~~~~~~
+The GrimoireLab stack uses a system called ``sortinghat`` for data enrichment purposes (mostly focused on identity management). At time of writing, ``sortinghat`` has just been converted to a new service-based architecture which is rather undocumented. Some tips for creating a production version:
+
+1. SortingHat uses Django under the hood. Many `Django settings <https://docs.djangoproject.com/en/4.1/ref/settings/>`_ can be set using environment variables if you prepend the key with ``SORTINGHAT``.
+2. SortingHat has an internal HTTP server that runs on port 8000 which we enable by setting ``DEV_FLAG=1``. In a production environment, you would probably want to spin up a seperate docker image that runs ``nginx``/``apache``/some other webserver instead. If you do, remove the ``DEV_FLAG`` environment variable and point the proxy webserver to port ``http://sortinghat:9314``. You can remove the exposed port ``8000``, as it is no longer used.
+
+Changes in Dependencies
+-----------------------
+The python dependencies for the multi-mordred container are installed using the ``deployment/docker/requirements.txt`` file. If you want to add a new python dependency (for example for a custom script), you can simply add it here. If you want to use a fork of a grimoirelab tool (for example, a fork of Perceval because new retrievers were added), you can simply change the line getting that tool. Inside of the ``requirements.txt`` you have access to the ``${GITHUB_TOKEN}`` and ``${GITHUB_USER}`` environment variables in order to install from a private repository.
+
+Updating MultiMordred
+---------------------
+MultiMordred is different in that it is not a tool or library, but is instead the script that the docker image runs. During building, the script is retrieved from github and downloaded into the container, which then runs it. If you want to update the multimordred script, you will have to rebuild the multimordred container. Generally, this can be achieved using ``docker-compose build --no-cache``. However, sometimes Docker decides to cache the files it retrieves from github, even if you use the ``--no-cache`` flag. You can be sure that it will grab the latest version by first running ``docker system prune``, which will remove all unused docker containers on your system and also flush the docker cache.

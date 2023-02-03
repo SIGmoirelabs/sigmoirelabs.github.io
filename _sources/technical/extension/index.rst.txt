@@ -1,0 +1,11 @@
+Extension: Extending The PAW
+============================
+
+This section discusses parts of the PAW designed to be extensible, and how to extend them. The ability to add custom enrichment scripts was an explicit part of the design and as such does not require restarting the PAW, let alone rebuilding it. As a result instructions on doing this can be found in :doc:`../../usage/custom scripts` instead.
+
+
+.. toctree::
+
+   percival retrievers
+   elasticWrap searchers
+   elasticWrap dataSources

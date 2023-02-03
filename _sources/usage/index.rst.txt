@@ -1,0 +1,14 @@
+Usage
+=====
+
+In this section of the PAW manual we will attempt to cover all the information required to effectively use the PAW. From simply convincing it to run, to writing plug-ins to customize data enrichment.
+
+
+.. toctree::
+
+        getting started
+        examples
+        grimoirelab
+        custom scripts
+        elasticWrap
+        graphql

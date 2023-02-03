@@ -1,0 +1,170 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+
+    <title>Getting Started &#8212; PAW-Manual  documentation</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/alabaster.css" />
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/sphinx_highlight.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Examples" href="examples.html" />
+    <link rel="prev" title="Usage" href="index.html" />
+   
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <section id="getting-started">
+<h1>Getting Started<a class="headerlink" href="#getting-started" title="Permalink to this heading">¶</a></h1>
+<p>For ease of use, we have supplied a simple startup script to get a development instance of the PAW running. Simply run <code class="docutils literal notranslate"><span class="pre">start_paw_docker.sh</span></code> to start. In order to be able to retrieve <a class="reference internal" href="../technical/descriptive/multi-mordred.html"><span class="doc">Multi-Mordred</span></a> and <a class="reference internal" href="../technical/descriptive/elasticWrap.html"><span class="doc">ElasticWrap</span></a> you will be asked to supply a <a class="reference external" href="https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/creating-a-personal-access-token">Github Authentication Token</a> and username. Make sure it has at least READ access to the <code class="docutils literal notranslate"><span class="pre">SIGmoirelabs/multi-mordred-wrapper</span></code> and <code class="docutils literal notranslate"><span class="pre">SIGmoirelabs/elasticwrap</span></code> repositories.</p>
+<p>NOTE: The script will modify the following system values to make sure Redis and ElasticSearch are running properly:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">vm.max_map_count=262144</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">vm.overcommit_memory=1</span></code></p></li>
+</ul>
+<p>The script will automatically start the docker containers. If you want, you can set these values manually and simply go into the <code class="docutils literal notranslate"><span class="pre">deployment</span></code> folder and run <code class="docutils literal notranslate"><span class="pre">docker-compose</span> <span class="pre">up</span></code>.</p>
+<p>It may take some time for all the containers to start. This is because we must ensure that <code class="docutils literal notranslate"><span class="pre">redis</span></code> and <code class="docutils literal notranslate"><span class="pre">mariadb</span></code> are running before we can properly start <code class="docutils literal notranslate"><span class="pre">sortinghat</span></code> and <code class="docutils literal notranslate"><span class="pre">multi-mordred</span></code>.</p>
+<section id="setting-up-multi-mordred">
+<h2>Setting up Multi-mordred<a class="headerlink" href="#setting-up-multi-mordred" title="Permalink to this heading">¶</a></h2>
+<p>For a quickstart, you can create a <code class="docutils literal notranslate"><span class="pre">deployment/mordred_data</span></code> directory and move the <code class="docutils literal notranslate"><span class="pre">quickstart/setup.cfg</span></code> and <code class="docutils literal notranslate"><span class="pre">quickstart/projects.json</span></code> files into it. Then after the containers are all up, run <code class="docutils literal notranslate"><span class="pre">telnet</span> <span class="pre">localhost</span> <span class="pre">15555</span></code> and run the following commands:</p>
+<p>``
+new demo /data/setup.cfg
+start demo
+``</p>
+<p>This will start a mordred instance which gets data from the projects defined in <code class="docutils literal notranslate"><span class="pre">projects.json</span></code> and enriches them. The raw data can be found in the <code class="docutils literal notranslate"><span class="pre">demo_git</span></code> index, whereas enriched data can be found in <code class="docutils literal notranslate"><span class="pre">demo_git_enriched</span></code>, <code class="docutils literal notranslate"><span class="pre">demo_git_enriched_aoc</span></code> and <code class="docutils literal notranslate"><span class="pre">demo_git_enriched_onion</span></code>.</p>
+<p>Assuming you are using our example development docker-compose, you will now have 2 new directories in the <code class="docutils literal notranslate"><span class="pre">deployment</span></code> folder: <code class="docutils literal notranslate"><span class="pre">ES</span></code> and <code class="docutils literal notranslate"><span class="pre">mordred_data</span></code>. The <code class="docutils literal notranslate"><span class="pre">ES</span></code> folder simply stores all the ElasticSearch data and can be an easy way to delete data for testing purposes. The <code class="docutils literal notranslate"><span class="pre">mordred_data</span></code> folder is mounted in the <code class="docutils literal notranslate"><span class="pre">multi-mordred</span></code> container to <code class="docutils literal notranslate"><span class="pre">/data/</span></code>. Any files you want to provide to multi-mordred can be thrown in this folder.</p>
+</section>
+<section id="step-by-step-your-first-analysis-project">
+<h2>step-by-step: your first analysis project<a class="headerlink" href="#step-by-step-your-first-analysis-project" title="Permalink to this heading">¶</a></h2>
+<p>So now that we have the multi-mordred container up and running we can provide it with configuration files to create a copy of mordred and perform an analysis project.</p>
+<section id="projects-json-defining-datasources">
+<h3>projects.json: defining datasources<a class="headerlink" href="#projects-json-defining-datasources" title="Permalink to this heading">¶</a></h3>
+<p>The projects.json file defines all the data that can be queried by this analysis project, divided by type. The specific type string indicates which percival retriever (or “backend”) will be used te retrieve the data. While most retrievers simply retrieve data from a specific source, i.e. git vs slack vs jira, some retrievers already do some degree of analysis, or are purpose-build for specific later analysis-scripts (the retrievers introduced by arthur and graal for instance).</p>
+<p>//TODO example</p>
+</section>
+<section id="conf-cfg-defining-project-pramaters">
+<h3>conf.cfg: defining project pramaters<a class="headerlink" href="#conf-cfg-defining-project-pramaters" title="Permalink to this heading">¶</a></h3>
+<p>The second file any mordred clone will need is the a general configuration. This file will describe the locations of and credentials to external resources, as well as describing which tasks should be executed.</p>
+<p>//TODO example</p>
+<p>for more on configuration options see: <a class="reference internal" href="grimoirelab.html"><span class="doc">Using GrimoireLab-native Features</span></a>.</p>
+</section>
+<section id="helloworld-py-adding-custom-scripting">
+<h3>helloWorld.py: adding custom scripting<a class="headerlink" href="#helloworld-py-adding-custom-scripting" title="Permalink to this heading">¶</a></h3>
+<p>One of the features added to multi-mordred over regular mordred is the ability to run arbitrary code as part of the data collection and processing pipeline. If the ‘custom’-phase is enabled in the .cfg file then a script can be specified which will be run after the build-in enrichment methods but before data visualization is configured.</p>
+<p>//TODO example</p>
+<p>for more on this see: <a class="reference internal" href="custom%20scripts.html"><span class="doc">Using Custom scripts</span></a>.</p>
+</section>
+<section id="starting-a-new-mordred-instance">
+<h3>Starting a new mordred instance<a class="headerlink" href="#starting-a-new-mordred-instance" title="Permalink to this heading">¶</a></h3>
+<p>Now that all of the required files have been provided, we can call multi-mordred to start a new mordred intsance and run the specified analysis.</p>
+<p>//TODO how</p>
+</section>
+<section id="accessing-results-via-graphql">
+<h3>accessing results via graphql<a class="headerlink" href="#accessing-results-via-graphql" title="Permalink to this heading">¶</a></h3>
+<p>Kibiter may not play nice with customized enrichment however, so the main intended method for retrieving processed data from the PAW is through the graphql API. A querrying system intended to be usable without any programming.</p>
+<p>//todo how to</p>
+<p>for more on this see: <a class="reference internal" href="graphql.html"><span class="doc">Using the GraphQL-API</span></a>.</p>
+</section>
+</section>
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../index.html">PAW-Manual</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../introduction.html">Intro</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Usage</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Getting Started</a></li>
+<li class="toctree-l2"><a class="reference internal" href="examples.html">Examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="grimoirelab.html">Using GrimoireLab-native Features</a></li>
+<li class="toctree-l2"><a class="reference internal" href="custom%20scripts.html">Using Custom scripts</a></li>
+<li class="toctree-l2"><a class="reference internal" href="elasticWrap.html">Using ElasticWrap</a></li>
+<li class="toctree-l2"><a class="reference internal" href="graphql.html">Using the GraphQL-API</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../technical/index.html">PAW Technical Manual</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+  <li><a href="index.html">Usage</a><ul>
+      <li>Previous: <a href="index.html" title="previous chapter">Usage</a></li>
+      <li>Next: <a href="examples.html" title="next chapter">Examples</a></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2023, Aldi Doanta Kurnia, Bernard Johannes Willemsen, Nick Wolters, Rafael Dulfer, Tom Grooters.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 6.1.3</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.13</a>
+      
+      |
+      <a href="../_sources/usage/getting started.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

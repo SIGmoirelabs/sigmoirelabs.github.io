@@ -1,0 +1,131 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+
+    <title>Intro &#8212; PAW-Manual  documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/alabaster.css" />
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/sphinx_highlight.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Usage" href="usage/index.html" />
+    <link rel="prev" title="Welcome to The PAW-Manual!" href="index.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <section id="intro">
+<h1>Intro<a class="headerlink" href="#intro" title="Permalink to this heading">¶</a></h1>
+<p>The PAW (Process Analysis Warehouse) is a toolstack meant to facilitate the analysis of software development processes. The PAW is build on <a class="reference external" href="https://chaoss.github.io/grimoirelab/">grimoirelab</a>, an ecosystem of tools intended to gather data from and perform a host of analyses on a given software project. Besides the analysis methods inherrited from grimoirelab the PAW aims to provide a structure which more easily enables the introduction of new analysis methods, so that what currently may be described as grimorelab wrapped with support for plug-ins and build-in parralel intances, may in time grow out to be a true warehouse in its own right.</p>
+<section id="why-is-the-paw">
+<h2>Why is the PAW?<a class="headerlink" href="#why-is-the-paw" title="Permalink to this heading">¶</a></h2>
+<p>The PAW is intended to provide a structure that is able to perform process analysis for experimental (regarding the analysis technique), investigative (regarding the project in question) as well as benchmark purposes, ideally at the same time. To this end the PAW needed to be flexible, extensible, and able to scale to large amounts of data along with large amounts of projects.</p>
+<p>The PAW was originally constructed by a group of masters students at the University of Twente for a course-project, comissioned by consulting company SIG, who were interested in a tool that would perform quantitative bulk-analysis on a software-development-process-level in a similar manner as their existing tools are able to perform on a code-quality-level. For more information on the construction process of the PAW, the course-mandated final report written by these students (us) should have been provided in addition to this manual.</p>
+</section>
+<section id="we-are-not-the-chaoss-team">
+<h2>We are not the CHAOSS team.<a class="headerlink" href="#we-are-not-the-chaoss-team" title="Permalink to this heading">¶</a></h2>
+<p>Calling the PAW a <a class="reference external" href="https://chaoss.github.io/grimoirelab/">grimoirelab</a>-wrapper, while perhaps reductive, is far from wrong. The vast majority of sheer features the PAW contents are inherrited from a different product by a different team with subtelly different goals and a somewhat different philosophy when it comes to what good quality software even looks like. For maintainability we have tried to keep their code and structure intact as much as possible, to the point where re-building the paw with a newer version of grimoirelab should generally be a safe proposition (that is, unless major architectural changes occur <a class="footnote-reference brackets" href="#id3" id="id2" role="doc-noteref"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></a>), and given the more high-level infrastructure of <a class="reference internal" href="technical/descriptive/multi-mordred.html"><span class="doc">Multi-Mordred</span></a> the PAW should (with at time of writing the exception of kibiter) be entirely backwards-compatible with grimoirelab. We would however like to take a moment to acknowledge that these differences may chafe, meaning that knowing whether it is a GrimoireLab- or PAW-Feature you are working with will likely prove informative when troubleshooting. Where they like configurations, we prefer interfaces; where they like inter-operability, we prefer modularity.</p>
+<p class="rubric">Footnotes</p>
+<aside class="footnote-list brackets">
+<aside class="footnote brackets" id="id3" role="note">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id2">1</a><span class="fn-bracket">]</span></span>
+<p>which have already occurred during the development of the PAW.</p>
+</aside>
+</aside>
+</section>
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">PAW-Manual</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Intro</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#why-is-the-paw">Why is the PAW?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#we-are-not-the-chaoss-team">We are not the CHAOSS team.</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="usage/index.html">Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="technical/index.html">PAW Technical Manual</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="index.html" title="previous chapter">Welcome to The PAW-Manual!</a></li>
+      <li>Next: <a href="usage/index.html" title="next chapter">Usage</a></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2023, Aldi Doanta Kurnia, Bernard Johannes Willemsen, Nick Wolters, Rafael Dulfer, Tom Grooters.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 6.1.3</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.13</a>
+      
+      |
+      <a href="_sources/introduction.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

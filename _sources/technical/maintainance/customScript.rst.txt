@@ -1,0 +1,142 @@
+Manually re-making the Custom Script Extension
+==============================================
+
+The custom script extension is unique within The Paw in that it is neither a wrapper nor pushed back into the Grimoirelab project. This means merge conflicts may occur.
+Luckily, the changes to the codebase related to this feature are fairly few and fairly small. This section will discuss each of these changes in-detail, such that if these changes need to be re-made for a new version of Mordred that work should prove trivial.
+
+--------------------------------
+Registering new config variables
+--------------------------------
+First, we must register the required parameters within the Mordred config parser ``config.py``.
+
+in the function ``general_params``, add to the variable ``params_phases``:
+
+.. code-block:: python
+
+   "custom": {
+                    "optional": True,
+                    "default": False,
+                    "type": bool,
+                    "description": "run a arbitrary python file of your choosing after enrichment"
+                },
+
+This will allow the user to enable the custom-script task.
+
+
+add the variable ``params_custom``:
+
+.. code-block:: python
+
+	params_custom = {
+            "custom_script": {
+                "scriptsource": {
+                    "optional": False,
+                    "default": None,
+                    "type": str,
+                    "description": "location of the script file"
+                },
+                "scriptargs": {
+                    "optional": True,
+                    "default": [],
+                    "type": list,
+                    "destription": "a list of parameters to be given to the script with variable names arg1, arg2 etc"
+                }
+            },
+        }
+
+and update the ``tasks_config_params`` to include ``params_custom``:
+
+.. code-block:: python
+
+	tasks_config_params = [params_collection, params_enrichment, params_panels, params_custom, params_sortinghat]
+	
+this will recognize the settings block for the custom script task, allowing the user to specify the script in question and its arguments.
+
+----------------------------
+The CustomScript Task itself
+----------------------------
+Since this file originally did not exist within Mordred, it should not require updating. But the file ``task_custom_script`` does have to be included in the updated Mordred instance.
+
+------------------
+Executing the task
+------------------
+Lastly we need to make sure the task actually gets run. We need to do this separately for each of the methods of running Mordred.
+
+sirmordred.py
+-------------
+For the main method of running Mordred the update is fairly small.
+
+Import the new task:
+
+.. code-block:: python
+
+	from sirmordred.task_custom_script import TaskCustomScript
+	
+and in the function start, after similar blocks for the other phases:
+
+.. code-block:: python
+
+        if self.conf['phases']['custom']:
+            all_tasks_cls.append(TaskCustomScript)
+			
+
+micromordred
+------------
+For micromordred the situation is a little bit more complex.
+
+Again the new task needs to be imported:
+
+.. code-block:: python
+
+	from sirmordred.task_custom_script import TaskCustomScript
+	
+In the function ``get_params_parser`` add:
+
+.. code-block:: python
+
+	    parser.add_argument("--custom-script", action='store_true', dest='custom',
+                        help="Activate the custom script task")
+						
+and in ``get_params`` update tasks to include ``args.custom``:
+
+.. code-block:: python
+
+	  tasks = [args.raw, args.enrich, args.identities_load, args.identities_merge, args.custom, args.panels]
+
+then in ``main`` add the ``custom`` argument to the micro-mordred call:
+
+.. code-block:: python
+
+    micro_mordred(args.cfg_path, args.backend_sections,
+                  args.repos_to_check, args.raw,
+                  args.identities_load,
+                  args.identities_merge,
+                  args.enrich,
+                  args.custom,
+                  args.panels)
+
+update the ``micro_mordred`` function to receive this argument:
+
+.. code-block:: python
+
+	def micro_mordred(cfg_path, backend_sections, repos_to_check, raw, identities_load, identities_merge, enrich, custom, panels):
+
+define the function constructing the ``custom_script`` task:
+
+.. code-block:: python
+
+        def get_custom_script(config):
+		""" execute the custom enrich phase
+		:param config: a Mordred config object
+		"""
+		logging.info("starting custom script task")
+		task = TaskCustomScript(config)
+		task.execute()
+		logging.info("Custom script run")
+
+and finally, actually run the task: (still in micro_mordred):
+
+.. code-block:: python
+
+    if custom:
+        get_custom_script(config)

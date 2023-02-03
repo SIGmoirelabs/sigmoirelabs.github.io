@@ -1,0 +1,106 @@
+Using ElasticWrap
+=================
+
+ElasticWrap is a proprietary library created with the intention of making retrieving and submitting data into the PAW as simple as possible, even for people with no knowledge of ElasticSearch.
+A more technical overview of how it works and how to extend it can be found in :doc:`../technical/descriptive/elasticWrap`. This page will focus instead on how and why to use ElasticWrap
+
+Why use ElasticWrap?
+--------------------
+The main data store of the PAW is ElasticSearch, with which you may or may not have experience. ElasticSearch's main interface is sending JSON GET/POST requests to get/post data. There do exist,
+however, various libraries for interacting with ElasticSearch using various languages, so why use ElasticWrap instead of these already existing libraries?
+
+In general, we found that most libraries require a non-trivial understanding of ElasticSearch to actually use properly, acting more as a thing wrapper around sending raw JSON than an ORM helping you
+get the data you want. There do exist more high-level libraries (such as `ElasticSearch DSL <https://elasticsearch-dsl.readthedocs.io/en/latest/>`_), but they are bogged down by having to work on
+all types of data. ElasticWrap, on the other hand, was purpose-built for dealing with the PAW, meaning it is possible for the library to know the exact structure of the documents as they are stored in the ElasticSearch data store and to optimize accordingly.
+
+How to use ElasticWrap
+----------------------
+What follows here is a natural-language description of basic usage of ElasticWrap. For a more comprehensive overview, see the source documentation. //TODO, link to source documentation
+
+ElasticWrap uses liberal use of type hinting features to make it easier to write correct python code using it. For the best experience, it is recommended that you have `mypy <https://www.mypy-lang.org/>`_ or `PyRight <https://github.com/microsoft/pyright>`_ installed.
+
+The ``ElasticWrap`` object
+~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+ElasticWrap is centered around a main ``ElasticWrap`` object, which itself is a wrapper around the official `ElasticSearch <https://elasticsearch-py.readthedocs.io/en/v8.6.1/api.html#module-elasticsearch>`_ object. To start playing around with ``ElasticWrap``, you can install the library and open the interactive prompt:
+
+>>> from elasticwrap import ElasticWrap
+>>> client = ElasticWrap(hosts=["http://admin:admin@localhost:9200"])
+
+Note here that the ``hosts`` argument is optional. If you do not specify this argument, it defaults to ``http://localhost:9200``. For more advanced construction arguments, we refer to the `official ES python library documentation <https://elasticsearch-py.readthedocs.io/en/v8.6.1/api.html#module-elasticsearch>`_. 
+
+Searching Data
+~~~~~~~~~~~~~~
+
+``ElasticWrap`` functions with the concept of Search Clients. A search client is an object which is specifically focused on dealing with a specific structure of data. When working with Search Clients, you first construct the search using various methods provided by the client, after which you retrieve the results using the associated ``search`` method.
+
+As of writing, the ``ElasticWrap`` object comes with 1 Search Client, focused on dealing with structured commit data as retrieved by Perceval. For our examples, we will be using this search client (found by default at ``ElasticWrap.commits``), but the ideas should carry over to other search clients as well.
+
+.. code-block:: python
+
+        commits = client.commits
+        commits.filter_before_date(commits.DateEnum.AUTHOR_DATE, "2018-01-01", inclusive=False)
+        before2018 = commits.search(["example"])
+        for page in before2018:
+            for doc in page:
+                ...
+        commits.reset()
+
+In this example, we add a filter that ensures that all resulting documents will have an ``AuthorDate`` from before 2018-01-01. We then have a nested loop. The ``search`` method will always paginate, meaning that you will need a nested structure like this. Important to remember is that the result of ``search`` is a `Python Generator <https://wiki.python.org/moin/Generators>`_ which returns a new page every ``next`` call. Finally, we call the ``reset`` method. An ElasticWrap search client remembers the query, meaning that subsequent calls to ``search`` should return the same data (assuming no new documents have been added to the data store). By calling the ``reset`` method, we remove the query and can start over again.
+
+Search Arguments
+""""""""""""""""
+
+``search`` takes a number of arguments, some of which more advanced than others. For general use, the following arguments are important:
+* ``proj`` - The list of projects this search should be performed on. Every index inside ElasticSearch is assumed to follow the format ``{proj}_{namespace}``. In ElasticWrap every search client is assigned a namespace (such as ``git`` for the commits client) and ``search`` will automatically construct the indices from the list of projects provided and the associated namespace. If no list of projects is provided, ``search`` will return data from all indices related to this namespace.
+* ``anonymize`` - If set to ``True``, all resulting data will be anonymized. The exact way this is done depends on the type of data. Defaults to ``False``
+* ``size`` - The amount of documents per page to return. Defaults to ``1000``
+* ``page_max`` - The amount of pages to return at maximum. If set to ``0``, will return as many pages as exist. Defaults to ``0``.
+
+Generic Searching
+"""""""""""""""""
+
+In our previous example, we used the existing ``CommitClient`` and it's own specific ``filter_before_date`` method. However, it may be that you want to search data for which no Search Client exists yet, but you do want to use some of the features provided by ``ElasticWrap`` (such as ``search`` automatically dealing with pagination). In this case, you can use the ``GenericSearchClient`` object.
+
+.. code-block:: python
+
+        from elasticwrap.search_clients.search import GenericSearchClient
+        search = GenericSearchClient(client, "example")
+        search.add_filters([("some_field", ["some_value"])])
+        results = search.search()
+
+This example will return all the documents in the namespace ``example`` in which ``some_field`` is equal to ``some_value``. For more information, we again refer to the source documentation.
+
+If you want to not deal with namespaces entirely, you can use the ``UnstructuredSearchClient``. It works in the same way as the ``GenericSearchClient``, but you provide it a list of indices to
+search on, instead of a list of projects.
+
+Saving Data
+~~~~~~~~~~~
+
+You can also use ElasticWrap to store arbitrary data in the PAW. As of writing, there is support for saving pandas ``DataFrame``-s, or arbitrary python dictionaries. 
+
+.. code-block:: python
+
+        from elasticwrap.data.dictionary import DictionaryDataSource
+        from elasticwrap.data.dataframe import DataFrameDataSource
+        from pandas import DataFrame
+        dict_data {...}
+        frame_data = DataFrame(...)
+        client.save(DictionaryDataSource(dict_data), "example", "dict")
+        client.save(DataFrameDataSource(frame_data), "example", "dataframe", "false")
+
+This example will store the dictionary data in the index ``example_dict`` (so it is project ``example`` and namespace ``dict``) and will store the dataframe data in the index ``example_dataframe``.
+Of note here is the last argument in the second call of ``client.save``. By default, this is set to ``"wait_for"``, meaning that the method will return after ElasticSearch has confirmed the data is actually retrievable from the data store. If you set it to ``"false"`` it will instead return instantly. You can also set it to ``"true"`` to force ElasticSearch to refresh, but this is not recommended.
+
+Converting Data
+~~~~~~~~~~~~~~~
+
+Just as you may want to store date in the PAW using your favorite format, you may also want to take data from the PAW and convert it to your favorite format. The same objects we used to save the data can also be used to convert it the other way around.
+
+.. code-block:: python
+
+        for page in client.commits.get_all():
+            converted = next(DataFrameDataSource.convert_documents(page))
+            	...
+
+This example will get all the commit data in the PAW and convert each page into a DataFrame object.

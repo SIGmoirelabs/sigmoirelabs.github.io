@@ -1,0 +1,66 @@
+Using Custom scripts
+====================
+
+One of the key features the PAW introduces absent from Grimoirelab is the ability to run custom code as part of your data-enrichment pipeline. This section discusses how to use this feature. For detailed technical info see :doc:`../technical/descriptive/multi-mordred` and :doc:`../technical/maintainance/customScript`.
+
+----------------
+Running the Code
+----------------
+In order to enable backwards-compatibility of this version of Mordred with the original, all of the following settings are optional. Presumed to be disabled if absent.
+
+Configuring the custom script task
+----------------------------------
+
+Add the following section to your ``config.cfg``:
+
+.. code-block::
+
+	[custom_script]
+	scriptsource = test.py
+	scriptargs = [suc,cess]
+
+``scriptsource`` denotes which script is to be run. Runnable scripts must be placed in the dedicated volume in order for the container to be able to find them. When running mordred non-containerized, this has to be the relative path from the current working directory.
+
+script arguments
+----------------
+The optional key ``scriptargs`` denotes a list of arguments to be given to the script. These will be transmitted as instantiated string variables ``arg1``, ``arg2``, ``arg3``, etc. with values corresponding to their position in the list. It is worth re-iterating that these will be variables that are magically already defined once the script is run. While deliberately modeled to feel similar to their behavior in some older languages, this does note make use of traditional command-line arguments.
+
+For example, the script ``test.py``:
+
+.. code-block:: python
+
+	print("I have been run " + arg1 + arg2)
+
+will between the enrichment and panels phases print "I have been run success", in the console when following the examples here ver-batim.
+
+Enabling the custom script phase
+--------------------------------
+
+To enable the custom script phase, add ``custom = true`` to the ``[phases]`` section of your config. Example:
+
+.. code-block::
+
+	[phases]
+	collection = true
+	identities = true
+	enrichment = true
+	panels = true
+	custom = true
+
+When running Grimoirelab through micro-mordred, you additionally have to provide the ``--custom-script`` flag.
+
+On running more complex scripts
+-------------------------------
+Due to the limits of passing data from a running python program to newly interpreted scripts we recommend handing generic modules for given custom tasks to the multi-mordred container seperately, while having the script run by the customScript task merely decipher the script arguments between importing and calling the actual enrichment techniques.
+
+---------------------------------------------------------
+:doc:`ElasticWrap <../technical/descriptive/elasticWrap>`
+---------------------------------------------------------
+To aid in creating these scripts a wrapper library for ElasticSearch was created, which should come pre-installed into the container. For details on how to use ElasticWrap see :doc:`elasticWrap`.
+
+---------------------
+Using other libraries
+---------------------
+Because the code will be run within the :doc:`../technical/descriptive/multi-mordred` container, any external libraries you want to use must be installed into the container first.
+
+In ``deployment/docker/requirement.txt`` simply add the required external library. Then, rebuild the multimordred image. 

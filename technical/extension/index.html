@@ -1,0 +1,146 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+
+    <title>Extension: Extending The PAW &#8212; PAW-Manual  documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/alabaster.css" />
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/sphinx_highlight.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Adding retrievers for custom datasources" href="percival%20retrievers.html" />
+    <link rel="prev" title="Long-term maintainance with regards to PAW-Architecture" href="../maintainance/architecture.html" />
+   
+  <link rel="stylesheet" href="../../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <section id="extension-extending-the-paw">
+<h1>Extension: Extending The PAW<a class="headerlink" href="#extension-extending-the-paw" title="Permalink to this heading">¶</a></h1>
+<p>This section discusses parts of the PAW designed to be extensible, and how to extend them. The ability to add custom enrichment scripts was an explicit part of the design and as such does not require restarting the PAW, let alone rebuilding it. As a result instructions on doing this can be found in <a class="reference internal" href="../../usage/custom%20scripts.html"><span class="doc">Using Custom scripts</span></a> instead.</p>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="percival%20retrievers.html">Adding retrievers for custom datasources</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="percival%20retrievers.html#defining-the-retriever">Defining the retriever</a></li>
+<li class="toctree-l2"><a class="reference internal" href="percival%20retrievers.html#adding-the-retriever">Adding the retriever</a></li>
+<li class="toctree-l2"><a class="reference internal" href="percival%20retrievers.html#re-building-with-the-retriever">Re-building with the retriever</a></li>
+<li class="toctree-l2"><a class="reference internal" href="percival%20retrievers.html#using-the-retriever">Using the retriever</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="elasticWrap%20searchers.html">Adding searchers for custom data ElasticSearch patterns</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="elasticWrap%20searchers.html#defining-the-data">Defining the Data</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="elasticWrap%20searchers.html#common-data-structures">Common Data Structures</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="elasticWrap%20searchers.html#elasticsearch">ElasticSearch</a></li>
+<li class="toctree-l4"><a class="reference internal" href="elasticWrap%20searchers.html#perceval">Perceval</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="elasticWrap%20searchers.html#actually-defining-the-data">Actually Defining The Data</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="elasticWrap%20searchers.html#creating-the-search-client">Creating the Search Client</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="elasticWrap%20dataSources.html">Adding ElasticWrap support for custom data formats</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="elasticWrap%20dataSources.html#how-to-implement-datasource">How to implement DataSource</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../../index.html">PAW-Manual</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../introduction.html">Intro</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../usage/index.html">Usage</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">PAW Technical Manual</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../descriptive/index.html">Descriptive: An Architectural View of The Paw</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../maintainance/index.html">Maintainance: Maintaining The Paw</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Extension: Extending The PAW</a></li>
+</ul>
+</li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../../index.html">Documentation overview</a><ul>
+  <li><a href="../index.html">PAW Technical Manual</a><ul>
+      <li>Previous: <a href="../maintainance/architecture.html" title="previous chapter">Long-term maintainance with regards to PAW-Architecture</a></li>
+      <li>Next: <a href="percival%20retrievers.html" title="next chapter">Adding retrievers for custom datasources</a></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2023, Aldi Doanta Kurnia, Bernard Johannes Willemsen, Nick Wolters, Rafael Dulfer, Tom Grooters.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 6.1.3</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.13</a>
+      
+      |
+      <a href="../../_sources/technical/extension/index.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

@@ -1,0 +1,205 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+
+    <title>Using ElasticWrap &#8212; PAW-Manual  documentation</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/alabaster.css" />
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/sphinx_highlight.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Using the GraphQL-API" href="graphql.html" />
+    <link rel="prev" title="Using Custom scripts" href="custom%20scripts.html" />
+   
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <section id="using-elasticwrap">
+<h1>Using ElasticWrap<a class="headerlink" href="#using-elasticwrap" title="Permalink to this heading">¶</a></h1>
+<p>ElasticWrap is a proprietary library created with the intention of making retrieving and submitting data into the PAW as simple as possible, even for people with no knowledge of ElasticSearch.
+A more technical overview of how it works and how to extend it can be found in <a class="reference internal" href="../technical/descriptive/elasticWrap.html"><span class="doc">ElasticWrap</span></a>. This page will focus instead on how and why to use ElasticWrap</p>
+<section id="why-use-elasticwrap">
+<h2>Why use ElasticWrap?<a class="headerlink" href="#why-use-elasticwrap" title="Permalink to this heading">¶</a></h2>
+<p>The main data store of the PAW is ElasticSearch, with which you may or may not have experience. ElasticSearch’s main interface is sending JSON GET/POST requests to get/post data. There do exist,
+however, various libraries for interacting with ElasticSearch using various languages, so why use ElasticWrap instead of these already existing libraries?</p>
+<p>In general, we found that most libraries require a non-trivial understanding of ElasticSearch to actually use properly, acting more as a thing wrapper around sending raw JSON than an ORM helping you
+get the data you want. There do exist more high-level libraries (such as <a class="reference external" href="https://elasticsearch-dsl.readthedocs.io/en/latest/">ElasticSearch DSL</a>), but they are bogged down by having to work on
+all types of data. ElasticWrap, on the other hand, was purpose-built for dealing with the PAW, meaning it is possible for the library to know the exact structure of the documents as they are stored in the ElasticSearch data store and to optimize accordingly.</p>
+</section>
+<section id="how-to-use-elasticwrap">
+<h2>How to use ElasticWrap<a class="headerlink" href="#how-to-use-elasticwrap" title="Permalink to this heading">¶</a></h2>
+<p>What follows here is a natural-language description of basic usage of ElasticWrap. For a more comprehensive overview, see the source documentation. //TODO, link to source documentation</p>
+<p>ElasticWrap uses liberal use of type hinting features to make it easier to write correct python code using it. For the best experience, it is recommended that you have <a class="reference external" href="https://www.mypy-lang.org/">mypy</a> or <a class="reference external" href="https://github.com/microsoft/pyright">PyRight</a> installed.</p>
+<section id="the-elasticwrap-object">
+<h3>The <code class="docutils literal notranslate"><span class="pre">ElasticWrap</span></code> object<a class="headerlink" href="#the-elasticwrap-object" title="Permalink to this heading">¶</a></h3>
+<p>ElasticWrap is centered around a main <code class="docutils literal notranslate"><span class="pre">ElasticWrap</span></code> object, which itself is a wrapper around the official <a class="reference external" href="https://elasticsearch-py.readthedocs.io/en/v8.6.1/api.html#module-elasticsearch">ElasticSearch</a> object. To start playing around with <code class="docutils literal notranslate"><span class="pre">ElasticWrap</span></code>, you can install the library and open the interactive prompt:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">elasticwrap</span> <span class="kn">import</span> <span class="n">ElasticWrap</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">client</span> <span class="o">=</span> <span class="n">ElasticWrap</span><span class="p">(</span><span class="n">hosts</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;http://admin:admin@localhost:9200&quot;</span><span class="p">])</span>
+</pre></div>
+</div>
+<p>Note here that the <code class="docutils literal notranslate"><span class="pre">hosts</span></code> argument is optional. If you do not specify this argument, it defaults to <code class="docutils literal notranslate"><span class="pre">http://localhost:9200</span></code>. For more advanced construction arguments, we refer to the <a class="reference external" href="https://elasticsearch-py.readthedocs.io/en/v8.6.1/api.html#module-elasticsearch">official ES python library documentation</a>.</p>
+</section>
+<section id="searching-data">
+<h3>Searching Data<a class="headerlink" href="#searching-data" title="Permalink to this heading">¶</a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">ElasticWrap</span></code> functions with the concept of Search Clients. A search client is an object which is specifically focused on dealing with a specific structure of data. When working with Search Clients, you first construct the search using various methods provided by the client, after which you retrieve the results using the associated <code class="docutils literal notranslate"><span class="pre">search</span></code> method.</p>
+<p>As of writing, the <code class="docutils literal notranslate"><span class="pre">ElasticWrap</span></code> object comes with 1 Search Client, focused on dealing with structured commit data as retrieved by Perceval. For our examples, we will be using this search client (found by default at <code class="docutils literal notranslate"><span class="pre">ElasticWrap.commits</span></code>), but the ideas should carry over to other search clients as well.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">commits</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">commits</span>
+<span class="n">commits</span><span class="o">.</span><span class="n">filter_before_date</span><span class="p">(</span><span class="n">commits</span><span class="o">.</span><span class="n">DateEnum</span><span class="o">.</span><span class="n">AUTHOR_DATE</span><span class="p">,</span> <span class="s2">&quot;2018-01-01&quot;</span><span class="p">,</span> <span class="n">inclusive</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">before2018</span> <span class="o">=</span> <span class="n">commits</span><span class="o">.</span><span class="n">search</span><span class="p">([</span><span class="s2">&quot;example&quot;</span><span class="p">])</span>
+<span class="k">for</span> <span class="n">page</span> <span class="ow">in</span> <span class="n">before2018</span><span class="p">:</span>
+    <span class="k">for</span> <span class="n">doc</span> <span class="ow">in</span> <span class="n">page</span><span class="p">:</span>
+        <span class="o">...</span>
+<span class="n">commits</span><span class="o">.</span><span class="n">reset</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>In this example, we add a filter that ensures that all resulting documents will have an <code class="docutils literal notranslate"><span class="pre">AuthorDate</span></code> from before 2018-01-01. We then have a nested loop. The <code class="docutils literal notranslate"><span class="pre">search</span></code> method will always paginate, meaning that you will need a nested structure like this. Important to remember is that the result of <code class="docutils literal notranslate"><span class="pre">search</span></code> is a <a class="reference external" href="https://wiki.python.org/moin/Generators">Python Generator</a> which returns a new page every <code class="docutils literal notranslate"><span class="pre">next</span></code> call. Finally, we call the <code class="docutils literal notranslate"><span class="pre">reset</span></code> method. An ElasticWrap search client remembers the query, meaning that subsequent calls to <code class="docutils literal notranslate"><span class="pre">search</span></code> should return the same data (assuming no new documents have been added to the data store). By calling the <code class="docutils literal notranslate"><span class="pre">reset</span></code> method, we remove the query and can start over again.</p>
+<section id="search-arguments">
+<h4>Search Arguments<a class="headerlink" href="#search-arguments" title="Permalink to this heading">¶</a></h4>
+<p><code class="docutils literal notranslate"><span class="pre">search</span></code> takes a number of arguments, some of which more advanced than others. For general use, the following arguments are important:
+* <code class="docutils literal notranslate"><span class="pre">proj</span></code> - The list of projects this search should be performed on. Every index inside ElasticSearch is assumed to follow the format <code class="docutils literal notranslate"><span class="pre">{proj}_{namespace}</span></code>. In ElasticWrap every search client is assigned a namespace (such as <code class="docutils literal notranslate"><span class="pre">git</span></code> for the commits client) and <code class="docutils literal notranslate"><span class="pre">search</span></code> will automatically construct the indices from the list of projects provided and the associated namespace. If no list of projects is provided, <code class="docutils literal notranslate"><span class="pre">search</span></code> will return data from all indices related to this namespace.
+* <code class="docutils literal notranslate"><span class="pre">anonymize</span></code> - If set to <code class="docutils literal notranslate"><span class="pre">True</span></code>, all resulting data will be anonymized. The exact way this is done depends on the type of data. Defaults to <code class="docutils literal notranslate"><span class="pre">False</span></code>
+* <code class="docutils literal notranslate"><span class="pre">size</span></code> - The amount of documents per page to return. Defaults to <code class="docutils literal notranslate"><span class="pre">1000</span></code>
+* <code class="docutils literal notranslate"><span class="pre">page_max</span></code> - The amount of pages to return at maximum. If set to <code class="docutils literal notranslate"><span class="pre">0</span></code>, will return as many pages as exist. Defaults to <code class="docutils literal notranslate"><span class="pre">0</span></code>.</p>
+</section>
+<section id="generic-searching">
+<h4>Generic Searching<a class="headerlink" href="#generic-searching" title="Permalink to this heading">¶</a></h4>
+<p>In our previous example, we used the existing <code class="docutils literal notranslate"><span class="pre">CommitClient</span></code> and it’s own specific <code class="docutils literal notranslate"><span class="pre">filter_before_date</span></code> method. However, it may be that you want to search data for which no Search Client exists yet, but you do want to use some of the features provided by <code class="docutils literal notranslate"><span class="pre">ElasticWrap</span></code> (such as <code class="docutils literal notranslate"><span class="pre">search</span></code> automatically dealing with pagination). In this case, you can use the <code class="docutils literal notranslate"><span class="pre">GenericSearchClient</span></code> object.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">elasticwrap.search_clients.search</span> <span class="kn">import</span> <span class="n">GenericSearchClient</span>
+<span class="n">search</span> <span class="o">=</span> <span class="n">GenericSearchClient</span><span class="p">(</span><span class="n">client</span><span class="p">,</span> <span class="s2">&quot;example&quot;</span><span class="p">)</span>
+<span class="n">search</span><span class="o">.</span><span class="n">add_filters</span><span class="p">([(</span><span class="s2">&quot;some_field&quot;</span><span class="p">,</span> <span class="p">[</span><span class="s2">&quot;some_value&quot;</span><span class="p">])])</span>
+<span class="n">results</span> <span class="o">=</span> <span class="n">search</span><span class="o">.</span><span class="n">search</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>This example will return all the documents in the namespace <code class="docutils literal notranslate"><span class="pre">example</span></code> in which <code class="docutils literal notranslate"><span class="pre">some_field</span></code> is equal to <code class="docutils literal notranslate"><span class="pre">some_value</span></code>. For more information, we again refer to the source documentation.</p>
+<p>If you want to not deal with namespaces entirely, you can use the <code class="docutils literal notranslate"><span class="pre">UnstructuredSearchClient</span></code>. It works in the same way as the <code class="docutils literal notranslate"><span class="pre">GenericSearchClient</span></code>, but you provide it a list of indices to
+search on, instead of a list of projects.</p>
+</section>
+</section>
+<section id="saving-data">
+<h3>Saving Data<a class="headerlink" href="#saving-data" title="Permalink to this heading">¶</a></h3>
+<p>You can also use ElasticWrap to store arbitrary data in the PAW. As of writing, there is support for saving pandas <code class="docutils literal notranslate"><span class="pre">DataFrame</span></code>-s, or arbitrary python dictionaries.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">elasticwrap.data.dictionary</span> <span class="kn">import</span> <span class="n">DictionaryDataSource</span>
+<span class="kn">from</span> <span class="nn">elasticwrap.data.dataframe</span> <span class="kn">import</span> <span class="n">DataFrameDataSource</span>
+<span class="kn">from</span> <span class="nn">pandas</span> <span class="kn">import</span> <span class="n">DataFrame</span>
+<span class="n">dict_data</span> <span class="p">{</span><span class="o">...</span><span class="p">}</span>
+<span class="n">frame_data</span> <span class="o">=</span> <span class="n">DataFrame</span><span class="p">(</span><span class="o">...</span><span class="p">)</span>
+<span class="n">client</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">DictionaryDataSource</span><span class="p">(</span><span class="n">dict_data</span><span class="p">),</span> <span class="s2">&quot;example&quot;</span><span class="p">,</span> <span class="s2">&quot;dict&quot;</span><span class="p">)</span>
+<span class="n">client</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">DataFrameDataSource</span><span class="p">(</span><span class="n">frame_data</span><span class="p">),</span> <span class="s2">&quot;example&quot;</span><span class="p">,</span> <span class="s2">&quot;dataframe&quot;</span><span class="p">,</span> <span class="s2">&quot;false&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>This example will store the dictionary data in the index <code class="docutils literal notranslate"><span class="pre">example_dict</span></code> (so it is project <code class="docutils literal notranslate"><span class="pre">example</span></code> and namespace <code class="docutils literal notranslate"><span class="pre">dict</span></code>) and will store the dataframe data in the index <code class="docutils literal notranslate"><span class="pre">example_dataframe</span></code>.
+Of note here is the last argument in the second call of <code class="docutils literal notranslate"><span class="pre">client.save</span></code>. By default, this is set to <code class="docutils literal notranslate"><span class="pre">&quot;wait_for&quot;</span></code>, meaning that the method will return after ElasticSearch has confirmed the data is actually retrievable from the data store. If you set it to <code class="docutils literal notranslate"><span class="pre">&quot;false&quot;</span></code> it will instead return instantly. You can also set it to <code class="docutils literal notranslate"><span class="pre">&quot;true&quot;</span></code> to force ElasticSearch to refresh, but this is not recommended.</p>
+</section>
+<section id="converting-data">
+<h3>Converting Data<a class="headerlink" href="#converting-data" title="Permalink to this heading">¶</a></h3>
+<p>Just as you may want to store date in the PAW using your favorite format, you may also want to take data from the PAW and convert it to your favorite format. The same objects we used to save the data can also be used to convert it the other way around.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">page</span> <span class="ow">in</span> <span class="n">client</span><span class="o">.</span><span class="n">commits</span><span class="o">.</span><span class="n">get_all</span><span class="p">():</span>
+    <span class="n">converted</span> <span class="o">=</span> <span class="nb">next</span><span class="p">(</span><span class="n">DataFrameDataSource</span><span class="o">.</span><span class="n">convert_documents</span><span class="p">(</span><span class="n">page</span><span class="p">))</span>
+        <span class="o">...</span>
+</pre></div>
+</div>
+<p>This example will get all the commit data in the PAW and convert each page into a DataFrame object.</p>
+</section>
+</section>
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../index.html">PAW-Manual</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../introduction.html">Intro</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Usage</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="getting%20started.html">Getting Started</a></li>
+<li class="toctree-l2"><a class="reference internal" href="examples.html">Examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="grimoirelab.html">Using GrimoireLab-native Features</a></li>
+<li class="toctree-l2"><a class="reference internal" href="custom%20scripts.html">Using Custom scripts</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Using ElasticWrap</a></li>
+<li class="toctree-l2"><a class="reference internal" href="graphql.html">Using the GraphQL-API</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../technical/index.html">PAW Technical Manual</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+  <li><a href="index.html">Usage</a><ul>
+      <li>Previous: <a href="custom%20scripts.html" title="previous chapter">Using Custom scripts</a></li>
+      <li>Next: <a href="graphql.html" title="next chapter">Using the GraphQL-API</a></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2023, Aldi Doanta Kurnia, Bernard Johannes Willemsen, Nick Wolters, Rafael Dulfer, Tom Grooters.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 6.1.3</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.13</a>
+      
+      |
+      <a href="../_sources/usage/elasticWrap.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

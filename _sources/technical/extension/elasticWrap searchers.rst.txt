@@ -1,0 +1,95 @@
+Adding searchers for custom data ElasticSearch patterns
+=======================================================
+
+Defining a domain-specific search client for ElasticWrap is relatively simple, one can simply inherit from the generic ``SearchInterface`` and must only specify 2 elements:
+
+1. The document structure
+2. How to anonymize the data by implementing ``anonymize_data``.
+
+Defining the Data
+-----------------
+For the purposes of type checking and to make it easier to know what data you are working with, it is recommended to define the data structure of a document as a `TypedDict`. 
+
+It is important to note here that these data structures are not checked at runtime. This was a decision made to ensure that users can freely modify the data locally without having to worry about
+being constrained by a specific structure. This does introduce an implicit assumption that every document in an index has the exact same structure. If a document with a wholly different structure is entered, it may cause runtime errors in the future (though simply leaving out some keys/adding a few others should not be an issue.)
+
+Common Data Structures
+~~~~~~~~~~~~~~~~~~~~~~
+First, it is important to understand some common data structures found when using Perceval+ElasticSearch. These common data structures are already implemented
+in ``ElasticWrap`` and are the most likely candidate for extension.
+
+ElasticSearch
+"""""""""""""
+At the top level, we have the generic structure for any document as returned by ``ElasticSearch``, which looks as follows:
+
+.. code-block:: python
+
+	{
+		_type: str,
+		_score: float,
+		_id: str,
+		_index: str,
+		_source: SourceDocument
+	}
+
+This structure is defined by the existing ``Document`` ``TypedDict``. A variant, ``PostDocument`` defines the structure for sending data to ES (which is exactly the same, except without the ``_type`` and ``_score`` fields and with ``_id`` being optional). 
+
+Most of these fields are simply metadata, with the most interesting one being ``_source``. This field contains the actual source data of the returned document. In terms of ``ElasticWrap`` we define this field to be of the type ``SourceDocument | Dict[str, Any]``. ``SourceDocument`` is simply an empty ``TypedDict`` and if your data originates 
+from anywhere except for ``Perceval``, it is the class you want to implement (the ``Dict[str, Any]`` definition is for unknown/unstructured data).
+
+Perceval
+""""""""
+Perceval retrieves data from various data sources, but it always provides metadata in the same way. The structure of which being as follows:
+
+.. code-block:: python
+
+	{
+		backend_name: str
+	    backend_version: str
+	    perceval_version: str
+	    timestamp: float
+	    origin: str
+	    uuid: str
+	    updated_on: float
+	    classified_fields_filtered: Optional[List[str]]
+	    category: str
+	    search_fields: dict
+	    tag: str
+	    metadata__updated_on: str
+	    metadata__timestamp: str
+	    data: PercevalDataDocument
+	}
+
+This structure is defined by the existing ``PercevalSourceDocument``. We are mostly interested in the ``data`` field, which contains the actual data Perceval has retrieved.
+This field is defined to be a ``PercevalDataDocument``, which is the class you will want to extend when dealing with Perceval data.
+
+Actually Defining The Data
+~~~~~~~~~~~~~~~~~~~~~~~~~~
+Once you have established whether the data you are getting comes from Perceval or not, it is time to implement your data structure. Simply create a new class which inherits from either ``PercevalDataDocument`` or ``SourceDocument`` and define the data as needed using the `TypedDict <https://docs.python.org/3/library/typing.html#typing.TypedDict>`_ format. 
+
+Because ``Document``, ``PostDocument`` and ``PercevalSourceDocument`` are defined as generic types, defining the final document structure is simple. Let us have created our new class ``Foo``.
+
+* If ``Foo`` is a ``SourceDocument`` then define
+	* ``FooSourceDocument = Foo`` (this is optional, but we write it this way for the manual to keep it general)
+	* ``FooDocument = Document[FooSourceDocument]``
+* If ``Foo`` is a ``PercevalDataDocument`` then define 
+	* ``FooSourceDocument = PercevalSourceDocument[Foo]``
+	* ``FooDocument = Document[FooSourceDocument]``
+
+Congratulations, you have now defined the data structure in a way that it can be easily reused by ElasticWrap and understood by most type checkers.
+
+Creating the Search Client
+--------------------------
+Now that we have defined our ``FooDocument`` and ``FooSourceDocument``. We can finally implement our search client. Simply create a new class as follows:
+
+.. code-block:: python
+
+	class FooClient(SearchInterface[FooDocument]):
+
+		def __init__(self, client):
+			super().__init__(client, "foo", "Elasticwrap_Foo")
+
+		def anonymize_data(self, data: FooSourceDocument):
+			...
+
+Congratulations! You have now created a basic search client. For the constructor, the ``client`` argument that is passed should be your main ``ElasticWrap`` object. In our example, ``"foo"`` is the namespace for this client and ``"Elasticwrap_Foo"`` is just the name for the logger. You can now add more methods as you deem necessary for this search client.

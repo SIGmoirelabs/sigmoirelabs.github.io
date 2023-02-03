@@ -1,0 +1,169 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+
+    <title>Descriptive: An Architectural View of The Paw &#8212; PAW-Manual  documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/alabaster.css" />
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/sphinx_highlight.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Grimoirelab" href="grimoirelab.html" />
+    <link rel="prev" title="PAW Technical Manual" href="../index.html" />
+   
+  <link rel="stylesheet" href="../../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <section id="descriptive-an-architectural-view-of-the-paw">
+<h1>Descriptive: An Architectural View of The Paw<a class="headerlink" href="#descriptive-an-architectural-view-of-the-paw" title="Permalink to this heading">¶</a></h1>
+<p>This section of the technical manual is intended to porvide high-level explanations and justifications for each of the major PAW components. The main purpose of this section is to provide context to the more specific issues discussed in the extension and maintainance sections.</p>
+<section id="overview">
+<h2>Overview:<a class="headerlink" href="#overview" title="Permalink to this heading">¶</a></h2>
+<section id="component-based">
+<h3>Component-based:<a class="headerlink" href="#component-based" title="Permalink to this heading">¶</a></h3>
+<img alt="Layerd diagram of the PAW from a component view" src="../../_images/architecture_not_sketch.svg" /></section>
+<section id="elasticwrap-internals">
+<h3>ElasticWrap internals:<a class="headerlink" href="#elasticwrap-internals" title="Permalink to this heading">¶</a></h3>
+<img alt="../../_images/architecture_elasticWrap.svg" src="../../_images/architecture_elasticWrap.svg" /></section>
+</section>
+<section id="detailed-sections-on-specific-components">
+<h2>Detailed sections on specific components:<a class="headerlink" href="#detailed-sections-on-specific-components" title="Permalink to this heading">¶</a></h2>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="grimoirelab.html">Grimoirelab</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="grimoirelab.html#what-is-a-grimoirelab">What is a Grimoirelab?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="grimoirelab.html#overview">Overview</a></li>
+<li class="toctree-l2"><a class="reference internal" href="grimoirelab.html#why-grimoirelab">Why Grimoirelab?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="grimoirelab.html#changes-to-grimoirelab">Changes to Grimoirelab</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="multi-mordred.html">Multi-Mordred</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="multi-mordred.html#what-is-a-multi-mordred">What is a multi-mordred?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="multi-mordred.html#what-is-a-mordred">What is a Mordred?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="multi-mordred.html#overview">Overview:</a></li>
+<li class="toctree-l2"><a class="reference internal" href="multi-mordred.html#custom-scripts">Custom Scripts</a></li>
+<li class="toctree-l2"><a class="reference internal" href="multi-mordred.html#why-is-a-multi-mordred">Why is a multi-mordred?</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="elasticWrap.html">ElasticWrap</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="elasticWrap.html#why-is-elasticwrap">Why is elasticWrap?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="elasticWrap.html#overview">Overview</a></li>
+<li class="toctree-l2"><a class="reference internal" href="elasticWrap.html#elasticwraps-how-do-they-work">Elasticwraps, how do they work?</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="elasticWrap.html#namespaces">Namespaces</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="elasticWrap.html#search-clients">Search Clients</a></li>
+<li class="toctree-l2"><a class="reference internal" href="elasticWrap.html#datasources">DataSources</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="graphql-API.html">graphQL-API</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="graphql-API.html#why-is-the-graphql-api">Why is the graphql-API?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="graphql-API.html#how-does-the-api-work">how does the API work?</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</section>
+<section id="on-kibiter">
+<h2>On Kibiter<a class="headerlink" href="#on-kibiter" title="Permalink to this heading">¶</a></h2>
+<p>Kibiter is the custom Kibana extension Grimoirelab uses for data visualization. At time of delivery however kibiter requires an outdated version of ElasticSearch, and thus is not supported. In time this should be fixed however hence why it is still semi-included in the diagrams.</p>
+</section>
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../../index.html">PAW-Manual</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../introduction.html">Intro</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../usage/index.html">Usage</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">PAW Technical Manual</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Descriptive: An Architectural View of The Paw</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../maintainance/index.html">Maintainance: Maintaining The Paw</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../extension/index.html">Extension: Extending The PAW</a></li>
+</ul>
+</li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../../index.html">Documentation overview</a><ul>
+  <li><a href="../index.html">PAW Technical Manual</a><ul>
+      <li>Previous: <a href="../index.html" title="previous chapter">PAW Technical Manual</a></li>
+      <li>Next: <a href="grimoirelab.html" title="next chapter">Grimoirelab</a></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2023, Aldi Doanta Kurnia, Bernard Johannes Willemsen, Nick Wolters, Rafael Dulfer, Tom Grooters.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 6.1.3</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.13</a>
+      
+      |
+      <a href="../../_sources/technical/descriptive/index.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

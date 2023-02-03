@@ -1,0 +1,23 @@
+Adding retrievers for custom datasources
+========================================
+
+One extension that is likely desired is the addition of more Perceval retrievers. This will allow the PAW to read data from more sources.
+
+Defining the retriever
+----------------------
+In order to define a retriever, a new instance of `The Perceval Backend Interface <https://github.com/chaoss/grimoirelab-perceval/blob/master/perceval/backend.py>`_ has to be created.
+
+Adding the retriever
+--------------------
+Now, in order to have your retriever be recognized by Perceval, it needs to be placed at a sub-folder of ``perceval/backends/`` from the perspective of your pyproject.toml, since this is the folder which, upon launch, Perceval will scan for retrievers to use.
+
+For example, see the `Mozilla suite retrievers <https://github.com/chaoss/grimoirelab-perceval-mozilla>`_.
+
+
+Re-building with the retriever
+------------------------------
+So you have to re-build the PAW with a customized version of perceval which includes the new backend, // TODO figure out how to build the paw 
+
+Using the retriever
+-------------------
+Once the PAW has been rebuild with the custom backend, the retriever can be adressed via the mordred config file, and it's datasources annotated like any other backend.

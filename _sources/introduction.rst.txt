@@ -1,0 +1,20 @@
+Intro
+=====
+
+The PAW (Process Analysis Warehouse) is a toolstack meant to facilitate the analysis of software development processes. The PAW is build on `grimoirelab <https://chaoss.github.io/grimoirelab/>`_, an ecosystem of tools intended to gather data from and perform a host of analyses on a given software project. Besides the analysis methods inherrited from grimoirelab the PAW aims to provide a structure which more easily enables the introduction of new analysis methods, so that what currently may be described as grimorelab wrapped with support for plug-ins and build-in parralel intances, may in time grow out to be a true warehouse in its own right.
+
+Why is the PAW?
+---------------
+
+The PAW is intended to provide a structure that is able to perform process analysis for experimental (regarding the analysis technique), investigative (regarding the project in question) as well as benchmark purposes, ideally at the same time. To this end the PAW needed to be flexible, extensible, and able to scale to large amounts of data along with large amounts of projects. 
+
+The PAW was originally constructed by a group of masters students at the University of Twente for a course-project, comissioned by consulting company SIG, who were interested in a tool that would perform quantitative bulk-analysis on a software-development-process-level in a similar manner as their existing tools are able to perform on a code-quality-level. For more information on the construction process of the PAW, the course-mandated final report written by these students (us) should have been provided in addition to this manual.
+
+We are not the CHAOSS team.
+---------------------------
+Calling the PAW a `grimoirelab <https://chaoss.github.io/grimoirelab/>`_-wrapper, while perhaps reductive, is far from wrong. The vast majority of sheer features the PAW contents are inherrited from a different product by a different team with subtelly different goals and a somewhat different philosophy when it comes to what good quality software even looks like. For maintainability we have tried to keep their code and structure intact as much as possible, to the point where re-building the paw with a newer version of grimoirelab should generally be a safe proposition (that is, unless major architectural changes occur [1]_), and given the more high-level infrastructure of :doc:`technical/descriptive/multi-mordred` the PAW should (with at time of writing the exception of kibiter) be entirely backwards-compatible with grimoirelab. We would however like to take a moment to acknowledge that these differences may chafe, meaning that knowing whether it is a GrimoireLab- or PAW-Feature you are working with will likely prove informative when troubleshooting. Where they like configurations, we prefer interfaces; where they like inter-operability, we prefer modularity.
+
+.. rubric:: Footnotes
+
+.. [1] which have already occurred during the development of the PAW.
+

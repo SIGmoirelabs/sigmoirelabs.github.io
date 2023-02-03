@@ -1,0 +1,144 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+
+    <title>Extensions to the Build Process &#8212; PAW-Manual  documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/alabaster.css" />
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/sphinx_highlight.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Manually re-making the Custom Script Extension" href="customScript.html" />
+    <link rel="prev" title="Maintainance: Maintaining The Paw" href="index.html" />
+   
+  <link rel="stylesheet" href="../../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <section id="extensions-to-the-build-process">
+<h1>Extensions to the Build Process<a class="headerlink" href="#extensions-to-the-build-process" title="Permalink to this heading">¶</a></h1>
+<p>We have provided an example docker setup to quickly build the paw. For more info on simply building and using it, see <a class="reference internal" href="../../usage/getting%20started.html"><span class="doc">Getting Started</span></a>. This document will instead focus on possible extensions to the build process that may be wanted later.</p>
+<section id="production-environment">
+<h2>Production Environment<a class="headerlink" href="#production-environment" title="Permalink to this heading">¶</a></h2>
+<p>While our version of the deployment script is a quick way to get a development version up and running, you will likely want to have a production version at some point in the future. In order to create a proper production version, you should be aware of the following concepts:</p>
+<section id="production-elasticsearch">
+<h3>Production ElasticSearch<a class="headerlink" href="#production-elasticsearch" title="Permalink to this heading">¶</a></h3>
+<p>In order to set up ElasticSearch quickly, we set a bunch of environment variables which make the instance insecure and ineffecient. For a production version, you are best off following the <a class="reference external" href="https://www.elastic.co/guide/en/elasticsearch/reference/8.6/setup.html">Official ElasticSearch docs</a>.</p>
+</section>
+<section id="production-sortinghat">
+<h3>Production SortingHat<a class="headerlink" href="#production-sortinghat" title="Permalink to this heading">¶</a></h3>
+<p>The GrimoireLab stack uses a system called <code class="docutils literal notranslate"><span class="pre">sortinghat</span></code> for data enrichment purposes (mostly focused on identity management). At time of writing, <code class="docutils literal notranslate"><span class="pre">sortinghat</span></code> has just been converted to a new service-based architecture which is rather undocumented. Some tips for creating a production version:</p>
+<ol class="arabic simple">
+<li><p>SortingHat uses Django under the hood. Many <a class="reference external" href="https://docs.djangoproject.com/en/4.1/ref/settings/">Django settings</a> can be set using environment variables if you prepend the key with <code class="docutils literal notranslate"><span class="pre">SORTINGHAT</span></code>.</p></li>
+<li><p>SortingHat has an internal HTTP server that runs on port 8000 which we enable by setting <code class="docutils literal notranslate"><span class="pre">DEV_FLAG=1</span></code>. In a production environment, you would probably want to spin up a seperate docker image that runs <code class="docutils literal notranslate"><span class="pre">nginx</span></code>/<code class="docutils literal notranslate"><span class="pre">apache</span></code>/some other webserver instead. If you do, remove the <code class="docutils literal notranslate"><span class="pre">DEV_FLAG</span></code> environment variable and point the proxy webserver to port <code class="docutils literal notranslate"><span class="pre">http://sortinghat:9314</span></code>. You can remove the exposed port <code class="docutils literal notranslate"><span class="pre">8000</span></code>, as it is no longer used.</p></li>
+</ol>
+</section>
+</section>
+<section id="changes-in-dependencies">
+<h2>Changes in Dependencies<a class="headerlink" href="#changes-in-dependencies" title="Permalink to this heading">¶</a></h2>
+<p>The python dependencies for the multi-mordred container are installed using the <code class="docutils literal notranslate"><span class="pre">deployment/docker/requirements.txt</span></code> file. If you want to add a new python dependency (for example for a custom script), you can simply add it here. If you want to use a fork of a grimoirelab tool (for example, a fork of Perceval because new retrievers were added), you can simply change the line getting that tool. Inside of the <code class="docutils literal notranslate"><span class="pre">requirements.txt</span></code> you have access to the <code class="docutils literal notranslate"><span class="pre">${GITHUB_TOKEN}</span></code> and <code class="docutils literal notranslate"><span class="pre">${GITHUB_USER}</span></code> environment variables in order to install from a private repository.</p>
+</section>
+<section id="updating-multimordred">
+<h2>Updating MultiMordred<a class="headerlink" href="#updating-multimordred" title="Permalink to this heading">¶</a></h2>
+<p>MultiMordred is different in that it is not a tool or library, but is instead the script that the docker image runs. During building, the script is retrieved from github and downloaded into the container, which then runs it. If you want to update the multimordred script, you will have to rebuild the multimordred container. Generally, this can be achieved using <code class="docutils literal notranslate"><span class="pre">docker-compose</span> <span class="pre">build</span> <span class="pre">--no-cache</span></code>. However, sometimes Docker decides to cache the files it retrieves from github, even if you use the <code class="docutils literal notranslate"><span class="pre">--no-cache</span></code> flag. You can be sure that it will grab the latest version by first running <code class="docutils literal notranslate"><span class="pre">docker</span> <span class="pre">system</span> <span class="pre">prune</span></code>, which will remove all unused docker containers on your system and also flush the docker cache.</p>
+</section>
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../../index.html">PAW-Manual</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../introduction.html">Intro</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../usage/index.html">Usage</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">PAW Technical Manual</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../descriptive/index.html">Descriptive: An Architectural View of The Paw</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="index.html">Maintainance: Maintaining The Paw</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../extension/index.html">Extension: Extending The PAW</a></li>
+</ul>
+</li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../../index.html">Documentation overview</a><ul>
+  <li><a href="../index.html">PAW Technical Manual</a><ul>
+  <li><a href="index.html">Maintainance: Maintaining The Paw</a><ul>
+      <li>Previous: <a href="index.html" title="previous chapter">Maintainance: Maintaining The Paw</a></li>
+      <li>Next: <a href="customScript.html" title="next chapter">Manually re-making the Custom Script Extension</a></li>
+  </ul></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2023, Aldi Doanta Kurnia, Bernard Johannes Willemsen, Nick Wolters, Rafael Dulfer, Tom Grooters.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 6.1.3</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.13</a>
+      
+      |
+      <a href="../../_sources/technical/maintainance/building.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

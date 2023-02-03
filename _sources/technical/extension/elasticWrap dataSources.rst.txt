@@ -1,0 +1,26 @@
+Adding ElasticWrap support for custom data formats
+==================================================
+
+When using ElasticWrap, data is generally returned in the form of defined ``Document``-s. However, sometimes you will want to work with other data formats. At time
+of writing there exists support for converting this data to a generic ``Dict`` or to a pandas ``DataFrame``. If other formats are desired, however, one can use the generic
+``DataSource`` interface to quickly add support.
+
+How to implement DataSource
+---------------------------
+
+Say we want to implement support for a data format ``Foo``, simply create the following class:
+
+.. code-block:: python
+	
+	class FooSource(DataSource[Foo]):
+
+		@override
+		def read_documents(self, index_name: str):
+			...
+
+		@staticmethod
+		@override
+		def convert_documents(data) -> Iterator[Foo]:
+			...
+
+Where ``read_documents`` is a method to convert data (provided in ``self.data``) into a proper ``PostDocument`` and ``convert_documents`` is a method to convert an iterable of documents into an iterator of ``Foo``.

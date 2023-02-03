@@ -1,0 +1,16 @@
+Long-term maintainance with regards to PAW-Architecture
+=======================================================
+Naturally the PAW was designed with an intention of longjevity, however especially as development draws to a close we foresee a handfull of changes that in time are likely to be desirable.
+
+Cutting out the problem-chirden of Grimoirelab
+----------------------------------------------
+As the PAW matures, we expect the library of custom scripting to grow much faster than the library of inherited Grimoirelab enrichment features. In time then, the role of a single mordred instance will shrink to merely performing a percival-call followed by running some custom code. The development process of grimoirelab can be opaque at times, which could pose a particular issue when it comes to long-term support. To this end we highly reccommend that once the library of custom features has grown to the point where it justifies the PAW's existance in it's own right, to replace Mordred by a custom piece of software; dropping the reliance on the full Grimoirelab stack, moving forward with only percival instead, possibly harvesting their enrichment features from the GrimoireELK repository. 
+
+The role of ElasticWrap
+-----------------------
+ElasticWrap in the PAW currently functions as a store of internal memory, data is entered with the help of Percival, and retrieved with elasticWrap, possibly via the graphql-API. This means that all data has to be copied over into ElasticSearch before it can be utilised in the PAW. The only qualification ElasticSearch has to fullfill this function over any other is the absent requirement for formally structured data, allowing virtually any data to be stored as needed without reconfiguration. If all the data is already stored in a format that supports this this duplication is unnescecary and wastefull. Replacing ElasticSearch with a different technology may, depending on how different the query interface is, not be trivial however. If mordred and grimoireELK are still in use, mordred is responsible for adding the percival-retrieved JSON data to the datastore, while the enrichment scripts of grimoireELK appear in no way standardized in terms of their data retrieval and updating pipelines. For elasticWrap however, once a new variation of the searcher interface is introduced, returning a new variation of Document (similar to the existant REST-Documents), this new support should propagate to the datasources and Graphql-API.
+
+Kibiter support
+---------------
+Kibiter, at time of writing, is no longer supported by the PAW due to kibiter requiring an outdated version of ElasticSearch. In theory this issue should be solved in time by the CHAOSS team themselves, though even if it is, kibiter has barely seen any attention during the development process, so while the initial exploration did not note any reason our changes to GrimoireLab would somehow break kibiter compatibility, there have been no successfull integration tests showing that multi-Mordred does not somehow fundamentally confuse kibiter in an irreconcileable way.
+

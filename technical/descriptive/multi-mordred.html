@@ -1,0 +1,145 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+
+    <title>Multi-Mordred &#8212; PAW-Manual  documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/alabaster.css" />
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/sphinx_highlight.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="ElasticWrap" href="elasticWrap.html" />
+    <link rel="prev" title="Grimoirelab" href="grimoirelab.html" />
+   
+  <link rel="stylesheet" href="../../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <section id="multi-mordred">
+<h1>Multi-Mordred<a class="headerlink" href="#multi-mordred" title="Permalink to this heading">¶</a></h1>
+<p>While multi-Mordred does not cover the PAW as a whole, it does represent the core processing entity handling nearly all the other components.</p>
+<section id="what-is-a-multi-mordred">
+<h2>What is a multi-mordred?<a class="headerlink" href="#what-is-a-multi-mordred" title="Permalink to this heading">¶</a></h2>
+<p>Multi-Mordred’s container represents a modified version of the <a class="reference internal" href="grimoirelab.html"><span class="doc">Grimoirelab</span></a> container featuring multi-morderd itself. A tool for starting and managing multiple parrallel instances of Morded, the Grimoirelab orchestrator, each with their own configuration, extended to support custom code as part of the process.</p>
+</section>
+<section id="what-is-a-mordred">
+<h2>What is a Mordred?<a class="headerlink" href="#what-is-a-mordred" title="Permalink to this heading">¶</a></h2>
+<p>Mordred is the Grimoirelab orchestrator. Internally it’s a scheduler, scheduling tasks associated with each of the phases, launching programs from the Grimoirelab ecosystem in accordance with these tasks. It chooses which of these programs to run based on a configuration file listing “backends” with optionally listed parameters or “studies”. These are internally associated with preset combinations of retrieval programs, and Cereslib/GrimoirelabELK-files to run.</p>
+</section>
+<section id="overview">
+<h2>Overview:<a class="headerlink" href="#overview" title="Permalink to this heading">¶</a></h2>
+<p>legend:</p>
+<img alt="../../_images/architecture_not_sketch_legend.svg" src="../../_images/architecture_not_sketch_legend.svg" /><p>The Multi-Mordred container:</p>
+<img alt="../../_images/architecture_not_sketch_Multi-Mordred.svg" src="../../_images/architecture_not_sketch_Multi-Mordred.svg" /><p>Mordred:</p>
+<img alt="../../_images/architecture_not_sketch_Mordred.svg" src="../../_images/architecture_not_sketch_Mordred.svg" /></section>
+<section id="custom-scripts">
+<h2>Custom Scripts<a class="headerlink" href="#custom-scripts" title="Permalink to this heading">¶</a></h2>
+<p>Since Mordred in it’s native form merely chooses which Programs in it’s container to run at what time with which arguments, it natively does not support making any custom code part of the process.
+To enable the introduction of custom enrichment methods without requiring the rebuilding of the container, the version of mordred used in multi-mordred is extended with a custom script step.
+To further increase the accessibility of experimentation within the PAW, <a class="reference internal" href="elasticWrap.html"><span class="doc">ElasticWrap</span></a> was created and comes pre-installed into the multi-mordred container, making it available to any custom scripts.</p>
+</section>
+<section id="why-is-a-multi-mordred">
+<h2>Why is a multi-mordred?<a class="headerlink" href="#why-is-a-multi-mordred" title="Permalink to this heading">¶</a></h2>
+<p>Taken as a whole, multimordred is intended to solve two related issues with grimoirelab in the context of the PAW, the first of which being scalability, as previously multiple unrelated analysis projects were required to either share a configuration file, requiring the container to be restarted (which is not a clean process process); multiple seperate containers, or a highly specialized environment to run grimoirelab on bare metal.
+Initially the only options for introducing custom enrichment into grimoireLab was either the aformentioned highly specialized bare-metal environment, or getting your custom code approved for merging into GrimoireLabELK, as GrimoireLab does not provide a method for building a docker image from local code. The custom script task is intended to make experimentation with the PAW accessible.</p>
+</section>
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../../index.html">PAW-Manual</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../introduction.html">Intro</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../usage/index.html">Usage</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">PAW Technical Manual</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="index.html">Descriptive: An Architectural View of The Paw</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../maintainance/index.html">Maintainance: Maintaining The Paw</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../extension/index.html">Extension: Extending The PAW</a></li>
+</ul>
+</li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../../index.html">Documentation overview</a><ul>
+  <li><a href="../index.html">PAW Technical Manual</a><ul>
+  <li><a href="index.html">Descriptive: An Architectural View of The Paw</a><ul>
+      <li>Previous: <a href="grimoirelab.html" title="previous chapter">Grimoirelab</a></li>
+      <li>Next: <a href="elasticWrap.html" title="next chapter">ElasticWrap</a></li>
+  </ul></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2023, Aldi Doanta Kurnia, Bernard Johannes Willemsen, Nick Wolters, Rafael Dulfer, Tom Grooters.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 6.1.3</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.13</a>
+      
+      |
+      <a href="../../_sources/technical/descriptive/multi-mordred.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

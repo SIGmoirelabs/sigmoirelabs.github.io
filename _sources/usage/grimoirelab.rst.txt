@@ -1,0 +1,13 @@
+Using GrimoireLab-native Features
+=================================
+
+The PAW is built primarily upon `GrimoireLab <https://chaoss.github.io/grimoirelab/>`_, an ecosystem of tools intended to aid with gathering data regarding to the open source development process. :doc:`../technical/descriptive/multi-mordred` is intended to be fully backwards compatible with the configurations for grimoirelabs' mordred.
+
+While the tools in Grimoirelab can be used individually, the orchestration tool, Mordred, provides a collection of configurable presets combining specific data gathering processes and enrichment scripts. a full list of these presets can be found `here <https://chaoss.github.io/grimoirelab-tutorial/docs/data-sources/configurations/>`_.
+
+Using GrimoireLab-native Features with :doc:`ElasticWrap <../technical/descriptive/elasticWrap>`
+------------------------------------------------------------------------------------------------
+
+Of note is that the 'commits' search client provided with ElasticWrap assumes the data format associated with using Percival on git data without enrichment. As such you may wish to either use the ``GenericSearchClient`` and constructing the searches by hand, or you may also want to consider :doc:`../technical/extension/elasticWrap searchers`. For more information on search clients see: :ref:`technical/descriptive/elasticWrap:search clients`.
+
+//  TODO make an examle

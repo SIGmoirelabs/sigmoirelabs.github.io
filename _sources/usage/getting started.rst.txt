@@ -1,0 +1,68 @@
+Getting Started
+===============
+
+For ease of use, we have supplied a simple startup script to get a development instance of the PAW running. Simply run ``start_paw_docker.sh`` to start. In order to be able to retrieve :doc:`../technical/descriptive/multi-mordred` and :doc:`../technical/descriptive/elasticWrap` you will be asked to supply a `Github Authentication Token <https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/creating-a-personal-access-token>`_ and username. Make sure it has at least READ access to the ``SIGmoirelabs/multi-mordred-wrapper`` and ``SIGmoirelabs/elasticwrap`` repositories.
+
+NOTE: The script will modify the following system values to make sure Redis and ElasticSearch are running properly:
+
+* ``vm.max_map_count=262144``
+* ``vm.overcommit_memory=1``
+
+The script will automatically start the docker containers. If you want, you can set these values manually and simply go into the ``deployment`` folder and run ``docker-compose up``.
+
+It may take some time for all the containers to start. This is because we must ensure that ``redis`` and ``mariadb`` are running before we can properly start ``sortinghat`` and ``multi-mordred``. 
+
+------------------------
+Setting up Multi-mordred
+------------------------
+For a quickstart, you can create a ``deployment/mordred_data`` directory and move the ``quickstart/setup.cfg`` and ``quickstart/projects.json`` files into it. Then after the containers are all up, run ``telnet localhost 15555`` and run the following commands:
+
+``
+new demo /data/setup.cfg
+start demo
+``
+
+This will start a mordred instance which gets data from the projects defined in ``projects.json`` and enriches them. The raw data can be found in the ``demo_git`` index, whereas enriched data can be found in ``demo_git_enriched``, ``demo_git_enriched_aoc`` and ``demo_git_enriched_onion``.
+
+Assuming you are using our example development docker-compose, you will now have 2 new directories in the ``deployment`` folder: ``ES`` and ``mordred_data``. The ``ES`` folder simply stores all the ElasticSearch data and can be an easy way to delete data for testing purposes. The ``mordred_data`` folder is mounted in the ``multi-mordred`` container to ``/data/``. Any files you want to provide to multi-mordred can be thrown in this folder.  
+
+-----------------------------------------
+step-by-step: your first analysis project
+-----------------------------------------
+So now that we have the multi-mordred container up and running we can provide it with configuration files to create a copy of mordred and perform an analysis project.
+
+projects.json: defining datasources
+-----------------------------------
+The projects.json file defines all the data that can be queried by this analysis project, divided by type. The specific type string indicates which percival retriever (or "backend") will be used te retrieve the data. While most retrievers simply retrieve data from a specific source, i.e. git vs slack vs jira, some retrievers already do some degree of analysis, or are purpose-build for specific later analysis-scripts (the retrievers introduced by arthur and graal for instance). 
+
+//TODO example
+
+conf.cfg: defining project pramaters
+------------------------------------
+The second file any mordred clone will need is the a general configuration. This file will describe the locations of and credentials to external resources, as well as describing which tasks should be executed.
+
+//TODO example
+
+for more on configuration options see: :doc:`grimoirelab`.
+
+helloWorld.py: adding custom scripting
+--------------------------------------
+One of the features added to multi-mordred over regular mordred is the ability to run arbitrary code as part of the data collection and processing pipeline. If the 'custom'-phase is enabled in the .cfg file then a script can be specified which will be run after the build-in enrichment methods but before data visualization is configured.
+
+//TODO example
+
+for more on this see: :doc:`custom scripts`.
+
+Starting a new mordred instance
+-------------------------------
+Now that all of the required files have been provided, we can call multi-mordred to start a new mordred intsance and run the specified analysis.
+
+//TODO how
+
+accessing results via graphql
+-----------------------------
+Kibiter may not play nice with customized enrichment however, so the main intended method for retrieving processed data from the PAW is through the graphql API. A querrying system intended to be usable without any programming.
+
+//todo how to
+
+for more on this see: :doc:`graphql`.

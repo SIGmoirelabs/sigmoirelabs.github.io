@@ -1,0 +1,9 @@
+Maintainance: Maintaining The Paw
+=================================
+This section is a collection of detailed guides on solving specific maintenance issues we foresee with the PAW.
+
+.. toctree::
+
+   building
+   customScript
+   architecture

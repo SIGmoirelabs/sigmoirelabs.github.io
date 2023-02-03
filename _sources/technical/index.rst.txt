@@ -1,0 +1,10 @@
+PAW Technical Manual
+====================
+
+Welcome to the PAW Technical Manual! This section of the manual is intended for those seeking to maintain or extend the PAW. The technical manual is broken up into three parts: Descriptive, explaining how the PAW exists and the architectural descicionts that went into it; Maintainance, listing key areas of concern w.r.t. maintainability, along with guides listing the steps that are expected to be required to solve the expected issues; and Extension, highlighting pieces of the paw purpose-built to be extensible, while explaining the framework in place to extend these areas.
+
+.. toctree::
+
+   descriptive/index
+   maintainance/index
+   extension/index
