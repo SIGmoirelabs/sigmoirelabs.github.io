@@ -34,8 +34,114 @@
             
   <section id="using-the-graphql-api">
 <h1>Using the GraphQL-API<a class="headerlink" href="#using-the-graphql-api" title="Permalink to this heading">¶</a></h1>
-<p>This page should explain how and why to use the Grahpql api. Probably referring to the dedicated graphql-api documentation and the examples.</p>
-<p>//TODO justifications of using GraphQL API, basic concepts of a GraphQL query, and query examples</p>
+<p>This page talks about the inner working of GraphQL API and why to use the Grahpql API.
+It consist of describing each of the existand functionalities and the technical components to make it functional.
+Also the integration with the ElasticWrap will also be discussed.</p>
+<section id="why-use-graphql-api">
+<h2>Why use GraphQL-API?<a class="headerlink" href="#why-use-graphql-api" title="Permalink to this heading">¶</a></h2>
+<p>The main purpose for the GraphQL API (also called grimoire-api), is to facilitate an easier solution for querying data,
+and make interaction with the data more accessible to data scientist. Currently there already is an integration to make
+interacting with the database(currently ElasticSearch) easier, by importing a library which makes it possible to create code
+to retrieve data from the database like an ORM. However, this presuposse the knowledge of Python, which some data scientist or
+even other member of the SIG team might either not know or aren’t well experienced with. Therefor creating an API which can facilitate
+in easier interaction with the database through simple queries, makes it more accessable to other members.</p>
+<p>The reason for choosing GrahpQL specificcaly, is that some within SIG already have experience using the tooling. Another reason
+is that creating an instance of GraphQL is pretty easy to facilitate, and can be developed by multiple programing
+languages. However, since most of the Grimoire suite has been developed in python, we have choosen to specifically use
+Graphene, a GraphQL Python implementation to develop.</p>
+</section>
+<section id="technical-implementation-of-graphql-api">
+<h2>Technical implementation of GraphQL-API.<a class="headerlink" href="#technical-implementation-of-graphql-api" title="Permalink to this heading">¶</a></h2>
+<p>As mentioned before we’ll use Graphene to implement GraphQL. On the deployment side we’ll make use of Django to create a server
+to run GraphQL on. Before you start use grimoire api you’ll need to have installed the following libraries and package</p>
+<ul>
+<li><p>Python 3.6 or newer, and pip to install packages</p></li>
+<li><p>Virtualenv to run Graphene on.</p></li>
+<li><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">pip install django graphene-django</span>
+</pre></div>
+</div>
+</li>
+</ul>
+<p>Currently there are two classes on which a member of SIG can query, mainly the commit messages and indices of grimoirelab.
+Each of them has a module class which is based upon django database models, an example of which is the following:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Create your models here.</span>
+<span class="k">class</span> <span class="nc">Commit</span><span class="p">(</span><span class="n">models</span><span class="o">.</span><span class="n">Model</span><span class="p">):</span>
+    <span class="n">date</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span><span class="n">max_length</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
+    <span class="n">message</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span><span class="n">max_length</span><span class="o">=</span><span class="mi">250</span><span class="p">)</span>
+    <span class="n">name</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span><span class="n">max_length</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>
+    <span class="n">repo</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span><span class="n">max_length</span><span class="o">=</span><span class="mi">50</span><span class="p">)</span>
+    <span class="n">title</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span><span class="n">max_length</span><span class="o">=</span><span class="mi">50</span><span class="p">)</span>
+    <span class="n">url_id</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span><span class="n">max_length</span><span class="o">=</span><span class="mi">200</span><span class="p">)</span>
+    <span class="n">commit_id</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span><span class="n">max_length</span><span class="o">=</span><span class="mi">200</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">title</span>
+</pre></div>
+</div>
+<p>You can add Strings in the form of CharFields, but also numbers(integers, floats, ect.) but also objects as dates.
+These models will be used as input/output to and from GraphQl.</p>
+<p>When a developer adds addtional changes to grimoire-api, they have to perform migrations of the model. To do this
+you’ll need the following commands:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>python<span class="w"> </span>manage.py<span class="w"> </span>makemigrations
+<span class="gp">$ </span>python<span class="w"> </span>manage.py<span class="w"> </span>migrate
+</pre></div>
+</div>
+<p>Lastly if you want to upload data to the django server, for example for testing purposes you can make use of this command:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">python manage.py loaddata filename.json</span>
+</pre></div>
+</div>
+</section>
+<section id="how-to-use-graphql">
+<h2>How to use GraphQL?<a class="headerlink" href="#how-to-use-graphql" title="Permalink to this heading">¶</a></h2>
+<p>To run grimoire-api, you first have to deploy the server using the following command.</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">python manage.py runserver</span>
+</pre></div>
+</div>
+<p>It will then provide you a django instace with a url, most time the url is :ref:’http://127.0.0.1:8001/’</p>
+<p>You will get to see the following page:</p>
+<img alt="../_images/graphql-example.png" src="../_images/graphql-example.png" />
+<p>You can run two different commands while using graphql, those are queries and mutations. The queries are mainly GET
+request queries to retrieve the data from the ElasticSearch database. And example of such a query is the following</p>
+<p>With the following query :</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">query {</span>
+<span class="go">    allIndices {</span>
+<span class="go">        indexName</span>
+<span class="go">    }</span>
+<span class="go">}</span>
+</pre></div>
+</div>
+<p>You get the following result.</p>
+<img alt="../_images/graphql-indices.png" src="../_images/graphql-indices.png" />
+<p>The same can be done for mutations, which are other CRUD operations on both the Indices and Commits.
+You’ll have to replace query by mutations and add the rest to perform the query.</p>
+<p>Lastly to create query, you can go to the manual section of the right side of the GraphQL UI, and you’ll see the different
+option that are avaialbe for both the query and mutation options.</p>
+</section>
+<section id="integration-of-graphql-and-elasticwrap">
+<h2>Integration of GraphQL and ElasticWrap<a class="headerlink" href="#integration-of-graphql-and-elasticwrap" title="Permalink to this heading">¶</a></h2>
+<p>For both the query and migration we have some controller classes which take care of the communicaiton with the user of
+grimoire api. However, to facilitate the interaction we already have ElasticWrap which takes care of such a function.
+Therefor instead of directly communcating with the database, we decided to use ElasticWrap as an intermiadte to facilitate
+the communicaiton between the ElasticSearch and GraphQL. An example of such an API route is the following:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">resolve_all_commits_of_index</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">info</span><span class="p">,</span> <span class="n">project_name</span><span class="p">):</span>
+   <span class="n">elasticwrap</span> <span class="o">=</span> <span class="n">ElasticWrap</span><span class="p">(</span><span class="n">hosts</span><span class="o">=</span><span class="n">settings</span><span class="o">.</span><span class="n">ELASTICSEARCH_HOST</span><span class="p">)</span>
+   <span class="n">documents</span> <span class="o">=</span> <span class="n">elasticwrap</span><span class="o">.</span><span class="n">commits</span><span class="o">.</span><span class="n">search</span><span class="p">([</span><span class="n">project_name</span><span class="p">],</span> <span class="n">query</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;match_all&quot;</span><span class="p">:</span> <span class="p">{}})</span>
+   <span class="n">commits</span> <span class="o">=</span> <span class="nb">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">document</span><span class="p">:</span> <span class="n">Commit</span><span class="p">(</span>
+       <span class="n">date</span><span class="o">=</span><span class="n">document</span><span class="p">[</span><span class="s1">&#39;_source&#39;</span><span class="p">][</span><span class="s1">&#39;data&#39;</span><span class="p">][</span><span class="s1">&#39;CommitDate&#39;</span><span class="p">],</span>
+       <span class="n">message</span><span class="o">=</span><span class="n">document</span><span class="p">[</span><span class="s1">&#39;_source&#39;</span><span class="p">][</span><span class="s1">&#39;data&#39;</span><span class="p">][</span><span class="s1">&#39;message&#39;</span><span class="p">],</span>
+       <span class="n">name</span><span class="o">=</span><span class="n">document</span><span class="p">[</span><span class="s1">&#39;_source&#39;</span><span class="p">][</span><span class="s1">&#39;data&#39;</span><span class="p">][</span><span class="s1">&#39;Commit&#39;</span><span class="p">],</span>
+       <span class="n">repo</span><span class="o">=</span><span class="n">document</span><span class="p">[</span><span class="s1">&#39;_source&#39;</span><span class="p">][</span><span class="s1">&#39;origin&#39;</span><span class="p">],</span>
+       <span class="n">commit_id</span><span class="o">=</span><span class="n">document</span><span class="p">[</span><span class="s1">&#39;_source&#39;</span><span class="p">][</span><span class="s1">&#39;data&#39;</span><span class="p">][</span><span class="s1">&#39;commit&#39;</span><span class="p">]),</span>
+       <span class="nb">list</span><span class="p">(</span><span class="n">documents</span><span class="p">)[</span><span class="mi">0</span><span class="p">])</span>
+   <span class="k">return</span> <span class="n">commits</span>
+</pre></div>
+</div>
+<p>This is a query function that retrieves all data on the commits from ElasticSearch. The first step is to astablish a connetction,
+with the Elas instance, which is done by creating an ElasticWrap instance which refers to the ElasticSearch database with the url.
+the next step is to use the multitude of fuction ElasticWrap has, in this case get all commits by search ing for a specifici project,
+in the code. Then the data is retrieved and formed in to a list of commits by using the Commit model, which is then returned and GraphQL formats
+that particular data to a JSON format.</p>
+</section>
 </section>
 
 

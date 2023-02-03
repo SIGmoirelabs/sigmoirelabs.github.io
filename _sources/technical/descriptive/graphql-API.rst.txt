@@ -1,8 +1,0 @@
-graphQL-API
-===========
-
-Why is the graphql-API?
------------------------
-
-how does the API work?
-----------------------
