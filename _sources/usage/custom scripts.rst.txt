@@ -44,7 +44,7 @@ To enable the custom script phase, add ``custom = true`` to the ``[phases]`` sec
 	collection = true
 	identities = true
 	enrichment = true
-	panels = true
+	panels = false
 	custom = true
 
 When running Grimoirelab through micro-mordred, you additionally have to provide the ``--custom-script`` flag.
