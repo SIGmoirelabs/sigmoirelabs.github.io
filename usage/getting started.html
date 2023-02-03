@@ -192,6 +192,10 @@ Additionally, you will need to generate a <a class="reference external" href="ht
 <section id="setting-up-multi-mordred">
 <h2>Setting up Multi-mordred<a class="headerlink" href="#setting-up-multi-mordred" title="Permalink to this heading">¶</a></h2>
 <p>For a quickstart, you can create a <code class="docutils literal notranslate"><span class="pre">deployment/mordred_data</span></code> directory and move the <code class="docutils literal notranslate"><span class="pre">quickstart/setup.cfg</span></code> and <code class="docutils literal notranslate"><span class="pre">quickstart/projects.json</span></code> files into it. Then after the containers are all up, run <code class="docutils literal notranslate"><span class="pre">telnet</span> <span class="pre">localhost</span> <span class="pre">15555</span></code> and run the following commands:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">new</span> <span class="n">demo</span> <span class="o">/</span><span class="n">data</span><span class="o">/</span><span class="n">setup</span><span class="o">.</span><span class="n">cfg</span>
+<span class="n">start</span> <span class="n">demo</span>
+</pre></div>
+</div>
 <p>This will start a mordred instance which gets data from the projects defined in <code class="docutils literal notranslate"><span class="pre">projects.json</span></code> and enriches them. The raw data can be found in the <code class="docutils literal notranslate"><span class="pre">demo_git</span></code> index, whereas enriched data can be found in <code class="docutils literal notranslate"><span class="pre">demo_git_enriched</span></code>, <code class="docutils literal notranslate"><span class="pre">demo_git_enriched_aoc</span></code> and <code class="docutils literal notranslate"><span class="pre">demo_git_enriched_onion</span></code>.</p>
 <p>Assuming you are using our example development docker-compose, you will now have 2 new directories in the <code class="docutils literal notranslate"><span class="pre">deployment</span></code> folder: <code class="docutils literal notranslate"><span class="pre">ES</span></code> and <code class="docutils literal notranslate"><span class="pre">mordred_data</span></code>. The <code class="docutils literal notranslate"><span class="pre">ES</span></code> folder simply stores all the ElasticSearch data and can be an easy way to delete data for testing purposes. The <code class="docutils literal notranslate"><span class="pre">mordred_data</span></code> folder is mounted in the <code class="docutils literal notranslate"><span class="pre">multi-mordred</span></code> container to <code class="docutils literal notranslate"><span class="pre">/data/</span></code>. Any files you want to provide to multi-mordred can be thrown in this folder.</p>
 </section>
@@ -201,20 +205,69 @@ Additionally, you will need to generate a <a class="reference external" href="ht
 <section id="projects-json-defining-datasources">
 <h3>projects.json: defining datasources<a class="headerlink" href="#projects-json-defining-datasources" title="Permalink to this heading">¶</a></h3>
 <p>The projects.json file defines all the data that can be queried by this analysis project, divided by type. The specific type string indicates which percival retriever (or “backend”) will be used te retrieve the data. While most retrievers simply retrieve data from a specific source, i.e. git vs slack vs jira, some retrievers already do some degree of analysis, or are purpose-build for specific later analysis-scripts (the retrievers introduced by arthur and graal for instance).</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+        <span class="s2">&quot;SIGmoirelabs&quot;</span><span class="p">:</span> <span class="p">{</span>
+      <span class="s2">&quot;meta&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s2">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;ElasticWrap&quot;</span>
+      <span class="p">},</span>
+      <span class="s2">&quot;git&quot;</span><span class="p">:</span> <span class="p">[</span>
+          <span class="s2">&quot;https://github.com/SIGmoirelabs/elasticwrap.git&quot;</span>
+        <span class="p">]</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
 </section>
 <section id="conf-cfg-defining-project-pramaters">
 <h3>conf.cfg: defining project pramaters<a class="headerlink" href="#conf-cfg-defining-project-pramaters" title="Permalink to this heading">¶</a></h3>
 <p>The second file any mordred clone will need is the a general configuration. This file will describe the locations of and credentials to external resources, as well as describing which tasks should be executed.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="n">general</span><span class="p">]</span>
+<span class="n">short_name</span> <span class="o">=</span> <span class="n">GrimoireLab</span>
+<span class="n">update</span> <span class="o">=</span> <span class="n">true</span>
+<span class="n">min_update_delay</span> <span class="o">=</span> <span class="mi">60</span>
+<span class="n">debug</span> <span class="o">=</span> <span class="n">false</span>
+<span class="n">logs_dir</span> <span class="o">=</span> <span class="o">/</span><span class="n">home</span><span class="o">/</span><span class="n">sigmoire</span><span class="o">/</span><span class="n">logs</span>
+<span class="n">bulk_size</span> <span class="o">=</span> <span class="mi">1000</span>
+<span class="n">scroll_size</span> <span class="o">=</span> <span class="mi">1000</span>
+<span class="n">aliases_file</span> <span class="o">=</span> <span class="o">/</span><span class="n">home</span><span class="o">/</span><span class="n">sigmoire</span><span class="o">/</span><span class="n">aliases</span><span class="o">.</span><span class="n">json</span>
+
+<span class="p">[</span><span class="n">projects</span><span class="p">]</span>
+<span class="n">projects_file</span> <span class="o">=</span> <span class="o">/</span><span class="n">data</span><span class="o">/</span><span class="n">projects</span><span class="o">.</span><span class="n">json</span>
+
+<span class="p">[</span><span class="n">es_collection</span><span class="p">]</span>
+<span class="n">url</span> <span class="o">=</span> <span class="n">http</span><span class="p">:</span><span class="o">//</span><span class="n">elasticsearch</span><span class="p">:</span><span class="mi">9200</span>
+
+<span class="p">[</span><span class="n">es_enrichment</span><span class="p">]</span>
+<span class="n">url</span> <span class="o">=</span> <span class="n">http</span><span class="p">:</span><span class="o">//</span><span class="n">elasticsearch</span><span class="p">:</span><span class="mi">9200</span>
+<span class="n">autorefresh</span> <span class="o">=</span> <span class="n">true</span>
+</pre></div>
+</div>
 <p>for more on configuration options see: <a class="reference internal" href="grimoirelab.html"><span class="doc">Using GrimoireLab-native Features</span></a> and <a class="reference external" href="https://github.com/chaoss/grimoirelab-sirmordred#setupcfg-">the official Mordred docs</a></p>
 </section>
 <section id="helloworld-py-adding-custom-scripting">
 <h3>helloWorld.py: adding custom scripting<a class="headerlink" href="#helloworld-py-adding-custom-scripting" title="Permalink to this heading">¶</a></h3>
 <p>One of the features added to multi-mordred over regular mordred is the ability to run arbitrary code as part of the data collection and processing pipeline. If the ‘custom’-phase is enabled in the .cfg file then a script can be specified which will be run after the build-in enrichment methods but before data visualization is configured.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="n">custom_script</span><span class="p">]</span>
+<span class="n">scriptsource</span> <span class="o">=</span> <span class="n">enrich</span><span class="o">.</span><span class="n">py</span>
+<span class="n">args</span> <span class="o">=</span> <span class="p">[</span><span class="n">arg1</span><span class="p">,</span> <span class="n">arg2</span><span class="p">]</span>
+</pre></div>
+</div>
 <p>for more on this see: <a class="reference internal" href="custom%20scripts.html"><span class="doc">Using Custom scripts</span></a>.</p>
 </section>
 <section id="starting-a-new-mordred-instance">
 <h3>Starting a new mordred instance<a class="headerlink" href="#starting-a-new-mordred-instance" title="Permalink to this heading">¶</a></h3>
 <p>Now that all of the required files have been provided, we can call multi-mordred to start a new mordred intsance and run the specified analysis.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ telnet localhost 15555
+Trying 127.0.0.1...
+Connected to localhost.
+Escape character is &#39;^]&#39;.
+multimordred wrapper, type commands for a list of available commands
+new demo /data/conf.cfg
+Created demo
+start demo
+Started
+</pre></div>
+</div>
 </section>
 <section id="accessing-results-via-graphql">
 <h3>accessing results via graphql<a class="headerlink" href="#accessing-results-via-graphql" title="Permalink to this heading">¶</a></h3>

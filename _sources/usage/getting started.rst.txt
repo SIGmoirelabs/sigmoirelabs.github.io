@@ -19,6 +19,7 @@ Setting up Multi-mordred
 For a quickstart, you can create a ``deployment/mordred_data`` directory and move the ``quickstart/setup.cfg`` and ``quickstart/projects.json`` files into it. Then after the containers are all up, run ``telnet localhost 15555`` and run the following commands:
 
 .. code-block::
+
         new demo /data/setup.cfg
         start demo
 
@@ -36,6 +37,7 @@ projects.json: defining datasources
 The projects.json file defines all the data that can be queried by this analysis project, divided by type. The specific type string indicates which percival retriever (or "backend") will be used te retrieve the data. While most retrievers simply retrieve data from a specific source, i.e. git vs slack vs jira, some retrievers already do some degree of analysis, or are purpose-build for specific later analysis-scripts (the retrievers introduced by arthur and graal for instance). 
 
 .. code-block::
+
         {
         	"SIGmoirelabs": {
               "meta": {
@@ -52,6 +54,7 @@ conf.cfg: defining project pramaters
 The second file any mordred clone will need is the a general configuration. This file will describe the locations of and credentials to external resources, as well as describing which tasks should be executed.
 
 .. code-block::
+
         [general]
         short_name = GrimoireLab
         update = true
@@ -79,6 +82,7 @@ helloWorld.py: adding custom scripting
 One of the features added to multi-mordred over regular mordred is the ability to run arbitrary code as part of the data collection and processing pipeline. If the 'custom'-phase is enabled in the .cfg file then a script can be specified which will be run after the build-in enrichment methods but before data visualization is configured.
 
 .. code-block::
+
         [custom_script]
         scriptsource = enrich.py
         args = [arg1, arg2]
@@ -90,6 +94,7 @@ Starting a new mordred instance
 Now that all of the required files have been provided, we can call multi-mordred to start a new mordred intsance and run the specified analysis. 
 
 .. code-block::
+
         $ telnet localhost 15555
         Trying 127.0.0.1...
         Connected to localhost.
