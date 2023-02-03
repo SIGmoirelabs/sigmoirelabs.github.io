@@ -24,7 +24,7 @@ GrimoireLab [2]_ in detail:
 Why Grimoirelab?
 ----------------
 Between Perceval already being capable of parsing a large number of data sources; and the large number of pre-made analyses available between Graal, Arthur and ELK+CeresLib; Grimoirelab promotes solutions to a significant portion of the engineering issues resulting from the PAW's requirements. So even though Grimoirelab by nature isn't particularly suited to scaling or experimentation, it was decided that inheriting these features would be worth the increased complexity over a from-scratch approach. 
-To address our concerns with scaling and experimentation, we created :doc:`elasticWrap`, :doc:`../../usage/graphql` and :doc:`multi-mordred`
+To address our concerns with scaling and experimentation, we created :doc:`elasticWrap`, :doc:`The GraphQL API <../../usage/graphql>` and :doc:`multi-mordred`
 
 Changes to Grimoirelab
 ----------------------
