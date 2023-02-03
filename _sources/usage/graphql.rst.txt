@@ -3,4 +3,4 @@ Using the GraphQL-API
 
 This page should explain how and why to use the Grahpql api. Probably referring to the dedicated graphql-api documentation and the examples.
 
-//TODO
+//TODO justifications of using GraphQL API, basic concepts of a GraphQL query, and query examples
