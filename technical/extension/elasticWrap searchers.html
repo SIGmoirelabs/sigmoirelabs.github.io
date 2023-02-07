@@ -1,73 +1,36 @@
-
-
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8" />
-  <meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  
   <title>Adding searchers for custom data ElasticSearch patterns &mdash; PAW-Manual  documentation</title>
-  
-
-  
-  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
-  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
-  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
-
-  
-  
-
-  
-  
-
-  
-
-  
+      <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
   <!--[if lt IE 9]>
     <script src="../../_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
-    
-      <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
         <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="../../_static/doctools.js"></script>
         <script src="../../_static/sphinx_highlight.js"></script>
-    
-    <script type="text/javascript" src="../../_static/js/theme.js"></script>
-
-    
+    <script src="../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
     <link rel="next" title="Adding ElasticWrap support for custom data formats" href="elasticWrap%20dataSources.html" />
     <link rel="prev" title="Adding retrievers for custom datasources" href="percival%20retrievers.html" /> 
 </head>
 
-<body class="wy-body-for-nav">
-
-   
+<body class="wy-body-for-nav"> 
   <div class="wy-grid-for-nav">
-    
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
-          
-
-          
             <a href="../../index.html" class="icon icon-home"> PAW-Manual
-          
-
-          
           </a>
-
-          
-            
-            
-          
-
-          
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
     <input type="text" name="q" placeholder="Search docs" />
@@ -75,18 +38,7 @@
     <input type="hidden" name="area" value="default" />
   </form>
 </div>
-
-          
-        </div>
-
-        
-        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
-          
-            
-            
-              
-            
-            
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
               <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../../introduction.html">Intro</a></li>
@@ -109,91 +61,49 @@
 <li class="toctree-l1"><a class="reference internal" href="../../code/modules.html">ElasticWrap Documentation</a></li>
 </ul>
 
-            
-          
         </div>
-        
       </div>
     </nav>
 
-    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
-
-      
-      <nav class="wy-nav-top" aria-label="top navigation">
-        
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
           <a href="../../index.html">PAW-Manual</a>
-        
       </nav>
 
-
       <div class="wy-nav-content">
-        
         <div class="rst-content">
-        
-          
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<div role="navigation" aria-label="breadcrumbs navigation">
-
+          <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-    
-      <li><a href="../../index.html" class="icon icon-home"></a> &raquo;</li>
-        
-          <li><a href="../index.html">PAW Technical Manual</a> &raquo;</li>
-        
-          <li><a href="index.html">Extension: Extending The PAW</a> &raquo;</li>
-        
-      <li>Adding searchers for custom data ElasticSearch patterns</li>
-    
-    
+      <li><a href="../../index.html" class="icon icon-home"></a></li>
+          <li class="breadcrumb-item"><a href="../index.html">PAW Technical Manual</a></li>
+          <li class="breadcrumb-item"><a href="index.html">Extension: Extending The PAW</a></li>
+      <li class="breadcrumb-item active">Adding searchers for custom data ElasticSearch patterns</li>
       <li class="wy-breadcrumbs-aside">
-        
-          
-        
       </li>
-    
   </ul>
-
-  
   <hr/>
 </div>
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
-            
+             
   <section id="adding-searchers-for-custom-data-elasticsearch-patterns">
-<h1>Adding searchers for custom data ElasticSearch patterns<a class="headerlink" href="#adding-searchers-for-custom-data-elasticsearch-patterns" title="Permalink to this heading">¶</a></h1>
+<h1>Adding searchers for custom data ElasticSearch patterns<a class="headerlink" href="#adding-searchers-for-custom-data-elasticsearch-patterns" title="Permalink to this heading"></a></h1>
 <p>Defining a domain-specific search client for ElasticWrap is relatively simple, one can simply inherit from the generic <code class="docutils literal notranslate"><span class="pre">SearchInterface</span></code> and must only specify 2 elements:</p>
 <ol class="arabic simple">
 <li><p>The document structure</p></li>
 <li><p>How to anonymize the data by implementing <code class="docutils literal notranslate"><span class="pre">anonymize_data</span></code>.</p></li>
 </ol>
 <section id="defining-the-data">
-<h2>Defining the Data<a class="headerlink" href="#defining-the-data" title="Permalink to this heading">¶</a></h2>
+<h2>Defining the Data<a class="headerlink" href="#defining-the-data" title="Permalink to this heading"></a></h2>
 <p>For the purposes of type checking and to make it easier to know what data you are working with, it is recommended to define the data structure of a document as a <cite>TypedDict</cite>.</p>
 <p>It is important to note here that these data structures are not checked at runtime. This was a decision made to ensure that users can freely modify the data locally without having to worry about
 being constrained by a specific structure. This does introduce an implicit assumption that every document in an index has the exact same structure. If a document with a wholly different structure is entered, it may cause runtime errors in the future (though simply leaving out some keys/adding a few others should not be an issue.)</p>
 <section id="common-data-structures">
-<h3>Common Data Structures<a class="headerlink" href="#common-data-structures" title="Permalink to this heading">¶</a></h3>
+<h3>Common Data Structures<a class="headerlink" href="#common-data-structures" title="Permalink to this heading"></a></h3>
 <p>First, it is important to understand some common data structures found when using Perceval+ElasticSearch. These common data structures are already implemented
 in <code class="docutils literal notranslate"><span class="pre">ElasticWrap</span></code> and are the most likely candidate for extension.</p>
 <section id="elasticsearch">
-<h4>ElasticSearch<a class="headerlink" href="#elasticsearch" title="Permalink to this heading">¶</a></h4>
+<h4>ElasticSearch<a class="headerlink" href="#elasticsearch" title="Permalink to this heading"></a></h4>
 <p>At the top level, we have the generic structure for any document as returned by <code class="docutils literal notranslate"><span class="pre">ElasticSearch</span></code>, which looks as follows:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
         <span class="n">_type</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
@@ -209,7 +119,7 @@ in <code class="docutils literal notranslate"><span class="pre">ElasticWrap</spa
 from anywhere except for <code class="docutils literal notranslate"><span class="pre">Perceval</span></code>, it is the class you want to implement (the <code class="docutils literal notranslate"><span class="pre">Dict[str,</span> <span class="pre">Any]</span></code> definition is for unknown/unstructured data).</p>
 </section>
 <section id="perceval">
-<h4>Perceval<a class="headerlink" href="#perceval" title="Permalink to this heading">¶</a></h4>
+<h4>Perceval<a class="headerlink" href="#perceval" title="Permalink to this heading"></a></h4>
 <p>Perceval retrieves data from various data sources, but it always provides metadata in the same way. The structure of which being as follows:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
         <span class="n">backend_name</span><span class="p">:</span> <span class="nb">str</span>
@@ -234,7 +144,7 @@ This field is defined to be a <code class="docutils literal notranslate"><span c
 </section>
 </section>
 <section id="actually-defining-the-data">
-<h3>Actually Defining The Data<a class="headerlink" href="#actually-defining-the-data" title="Permalink to this heading">¶</a></h3>
+<h3>Actually Defining The Data<a class="headerlink" href="#actually-defining-the-data" title="Permalink to this heading"></a></h3>
 <p>Once you have established whether the data you are getting comes from Perceval or not, it is time to implement your data structure. Simply create a new class which inherits from either <code class="docutils literal notranslate"><span class="pre">PercevalDataDocument</span></code> or <code class="docutils literal notranslate"><span class="pre">SourceDocument</span></code> and define the data as needed using the <a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.TypedDict">TypedDict</a> format.</p>
 <p>Because <code class="docutils literal notranslate"><span class="pre">Document</span></code>, <code class="docutils literal notranslate"><span class="pre">PostDocument</span></code> and <code class="docutils literal notranslate"><span class="pre">PercevalSourceDocument</span></code> are defined as generic types, defining the final document structure is simple. Let us have created our new class <code class="docutils literal notranslate"><span class="pre">Foo</span></code>.</p>
 <ul class="simple">
@@ -259,7 +169,7 @@ This field is defined to be a <code class="docutils literal notranslate"><span c
 </section>
 </section>
 <section id="creating-the-search-client">
-<h2>Creating the Search Client<a class="headerlink" href="#creating-the-search-client" title="Permalink to this heading">¶</a></h2>
+<h2>Creating the Search Client<a class="headerlink" href="#creating-the-search-client" title="Permalink to this heading"></a></h2>
 <p>Now that we have defined our <code class="docutils literal notranslate"><span class="pre">FooDocument</span></code> and <code class="docutils literal notranslate"><span class="pre">FooSourceDocument</span></code>. We can finally implement our search client. Simply create a new class as follows:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">FooClient</span><span class="p">(</span><span class="n">SearchInterface</span><span class="p">[</span><span class="n">FooDocument</span><span class="p">]):</span>
 
@@ -276,50 +186,33 @@ This field is defined to be a <code class="docutils literal notranslate"><span c
 
 
            </div>
-           
           </div>
-          <footer>
-    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-        <a href="elasticWrap%20dataSources.html" class="btn btn-neutral float-right" title="Adding ElasticWrap support for custom data formats" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
         <a href="percival%20retrievers.html" class="btn btn-neutral float-left" title="Adding retrievers for custom datasources" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="elasticWrap%20dataSources.html" class="btn btn-neutral float-right" title="Adding ElasticWrap support for custom data formats" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>
 
   <div role="contentinfo">
-    <p>
-        &#169; Copyright 2023, Aldi Doanta Kurnia, Bernard Johannes Willemsen, Nick Wolters, Rafael Dulfer, Tom Grooters.
-
-    </p>
+    <p>&#169; Copyright 2023, Aldi Doanta Kurnia, Bernard Johannes Willemsen, Nick Wolters, Rafael Dulfer, Tom Grooters.</p>
   </div>
-    
-    
-    
-    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
-    
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
     <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
-    
-    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
 
 </footer>
         </div>
       </div>
-
     </section>
-
   </div>
-  
-
-  <script type="text/javascript">
+  <script>
       jQuery(function () {
           SphinxRtdTheme.Navigation.enable(true);
       });
-  </script>
-
-  
-  
-    
-   
+  </script> 
 
 </body>
 </html>

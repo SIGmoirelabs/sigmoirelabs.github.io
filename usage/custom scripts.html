@@ -1,73 +1,36 @@
-
-
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8" />
-  <meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  
   <title>Using Custom scripts &mdash; PAW-Manual  documentation</title>
-  
-
-  
-  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
-
-  
-  
-
-  
-  
-
-  
-
-  
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
   <!--[if lt IE 9]>
     <script src="../_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
-    
-      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
         <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="../_static/doctools.js"></script>
         <script src="../_static/sphinx_highlight.js"></script>
-    
-    <script type="text/javascript" src="../_static/js/theme.js"></script>
-
-    
+    <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="Using ElasticWrap" href="elasticWrap.html" />
     <link rel="prev" title="Using GrimoireLab-native Features" href="grimoirelab.html" /> 
 </head>
 
-<body class="wy-body-for-nav">
-
-   
+<body class="wy-body-for-nav"> 
   <div class="wy-grid-for-nav">
-    
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
-          
-
-          
             <a href="../index.html" class="icon icon-home"> PAW-Manual
-          
-
-          
           </a>
-
-          
-            
-            
-          
-
-          
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
     <input type="text" name="q" placeholder="Search docs" />
@@ -75,18 +38,7 @@
     <input type="hidden" name="area" value="default" />
   </form>
 </div>
-
-          
-        </div>
-
-        
-        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
-          
-            
-            
-              
-            
-            
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
               <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../introduction.html">Intro</a></li>
@@ -113,79 +65,38 @@
 <li class="toctree-l1"><a class="reference internal" href="../code/modules.html">ElasticWrap Documentation</a></li>
 </ul>
 
-            
-          
         </div>
-        
       </div>
     </nav>
 
-    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
-
-      
-      <nav class="wy-nav-top" aria-label="top navigation">
-        
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
           <a href="../index.html">PAW-Manual</a>
-        
       </nav>
 
-
       <div class="wy-nav-content">
-        
         <div class="rst-content">
-        
-          
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<div role="navigation" aria-label="breadcrumbs navigation">
-
+          <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-    
-      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
-        
-          <li><a href="index.html">Usage</a> &raquo;</li>
-        
-      <li>Using Custom scripts</li>
-    
-    
+      <li><a href="../index.html" class="icon icon-home"></a></li>
+          <li class="breadcrumb-item"><a href="index.html">Usage</a></li>
+      <li class="breadcrumb-item active">Using Custom scripts</li>
       <li class="wy-breadcrumbs-aside">
-        
-          
-        
       </li>
-    
   </ul>
-
-  
   <hr/>
 </div>
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
-            
+             
   <section id="using-custom-scripts">
-<h1>Using Custom scripts<a class="headerlink" href="#using-custom-scripts" title="Permalink to this heading">¶</a></h1>
+<h1>Using Custom scripts<a class="headerlink" href="#using-custom-scripts" title="Permalink to this heading"></a></h1>
 <p>One of the key features the PAW introduces absent from Grimoirelab is the ability to run custom code as part of your data-enrichment pipeline. This section discusses how to use this feature. For detailed technical info see <a class="reference internal" href="../technical/descriptive/multi-mordred.html"><span class="doc">Multi-Mordred</span></a> and <a class="reference internal" href="../technical/maintainance/customScript.html"><span class="doc">Manually re-making the Custom Script Extension</span></a>.</p>
 <section id="running-the-code">
-<h2>Running the Code<a class="headerlink" href="#running-the-code" title="Permalink to this heading">¶</a></h2>
+<h2>Running the Code<a class="headerlink" href="#running-the-code" title="Permalink to this heading"></a></h2>
 <p>In order to enable backwards-compatibility of this version of Mordred with the original, all of the following settings are optional. Presumed to be disabled if absent.</p>
 <section id="configuring-the-custom-script-task">
-<h3>Configuring the custom script task<a class="headerlink" href="#configuring-the-custom-script-task" title="Permalink to this heading">¶</a></h3>
+<h3>Configuring the custom script task<a class="headerlink" href="#configuring-the-custom-script-task" title="Permalink to this heading"></a></h3>
 <p>Add the following section to your <code class="docutils literal notranslate"><span class="pre">config.cfg</span></code>:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="n">custom_script</span><span class="p">]</span>
 <span class="n">scriptsource</span> <span class="o">=</span> <span class="n">test</span><span class="o">.</span><span class="n">py</span>
@@ -195,7 +106,7 @@
 <p><code class="docutils literal notranslate"><span class="pre">scriptsource</span></code> denotes which script is to be run. Runnable scripts must be placed in the dedicated volume in order for the container to be able to find them. When running mordred non-containerized, this has to be the relative path from the current working directory.</p>
 </section>
 <section id="script-arguments">
-<h3>script arguments<a class="headerlink" href="#script-arguments" title="Permalink to this heading">¶</a></h3>
+<h3>script arguments<a class="headerlink" href="#script-arguments" title="Permalink to this heading"></a></h3>
 <p>The optional key <code class="docutils literal notranslate"><span class="pre">scriptargs</span></code> denotes a list of arguments to be given to the script. These will be transmitted as instantiated string variables <code class="docutils literal notranslate"><span class="pre">arg1</span></code>, <code class="docutils literal notranslate"><span class="pre">arg2</span></code>, <code class="docutils literal notranslate"><span class="pre">arg3</span></code>, etc. with values corresponding to their position in the list. It is worth re-iterating that these will be variables that are magically already defined once the script is run. While deliberately modeled to feel similar to their behavior in some older languages, this does note make use of traditional command-line arguments.</p>
 <p>For example, the script <code class="docutils literal notranslate"><span class="pre">test.py</span></code>:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;I have been run &quot;</span> <span class="o">+</span> <span class="n">arg1</span> <span class="o">+</span> <span class="n">arg2</span><span class="p">)</span>
@@ -204,7 +115,7 @@
 <p>will between the enrichment and panels phases print “I have been run success”, in the console when following the examples here ver-batim.</p>
 </section>
 <section id="enabling-the-custom-script-phase">
-<h3>Enabling the custom script phase<a class="headerlink" href="#enabling-the-custom-script-phase" title="Permalink to this heading">¶</a></h3>
+<h3>Enabling the custom script phase<a class="headerlink" href="#enabling-the-custom-script-phase" title="Permalink to this heading"></a></h3>
 <p>To enable the custom script phase, add <code class="docutils literal notranslate"><span class="pre">custom</span> <span class="pre">=</span> <span class="pre">true</span></code> to the <code class="docutils literal notranslate"><span class="pre">[phases]</span></code> section of your config. Example:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="n">phases</span><span class="p">]</span>
 <span class="n">collection</span> <span class="o">=</span> <span class="n">true</span>
@@ -217,16 +128,16 @@
 <p>When running Grimoirelab through micro-mordred, you additionally have to provide the <code class="docutils literal notranslate"><span class="pre">--custom-script</span></code> flag.</p>
 </section>
 <section id="on-running-more-complex-scripts">
-<h3>On running more complex scripts<a class="headerlink" href="#on-running-more-complex-scripts" title="Permalink to this heading">¶</a></h3>
+<h3>On running more complex scripts<a class="headerlink" href="#on-running-more-complex-scripts" title="Permalink to this heading"></a></h3>
 <p>Due to the limits of passing data from a running python program to newly interpreted scripts we recommend handing generic modules for given custom tasks to the multi-mordred container seperately, while having the script run by the customScript task merely decipher the script arguments between importing and calling the actual enrichment techniques.</p>
 </section>
 </section>
 <section id="elasticwrap">
-<h2><a class="reference internal" href="../technical/descriptive/elasticWrap.html"><span class="doc">ElasticWrap</span></a><a class="headerlink" href="#elasticwrap" title="Permalink to this heading">¶</a></h2>
+<h2><a class="reference internal" href="../technical/descriptive/elasticWrap.html"><span class="doc">ElasticWrap</span></a><a class="headerlink" href="#elasticwrap" title="Permalink to this heading"></a></h2>
 <p>To aid in creating these scripts a wrapper library for ElasticSearch was created, which should come pre-installed into the container. For details on how to use ElasticWrap see <a class="reference internal" href="elasticWrap.html"><span class="doc">Using ElasticWrap</span></a>.</p>
 </section>
 <section id="using-other-libraries">
-<h2>Using other libraries<a class="headerlink" href="#using-other-libraries" title="Permalink to this heading">¶</a></h2>
+<h2>Using other libraries<a class="headerlink" href="#using-other-libraries" title="Permalink to this heading"></a></h2>
 <p>Because the code will be run within the <a class="reference internal" href="../technical/descriptive/multi-mordred.html"><span class="doc">Multi-Mordred</span></a> container, any external libraries you want to use must be installed into the container first.</p>
 <p>In <code class="docutils literal notranslate"><span class="pre">deployment/docker/requirement.txt</span></code> simply add the required external library. Then, rebuild the multimordred image.</p>
 </section>
@@ -234,50 +145,33 @@
 
 
            </div>
-           
           </div>
-          <footer>
-    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-        <a href="elasticWrap.html" class="btn btn-neutral float-right" title="Using ElasticWrap" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
         <a href="grimoirelab.html" class="btn btn-neutral float-left" title="Using GrimoireLab-native Features" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="elasticWrap.html" class="btn btn-neutral float-right" title="Using ElasticWrap" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>
 
   <div role="contentinfo">
-    <p>
-        &#169; Copyright 2023, Aldi Doanta Kurnia, Bernard Johannes Willemsen, Nick Wolters, Rafael Dulfer, Tom Grooters.
-
-    </p>
+    <p>&#169; Copyright 2023, Aldi Doanta Kurnia, Bernard Johannes Willemsen, Nick Wolters, Rafael Dulfer, Tom Grooters.</p>
   </div>
-    
-    
-    
-    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
-    
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
     <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
-    
-    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
 
 </footer>
         </div>
       </div>
-
     </section>
-
   </div>
-  
-
-  <script type="text/javascript">
+  <script>
       jQuery(function () {
           SphinxRtdTheme.Navigation.enable(true);
       });
-  </script>
-
-  
-  
-    
-   
+  </script> 
 
 </body>
 </html>

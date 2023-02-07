@@ -1,73 +1,36 @@
-
-
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8" />
-  <meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  
   <title>Getting Started &mdash; PAW-Manual  documentation</title>
-  
-
-  
-  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
-
-  
-  
-
-  
-  
-
-  
-
-  
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
   <!--[if lt IE 9]>
     <script src="../_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
-    
-      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
         <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="../_static/doctools.js"></script>
         <script src="../_static/sphinx_highlight.js"></script>
-    
-    <script type="text/javascript" src="../_static/js/theme.js"></script>
-
-    
+    <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="Using GrimoireLab-native Features" href="grimoirelab.html" />
     <link rel="prev" title="Usage" href="index.html" /> 
 </head>
 
-<body class="wy-body-for-nav">
-
-   
+<body class="wy-body-for-nav"> 
   <div class="wy-grid-for-nav">
-    
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
-          
-
-          
             <a href="../index.html" class="icon icon-home"> PAW-Manual
-          
-
-          
           </a>
-
-          
-            
-            
-          
-
-          
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
     <input type="text" name="q" placeholder="Search docs" />
@@ -75,18 +38,7 @@
     <input type="hidden" name="area" value="default" />
   </form>
 </div>
-
-          
-        </div>
-
-        
-        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
-          
-            
-            
-              
-            
-            
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
               <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../introduction.html">Intro</a></li>
@@ -113,73 +65,32 @@
 <li class="toctree-l1"><a class="reference internal" href="../code/modules.html">ElasticWrap Documentation</a></li>
 </ul>
 
-            
-          
         </div>
-        
       </div>
     </nav>
 
-    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
-
-      
-      <nav class="wy-nav-top" aria-label="top navigation">
-        
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
           <a href="../index.html">PAW-Manual</a>
-        
       </nav>
 
-
       <div class="wy-nav-content">
-        
         <div class="rst-content">
-        
-          
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<div role="navigation" aria-label="breadcrumbs navigation">
-
+          <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-    
-      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
-        
-          <li><a href="index.html">Usage</a> &raquo;</li>
-        
-      <li>Getting Started</li>
-    
-    
+      <li><a href="../index.html" class="icon icon-home"></a></li>
+          <li class="breadcrumb-item"><a href="index.html">Usage</a></li>
+      <li class="breadcrumb-item active">Getting Started</li>
       <li class="wy-breadcrumbs-aside">
-        
-          
-        
       </li>
-    
   </ul>
-
-  
   <hr/>
 </div>
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
-            
+             
   <section id="getting-started">
-<h1>Getting Started<a class="headerlink" href="#getting-started" title="Permalink to this heading">¶</a></h1>
+<h1>Getting Started<a class="headerlink" href="#getting-started" title="Permalink to this heading"></a></h1>
 <p>For ease of use, we have supplied a simple startup script to get a development instance of the PAW running. Simply run <code class="docutils literal notranslate"><span class="pre">start_paw_docker.sh</span></code> to start. In order to be able to retrieve <a class="reference internal" href="../technical/descriptive/multi-mordred.html"><span class="doc">Multi-Mordred</span></a> and <a class="reference internal" href="../technical/descriptive/elasticWrap.html"><span class="doc">ElasticWrap</span></a> you will be asked to supply a <a class="reference external" href="https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/creating-a-personal-access-token">Github Authentication Token</a> and username. Make sure it has at least READ access to the <code class="docutils literal notranslate"><span class="pre">SIGmoirelabs/multi-mordred-wrapper</span></code> and <code class="docutils literal notranslate"><span class="pre">SIGmoirelabs/elasticwrap</span></code> repositories.
 Additionally, you will need to generate a <a class="reference external" href="https://docs.github.com/en/packages/working-with-a-github-packages-registry/working-with-the-container-registry">classic Authentication Token</a> to retrieve the <code class="docutils literal notranslate"><span class="pre">graphql_api</span></code> container. Once you have the token, run <code class="docutils literal notranslate"><span class="pre">echo</span> <span class="pre">'TOKEN'</span> <span class="pre">|</span> <span class="pre">docker</span> <span class="pre">login</span> <span class="pre">ghcr.io</span> <span class="pre">-u</span> <span class="pre">USERNAME</span> <span class="pre">--password-stdin</span></code></p>
 <p>NOTE: The script will modify the following system values to make sure Redis and ElasticSearch are running properly:</p>
@@ -190,7 +101,7 @@ Additionally, you will need to generate a <a class="reference external" href="ht
 <p>The script will automatically start the docker containers. If you want, you can set these values manually and simply go into the <code class="docutils literal notranslate"><span class="pre">deployment</span></code> folder and run <code class="docutils literal notranslate"><span class="pre">docker-compose</span> <span class="pre">up</span></code>.</p>
 <p>It may take some time for all the containers to start. This is because we must ensure that <code class="docutils literal notranslate"><span class="pre">redis</span></code> and <code class="docutils literal notranslate"><span class="pre">mariadb</span></code> are running before we can properly start <code class="docutils literal notranslate"><span class="pre">sortinghat</span></code> and <code class="docutils literal notranslate"><span class="pre">multi-mordred</span></code>.</p>
 <section id="setting-up-multi-mordred">
-<h2>Setting up Multi-mordred<a class="headerlink" href="#setting-up-multi-mordred" title="Permalink to this heading">¶</a></h2>
+<h2>Setting up Multi-mordred<a class="headerlink" href="#setting-up-multi-mordred" title="Permalink to this heading"></a></h2>
 <p>For a quickstart, you can create a <code class="docutils literal notranslate"><span class="pre">deployment/mordred_data</span></code> directory and move the <code class="docutils literal notranslate"><span class="pre">quickstart/setup.cfg</span></code> and <code class="docutils literal notranslate"><span class="pre">quickstart/projects.json</span></code> files into it. Then after the containers are all up, run <code class="docutils literal notranslate"><span class="pre">telnet</span> <span class="pre">localhost</span> <span class="pre">15555</span></code> and run the following commands:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">new</span> <span class="n">demo</span> <span class="o">/</span><span class="n">data</span><span class="o">/</span><span class="n">setup</span><span class="o">.</span><span class="n">cfg</span>
 <span class="n">start</span> <span class="n">demo</span>
@@ -200,10 +111,10 @@ Additionally, you will need to generate a <a class="reference external" href="ht
 <p>Assuming you are using our example development docker-compose, you will now have 2 new directories in the <code class="docutils literal notranslate"><span class="pre">deployment</span></code> folder: <code class="docutils literal notranslate"><span class="pre">ES</span></code> and <code class="docutils literal notranslate"><span class="pre">mordred_data</span></code>. The <code class="docutils literal notranslate"><span class="pre">ES</span></code> folder simply stores all the ElasticSearch data and can be an easy way to delete data for testing purposes. The <code class="docutils literal notranslate"><span class="pre">mordred_data</span></code> folder is mounted in the <code class="docutils literal notranslate"><span class="pre">multi-mordred</span></code> container to <code class="docutils literal notranslate"><span class="pre">/data/</span></code>. Any files you want to provide to multi-mordred can be thrown in this folder.</p>
 </section>
 <section id="step-by-step-your-first-analysis-project">
-<h2>step-by-step: your first analysis project<a class="headerlink" href="#step-by-step-your-first-analysis-project" title="Permalink to this heading">¶</a></h2>
+<h2>step-by-step: your first analysis project<a class="headerlink" href="#step-by-step-your-first-analysis-project" title="Permalink to this heading"></a></h2>
 <p>So now that we have the multi-mordred container up and running we can provide it with configuration files to create a copy of mordred and perform an analysis project.</p>
 <section id="projects-json-defining-datasources">
-<h3>projects.json: defining datasources<a class="headerlink" href="#projects-json-defining-datasources" title="Permalink to this heading">¶</a></h3>
+<h3>projects.json: defining datasources<a class="headerlink" href="#projects-json-defining-datasources" title="Permalink to this heading"></a></h3>
 <p>The projects.json file defines all the data that can be queried by this analysis project, divided by type. The specific type string indicates which percival retriever (or “backend”) will be used te retrieve the data. While most retrievers simply retrieve data from a specific source, i.e. git vs slack vs jira, some retrievers already do some degree of analysis, or are purpose-build for specific later analysis-scripts (the retrievers introduced by arthur and graal for instance).</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
         <span class="s2">&quot;SIGmoirelabs&quot;</span><span class="p">:</span> <span class="p">{</span>
@@ -219,7 +130,7 @@ Additionally, you will need to generate a <a class="reference external" href="ht
 </div>
 </section>
 <section id="conf-cfg-defining-project-pramaters">
-<h3>conf.cfg: defining project pramaters<a class="headerlink" href="#conf-cfg-defining-project-pramaters" title="Permalink to this heading">¶</a></h3>
+<h3>conf.cfg: defining project pramaters<a class="headerlink" href="#conf-cfg-defining-project-pramaters" title="Permalink to this heading"></a></h3>
 <p>The second file any mordred clone will need is the a general configuration. This file will describe the locations of and credentials to external resources, as well as describing which tasks should be executed.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="n">general</span><span class="p">]</span>
 <span class="n">short_name</span> <span class="o">=</span> <span class="n">GrimoireLab</span>
@@ -245,7 +156,7 @@ Additionally, you will need to generate a <a class="reference external" href="ht
 <p>for more on configuration options see: <a class="reference internal" href="grimoirelab.html"><span class="doc">Using GrimoireLab-native Features</span></a> and <a class="reference external" href="https://github.com/chaoss/grimoirelab-sirmordred#setupcfg-">the official Mordred docs</a></p>
 </section>
 <section id="helloworld-py-adding-custom-scripting">
-<h3>helloWorld.py: adding custom scripting<a class="headerlink" href="#helloworld-py-adding-custom-scripting" title="Permalink to this heading">¶</a></h3>
+<h3>helloWorld.py: adding custom scripting<a class="headerlink" href="#helloworld-py-adding-custom-scripting" title="Permalink to this heading"></a></h3>
 <p>One of the features added to multi-mordred over regular mordred is the ability to run arbitrary code as part of the data collection and processing pipeline. If the ‘custom’-phase is enabled in the .cfg file then a script can be specified which will be run after the build-in enrichment methods but before data visualization is configured.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="n">custom_script</span><span class="p">]</span>
 <span class="n">scriptsource</span> <span class="o">=</span> <span class="n">enrich</span><span class="o">.</span><span class="n">py</span>
@@ -255,7 +166,7 @@ Additionally, you will need to generate a <a class="reference external" href="ht
 <p>for more on this see: <a class="reference internal" href="custom%20scripts.html"><span class="doc">Using Custom scripts</span></a>.</p>
 </section>
 <section id="starting-a-new-mordred-instance">
-<h3>Starting a new mordred instance<a class="headerlink" href="#starting-a-new-mordred-instance" title="Permalink to this heading">¶</a></h3>
+<h3>Starting a new mordred instance<a class="headerlink" href="#starting-a-new-mordred-instance" title="Permalink to this heading"></a></h3>
 <p>Now that all of the required files have been provided, we can call multi-mordred to start a new mordred intsance and run the specified analysis.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ telnet localhost 15555
 Trying 127.0.0.1...
@@ -270,7 +181,7 @@ Started
 </div>
 </section>
 <section id="accessing-results-via-graphql">
-<h3>accessing results via graphql<a class="headerlink" href="#accessing-results-via-graphql" title="Permalink to this heading">¶</a></h3>
+<h3>accessing results via graphql<a class="headerlink" href="#accessing-results-via-graphql" title="Permalink to this heading"></a></h3>
 <p>Kibiter may not play nice with customized enrichment however, so the main intended method for retrieving processed data from the PAW is through the graphql API. A querrying system intended to be usable without any programming. Go to ‘<a class="reference external" href="http://localhost:8081/graphql">http://localhost:8081/graphql</a>’ to see the interface.</p>
 <p>for more on this see: <a class="reference internal" href="graphql.html"><span class="doc">Using the GraphQL-API</span></a>.</p>
 </section>
@@ -279,50 +190,33 @@ Started
 
 
            </div>
-           
           </div>
-          <footer>
-    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-        <a href="grimoirelab.html" class="btn btn-neutral float-right" title="Using GrimoireLab-native Features" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
         <a href="index.html" class="btn btn-neutral float-left" title="Usage" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="grimoirelab.html" class="btn btn-neutral float-right" title="Using GrimoireLab-native Features" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>
 
   <div role="contentinfo">
-    <p>
-        &#169; Copyright 2023, Aldi Doanta Kurnia, Bernard Johannes Willemsen, Nick Wolters, Rafael Dulfer, Tom Grooters.
-
-    </p>
+    <p>&#169; Copyright 2023, Aldi Doanta Kurnia, Bernard Johannes Willemsen, Nick Wolters, Rafael Dulfer, Tom Grooters.</p>
   </div>
-    
-    
-    
-    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
-    
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
     <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
-    
-    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
 
 </footer>
         </div>
       </div>
-
     </section>
-
   </div>
-  
-
-  <script type="text/javascript">
+  <script>
       jQuery(function () {
           SphinxRtdTheme.Navigation.enable(true);
       });
-  </script>
-
-  
-  
-    
-   
+  </script> 
 
 </body>
 </html>

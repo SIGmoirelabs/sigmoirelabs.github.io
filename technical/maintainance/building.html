@@ -1,73 +1,36 @@
-
-
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8" />
-  <meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  
   <title>Extensions to the Build Process &mdash; PAW-Manual  documentation</title>
-  
-
-  
-  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
-  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
-  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
-
-  
-  
-
-  
-  
-
-  
-
-  
+      <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
   <!--[if lt IE 9]>
     <script src="../../_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
-    
-      <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
         <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="../../_static/doctools.js"></script>
         <script src="../../_static/sphinx_highlight.js"></script>
-    
-    <script type="text/javascript" src="../../_static/js/theme.js"></script>
-
-    
+    <script src="../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
     <link rel="next" title="Manually re-making the Custom Script Extension" href="customScript.html" />
     <link rel="prev" title="Maintainance: Maintaining The Paw" href="index.html" /> 
 </head>
 
-<body class="wy-body-for-nav">
-
-   
+<body class="wy-body-for-nav"> 
   <div class="wy-grid-for-nav">
-    
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
-          
-
-          
             <a href="../../index.html" class="icon icon-home"> PAW-Manual
-          
-
-          
           </a>
-
-          
-            
-            
-          
-
-          
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
     <input type="text" name="q" placeholder="Search docs" />
@@ -75,18 +38,7 @@
     <input type="hidden" name="area" value="default" />
   </form>
 </div>
-
-          
-        </div>
-
-        
-        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
-          
-            
-            
-              
-            
-            
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
               <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../../introduction.html">Intro</a></li>
@@ -110,85 +62,43 @@
 <li class="toctree-l1"><a class="reference internal" href="../../code/modules.html">ElasticWrap Documentation</a></li>
 </ul>
 
-            
-          
         </div>
-        
       </div>
     </nav>
 
-    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
-
-      
-      <nav class="wy-nav-top" aria-label="top navigation">
-        
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
           <a href="../../index.html">PAW-Manual</a>
-        
       </nav>
 
-
       <div class="wy-nav-content">
-        
         <div class="rst-content">
-        
-          
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<div role="navigation" aria-label="breadcrumbs navigation">
-
+          <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-    
-      <li><a href="../../index.html" class="icon icon-home"></a> &raquo;</li>
-        
-          <li><a href="../index.html">PAW Technical Manual</a> &raquo;</li>
-        
-          <li><a href="index.html">Maintainance: Maintaining The Paw</a> &raquo;</li>
-        
-      <li>Extensions to the Build Process</li>
-    
-    
+      <li><a href="../../index.html" class="icon icon-home"></a></li>
+          <li class="breadcrumb-item"><a href="../index.html">PAW Technical Manual</a></li>
+          <li class="breadcrumb-item"><a href="index.html">Maintainance: Maintaining The Paw</a></li>
+      <li class="breadcrumb-item active">Extensions to the Build Process</li>
       <li class="wy-breadcrumbs-aside">
-        
-          
-        
       </li>
-    
   </ul>
-
-  
   <hr/>
 </div>
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
-            
+             
   <section id="extensions-to-the-build-process">
-<h1>Extensions to the Build Process<a class="headerlink" href="#extensions-to-the-build-process" title="Permalink to this heading">¶</a></h1>
+<h1>Extensions to the Build Process<a class="headerlink" href="#extensions-to-the-build-process" title="Permalink to this heading"></a></h1>
 <p>We have provided an example docker setup to quickly build the paw. For more info on simply building and using it, see <a class="reference internal" href="../../usage/getting%20started.html"><span class="doc">Getting Started</span></a>. This document will instead focus on possible extensions to the build process that may be wanted later.</p>
 <section id="production-environment">
-<h2>Production Environment<a class="headerlink" href="#production-environment" title="Permalink to this heading">¶</a></h2>
+<h2>Production Environment<a class="headerlink" href="#production-environment" title="Permalink to this heading"></a></h2>
 <p>While our version of the deployment script is a quick way to get a development version up and running, you will likely want to have a production version at some point in the future. In order to create a proper production version, you should be aware of the following concepts:</p>
 <section id="production-elasticsearch">
-<h3>Production ElasticSearch<a class="headerlink" href="#production-elasticsearch" title="Permalink to this heading">¶</a></h3>
+<h3>Production ElasticSearch<a class="headerlink" href="#production-elasticsearch" title="Permalink to this heading"></a></h3>
 <p>In order to set up ElasticSearch quickly, we set a bunch of environment variables which make the instance insecure and ineffecient. For a production version, you are best off following the <a class="reference external" href="https://www.elastic.co/guide/en/elasticsearch/reference/8.6/setup.html">Official ElasticSearch docs</a>.</p>
 </section>
 <section id="production-sortinghat">
-<h3>Production SortingHat<a class="headerlink" href="#production-sortinghat" title="Permalink to this heading">¶</a></h3>
+<h3>Production SortingHat<a class="headerlink" href="#production-sortinghat" title="Permalink to this heading"></a></h3>
 <p>The GrimoireLab stack uses a system called <code class="docutils literal notranslate"><span class="pre">sortinghat</span></code> for data enrichment purposes (mostly focused on identity management). At time of writing, <code class="docutils literal notranslate"><span class="pre">sortinghat</span></code> has just been converted to a new service-based architecture which is rather undocumented. Some tips for creating a production version:</p>
 <ol class="arabic simple">
 <li><p>SortingHat uses Django under the hood. Many <a class="reference external" href="https://docs.djangoproject.com/en/4.1/ref/settings/">Django settings</a> can be set using environment variables if you prepend the key with <code class="docutils literal notranslate"><span class="pre">SORTINGHAT</span></code>.</p></li>
@@ -197,61 +107,44 @@
 </section>
 </section>
 <section id="changes-in-dependencies">
-<h2>Changes in Dependencies<a class="headerlink" href="#changes-in-dependencies" title="Permalink to this heading">¶</a></h2>
+<h2>Changes in Dependencies<a class="headerlink" href="#changes-in-dependencies" title="Permalink to this heading"></a></h2>
 <p>The python dependencies for the multi-mordred container are installed using the <code class="docutils literal notranslate"><span class="pre">deployment/docker/requirements.txt</span></code> file. If you want to add a new python dependency (for example for a custom script), you can simply add it here. If you want to use a fork of a grimoirelab tool (for example, a fork of Perceval because new retrievers were added), you can simply change the line getting that tool. Inside of the <code class="docutils literal notranslate"><span class="pre">requirements.txt</span></code> you have access to the <code class="docutils literal notranslate"><span class="pre">${GITHUB_TOKEN}</span></code> and <code class="docutils literal notranslate"><span class="pre">${GITHUB_USER}</span></code> environment variables in order to install from a private repository.</p>
 </section>
 <section id="updating-multimordred">
-<h2>Updating MultiMordred<a class="headerlink" href="#updating-multimordred" title="Permalink to this heading">¶</a></h2>
+<h2>Updating MultiMordred<a class="headerlink" href="#updating-multimordred" title="Permalink to this heading"></a></h2>
 <p>MultiMordred is different in that it is not a tool or library, but is instead the script that the docker image runs. During building, the script is retrieved from github and downloaded into the container, which then runs it. If you want to update the multimordred script, you will have to rebuild the multimordred container. Generally, this can be achieved using <code class="docutils literal notranslate"><span class="pre">docker-compose</span> <span class="pre">build</span> <span class="pre">--no-cache</span></code>. However, sometimes Docker decides to cache the files it retrieves from github, even if you use the <code class="docutils literal notranslate"><span class="pre">--no-cache</span></code> flag. You can be sure that it will grab the latest version by first running <code class="docutils literal notranslate"><span class="pre">docker</span> <span class="pre">system</span> <span class="pre">prune</span></code>, which will remove all unused docker containers on your system and also flush the docker cache.</p>
 </section>
 </section>
 
 
            </div>
-           
           </div>
-          <footer>
-    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-        <a href="customScript.html" class="btn btn-neutral float-right" title="Manually re-making the Custom Script Extension" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
         <a href="index.html" class="btn btn-neutral float-left" title="Maintainance: Maintaining The Paw" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="customScript.html" class="btn btn-neutral float-right" title="Manually re-making the Custom Script Extension" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>
 
   <div role="contentinfo">
-    <p>
-        &#169; Copyright 2023, Aldi Doanta Kurnia, Bernard Johannes Willemsen, Nick Wolters, Rafael Dulfer, Tom Grooters.
-
-    </p>
+    <p>&#169; Copyright 2023, Aldi Doanta Kurnia, Bernard Johannes Willemsen, Nick Wolters, Rafael Dulfer, Tom Grooters.</p>
   </div>
-    
-    
-    
-    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
-    
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
     <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
-    
-    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
 
 </footer>
         </div>
       </div>
-
     </section>
-
   </div>
-  
-
-  <script type="text/javascript">
+  <script>
       jQuery(function () {
           SphinxRtdTheme.Navigation.enable(true);
       });
-  </script>
-
-  
-  
-    
-   
+  </script> 
 
 </body>
 </html>

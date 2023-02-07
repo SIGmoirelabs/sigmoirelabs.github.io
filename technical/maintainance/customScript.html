@@ -1,73 +1,36 @@
-
-
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8" />
-  <meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  
   <title>Manually re-making the Custom Script Extension &mdash; PAW-Manual  documentation</title>
-  
-
-  
-  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
-  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
-  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
-
-  
-  
-
-  
-  
-
-  
-
-  
+      <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
   <!--[if lt IE 9]>
     <script src="../../_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
-    
-      <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
         <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="../../_static/doctools.js"></script>
         <script src="../../_static/sphinx_highlight.js"></script>
-    
-    <script type="text/javascript" src="../../_static/js/theme.js"></script>
-
-    
+    <script src="../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
     <link rel="next" title="Long-term maintainance with regards to PAW-Architecture" href="architecture.html" />
     <link rel="prev" title="Extensions to the Build Process" href="building.html" /> 
 </head>
 
-<body class="wy-body-for-nav">
-
-   
+<body class="wy-body-for-nav"> 
   <div class="wy-grid-for-nav">
-    
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
-          
-
-          
             <a href="../../index.html" class="icon icon-home"> PAW-Manual
-          
-
-          
           </a>
-
-          
-            
-            
-          
-
-          
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
     <input type="text" name="q" placeholder="Search docs" />
@@ -75,18 +38,7 @@
     <input type="hidden" name="area" value="default" />
   </form>
 </div>
-
-          
-        </div>
-
-        
-        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
-          
-            
-            
-              
-            
-            
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
               <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../../introduction.html">Intro</a></li>
@@ -110,79 +62,37 @@
 <li class="toctree-l1"><a class="reference internal" href="../../code/modules.html">ElasticWrap Documentation</a></li>
 </ul>
 
-            
-          
         </div>
-        
       </div>
     </nav>
 
-    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
-
-      
-      <nav class="wy-nav-top" aria-label="top navigation">
-        
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
           <a href="../../index.html">PAW-Manual</a>
-        
       </nav>
 
-
       <div class="wy-nav-content">
-        
         <div class="rst-content">
-        
-          
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<div role="navigation" aria-label="breadcrumbs navigation">
-
+          <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-    
-      <li><a href="../../index.html" class="icon icon-home"></a> &raquo;</li>
-        
-          <li><a href="../index.html">PAW Technical Manual</a> &raquo;</li>
-        
-          <li><a href="index.html">Maintainance: Maintaining The Paw</a> &raquo;</li>
-        
-      <li>Manually re-making the Custom Script Extension</li>
-    
-    
+      <li><a href="../../index.html" class="icon icon-home"></a></li>
+          <li class="breadcrumb-item"><a href="../index.html">PAW Technical Manual</a></li>
+          <li class="breadcrumb-item"><a href="index.html">Maintainance: Maintaining The Paw</a></li>
+      <li class="breadcrumb-item active">Manually re-making the Custom Script Extension</li>
       <li class="wy-breadcrumbs-aside">
-        
-          
-        
       </li>
-    
   </ul>
-
-  
   <hr/>
 </div>
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
-            
+             
   <section id="manually-re-making-the-custom-script-extension">
-<h1>Manually re-making the Custom Script Extension<a class="headerlink" href="#manually-re-making-the-custom-script-extension" title="Permalink to this heading">¶</a></h1>
+<h1>Manually re-making the Custom Script Extension<a class="headerlink" href="#manually-re-making-the-custom-script-extension" title="Permalink to this heading"></a></h1>
 <p>The custom script extension is unique within The Paw in that it is neither a wrapper nor pushed back into the Grimoirelab project. This means merge conflicts may occur.
 Luckily, the changes to the codebase related to this feature are fairly few and fairly small. This section will discuss each of these changes in-detail, such that if these changes need to be re-made for a new version of Mordred that work should prove trivial.</p>
 <section id="registering-new-config-variables">
-<h2>Registering new config variables<a class="headerlink" href="#registering-new-config-variables" title="Permalink to this heading">¶</a></h2>
+<h2>Registering new config variables<a class="headerlink" href="#registering-new-config-variables" title="Permalink to this heading"></a></h2>
 <p>First, we must register the required parameters within the Mordred config parser <code class="docutils literal notranslate"><span class="pre">config.py</span></code>.</p>
 <p>in the function <code class="docutils literal notranslate"><span class="pre">general_params</span></code>, add to the variable <code class="docutils literal notranslate"><span class="pre">params_phases</span></code>:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="s2">&quot;custom&quot;</span><span class="p">:</span> <span class="p">{</span>
@@ -220,14 +130,14 @@ Luckily, the changes to the codebase related to this feature are fairly few and 
 <p>this will recognize the settings block for the custom script task, allowing the user to specify the script in question and its arguments.</p>
 </section>
 <section id="the-customscript-task-itself">
-<h2>The CustomScript Task itself<a class="headerlink" href="#the-customscript-task-itself" title="Permalink to this heading">¶</a></h2>
+<h2>The CustomScript Task itself<a class="headerlink" href="#the-customscript-task-itself" title="Permalink to this heading"></a></h2>
 <p>Since this file originally did not exist within Mordred, it should not require updating. But the file <code class="docutils literal notranslate"><span class="pre">task_custom_script</span></code> does have to be included in the updated Mordred instance.</p>
 </section>
 <section id="executing-the-task">
-<h2>Executing the task<a class="headerlink" href="#executing-the-task" title="Permalink to this heading">¶</a></h2>
+<h2>Executing the task<a class="headerlink" href="#executing-the-task" title="Permalink to this heading"></a></h2>
 <p>Lastly we need to make sure the task actually gets run. We need to do this separately for each of the methods of running Mordred.</p>
 <section id="sirmordred-py">
-<h3>sirmordred.py<a class="headerlink" href="#sirmordred-py" title="Permalink to this heading">¶</a></h3>
+<h3>sirmordred.py<a class="headerlink" href="#sirmordred-py" title="Permalink to this heading"></a></h3>
 <p>For the main method of running Mordred the update is fairly small.</p>
 <p>Import the new task:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sirmordred.task_custom_script</span> <span class="kn">import</span> <span class="n">TaskCustomScript</span>
@@ -240,7 +150,7 @@ Luckily, the changes to the codebase related to this feature are fairly few and 
 </div>
 </section>
 <section id="micromordred">
-<h3>micromordred<a class="headerlink" href="#micromordred" title="Permalink to this heading">¶</a></h3>
+<h3>micromordred<a class="headerlink" href="#micromordred" title="Permalink to this heading"></a></h3>
 <p>For micromordred the situation is a little bit more complex.</p>
 <p>Again the new task needs to be imported:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sirmordred.task_custom_script</span> <span class="kn">import</span> <span class="n">TaskCustomScript</span>
@@ -291,50 +201,33 @@ Luckily, the changes to the codebase related to this feature are fairly few and 
 
 
            </div>
-           
           </div>
-          <footer>
-    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-        <a href="architecture.html" class="btn btn-neutral float-right" title="Long-term maintainance with regards to PAW-Architecture" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
         <a href="building.html" class="btn btn-neutral float-left" title="Extensions to the Build Process" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="architecture.html" class="btn btn-neutral float-right" title="Long-term maintainance with regards to PAW-Architecture" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>
 
   <div role="contentinfo">
-    <p>
-        &#169; Copyright 2023, Aldi Doanta Kurnia, Bernard Johannes Willemsen, Nick Wolters, Rafael Dulfer, Tom Grooters.
-
-    </p>
+    <p>&#169; Copyright 2023, Aldi Doanta Kurnia, Bernard Johannes Willemsen, Nick Wolters, Rafael Dulfer, Tom Grooters.</p>
   </div>
-    
-    
-    
-    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
-    
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
     <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
-    
-    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
 
 </footer>
         </div>
       </div>
-
     </section>
-
   </div>
-  
-
-  <script type="text/javascript">
+  <script>
       jQuery(function () {
           SphinxRtdTheme.Navigation.enable(true);
       });
-  </script>
-
-  
-  
-    
-   
+  </script> 
 
 </body>
 </html>
